@@ -1,2 +1,2 @@
-# de-des
+# dedes
 Decentralized CAD design licensing concept
