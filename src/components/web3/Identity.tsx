@@ -30,7 +30,7 @@ export const Identity = (): JSX.Element => {
           className="mx-2"
           onClick={async (): Promise<void> => activate(injected)}
         >
-          Link with Metamask
+          Link to Metamask
         </Button>
       )}
       {connector && (

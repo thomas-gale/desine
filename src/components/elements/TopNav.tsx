@@ -11,10 +11,22 @@ export const TopNav = (): JSX.Element => {
   return (
     <div className="bg-black w-full flex flex-row flex-wrap items-center shadow-md">
       <div className="m-2 flex flex-row items-center">
-        <img src={config.icon} className="ml-2" alt="Dedes Link Emoji Logo" />
-        <h1 className="mx-2 text-light text-xl font-bold p-4">
-          {config.appName}
-        </h1>
+        <div
+          className="flex flex-row items-center rounded-xl hover:bg-gray-500 hover:cursor-pointer"
+          onClick={async () => router.push("/")}
+        >
+          <img src={config.icon} className="ml-2" alt="Dedes Link Emoji Logo" />
+          <h1 className="mx-2 text-light text-xl font-bold p-4 ">
+            {config.appName}
+          </h1>
+        </div>
+        <Button
+          mode="dark"
+          className="mx-2"
+          onClick={async () => router.push("/about")}
+        >
+          About
+        </Button>
         <Button
           mode="dark"
           className="mx-2"
