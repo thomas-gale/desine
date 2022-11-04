@@ -25,3 +25,5 @@ Decentralized computer aided design licensing concept
 
 #### 2. Writing a NFT Leasing/Licensing Contract
 - Inspiration: https://github.com/degen-vc/contracts-nft
+
+#### 3. Make the licencable design NFTs and contracts discoverable via https://thegraph.com/en/
