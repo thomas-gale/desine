@@ -1,5 +1,5 @@
 # dedes
-Decentralized CAD design licensing concept
+Decentralized computer aided design licensing concept
 
 ## TODO
 ### Storage
