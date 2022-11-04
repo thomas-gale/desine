@@ -32,7 +32,7 @@ export const TopNav = (): JSX.Element => {
           className="mx-2"
           onClick={async () => router.push(config.github)}
         >
-          Github
+          Source Code
         </Button>
       </div>
       <div className="flex-grow" />
