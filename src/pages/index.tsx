@@ -11,14 +11,14 @@ const Index = (): JSX.Element => {
         <Button
           className="m-2"
           mode="light"
-          onClick={async () => router.push("/designer")}
+          onClick={async () => router.push("./designer")}
         >
           <h1>I'm a Designer</h1>
         </Button>
         <Button
           className="m-2"
           mode="light"
-          onClick={async () => router.push("/customer")}
+          onClick={async () => router.push("./customer")}
         >
           <h1>I'm a Customer</h1>
         </Button>
