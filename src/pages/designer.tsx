@@ -15,22 +15,13 @@ const Designer = (): JSX.Element => {
         </p>
         <div className="h-full flex items-center justify-center">
           <div className="flex flow-row items-center space-x-4">
-            <Button
-              mode="dark"
-              onClick={() => router.push("https://nft.storage/")}
-            >
+            <Button mode="dark" href="https://nft.storage/">
               <h1>nft.storage</h1>
             </Button>
-            <Button
-              mode="dark"
-              onClick={() => router.push("https://pinata.cloud/")}
-            >
+            <Button mode="dark" href="https://pinata.cloud/">
               <h1>pinata.cloud</h1>
             </Button>
-            <Button
-              mode="dark"
-              onClick={() => router.push("https://web3.storage/")}
-            >
+            <Button mode="dark" href="https://web3.storage/">
               <h1>web3.storage</h1>
             </Button>
             <div>
