@@ -1,4 +1,4 @@
-# dedes
+# Desine
 Decentralized computer aided design licensing concept
 
 ## TODO
