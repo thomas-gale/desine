@@ -15,7 +15,11 @@ export const TopNav = (): JSX.Element => {
           className="flex flex-row items-center rounded-xl hover:bg-gray-500 hover:cursor-pointer"
           onClick={async () => router.push("/")}
         >
-          <img src={config.icon} className="ml-2" alt="Dedes Link Emoji Logo" />
+          <img
+            src={config.icon}
+            className="ml-2"
+            alt="desine Link Emoji Logo"
+          />
           <h1 className="mx-2 text-light text-xl font-bold p-4 ">
             {config.appName}
           </h1>

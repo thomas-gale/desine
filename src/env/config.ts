@@ -1,8 +1,8 @@
 export const config = {
-  appName: "Dedes",
+  appName: "Desine",
   icon: "/favicon-32x32.png",
-  description: "Dedes is a decentralized CAD Design licensing marketplace",
-  github: "https://github.com/thomas-gale/dedes",
+  description: "Desine is a decentralized CAD Design licensing marketplace",
+  github: "https://github.com/thomas-gale/desine",
   ipfs: {
     gateway: {
       exampleDir:

@@ -3,9 +3,9 @@ import React from "react";
 const About = (): JSX.Element => {
   return (
     <div className="m-8">
-      <h2 className="mt-2">What is Dedes?</h2>
+      <h2 className="mt-2">What is Desine?</h2>
       <p>
-        Dedes is a <b>de</b>centralized computer aided <b>des</b>ign (
+        Desine is a <b>de</b>centralized computer aided design (
         <a href="https://en.wikipedia.org/wiki/Computer-aided_design">CAD</a>)
         licensing application (<a href="https://ethereum.org/en/dapps/">dapp</a>
         {") "}
@@ -13,8 +13,8 @@ const About = (): JSX.Element => {
       </p>
       <h2 className="mt-2">How does it work?</h2>
       <p>
-        Dedes is completely open platform for designers to mint CAD files as non
-        fungible tokens{" ("}
+        Desine is completely open platform for designers to mint CAD files as
+        non fungible tokens{" ("}
         <a href="https://ethereum.org/en/developers/docs/standards/tokens/erc-1155/">
           ERC1155 NFTs
         </a>
@@ -31,13 +31,14 @@ const About = (): JSX.Element => {
       <p>
         There is no gatekeeper. No platform or company that will eventually
         change it's terms of service behind this tool. You are in{" "}
-        <b>complete control</b>, you can even cache a copy of this website which
-        is a static webpage that doesn't talk to any server but instead is
-        hosted on <a href="https://ipfs.io/">IPFS</a> and served directly to
-        your computer from other IPFS nodes pinning this page (including some
-        that we, the developers of Dedes, are running). You upload your designs
-        to IPFS prior to minting (we will try to also pin your designs once you
-        have successfully minted them minted - to increase decentralization and
+        <b>complete control</b>, you can even cache a copy of{" "}
+        <a href="http://desine.eth.limo/">the Desine webapp</a> which is a
+        static webpage that doesn't talk to any server but instead is hosted on{" "}
+        <a href="https://ipfs.io/">IPFS</a> and served directly to your computer
+        from other IPFS nodes pinning this page (including some that we, the
+        developers of Desine, are running). You upload your designs to IPFS
+        prior to minting (we will try to also pin your designs once you have
+        successfully minted them minted - to increase decentralization and
         resiliency). You execute minting/licensing contracts locally in your
         browser, communicating directly with the Ethereum blockchain. You can
         even run your own Ethereum node is you so wish!
@@ -73,10 +74,10 @@ const About = (): JSX.Element => {
       <h3 className="mt-2">
         <b>I'm a manufacturer/consumer</b>
         <ol className="list-decimal list-inside">
-          <li>Browse OpenSea or inbuilt Dedes browsing tools</li>
+          <li>Browse OpenSea or inbuilt desine browsing tools</li>
           <li>
-            Load the desired Dedes NFT into the viewer and execute contract to
-            either buy (using OpenSea/Dedes webapp) or License (Dedes webapp).
+            Load the desired desine NFT into the viewer and execute contract to
+            either buy (using OpenSea/Desine webapp) or License (Desine webapp).
           </li>
         </ol>
       </h3>
@@ -111,8 +112,8 @@ const About = (): JSX.Element => {
         sale. This is how artwork NFTs work.
       </p>
       <h2 className="mt-2">
-        Somebody has uploaded (plagiarized) my design(s) to Dedes, how do I stop
-        them?
+        Somebody has uploaded (plagiarized) my design(s) to desine, how do I
+        stop them?
       </h2>
       <p>
         While, it's impossible for somebody to mint an exact copy of your design
@@ -126,7 +127,7 @@ const About = (): JSX.Element => {
         and if it's deemed that work is not plagiarized, we would take a small
         fee in payment for whomever had to spend time appraised a false claim.
         However, if the claim is upheld, we will take only the gas fee to post a
-        plagiarized warning against that Dedes NFT. Future consumers could be
+        plagiarized warning against that desine NFT. Future consumers could be
         presented with that warning and link to your original work in the webapp
         (they can then make an informed decision if to license your more
         original design).
