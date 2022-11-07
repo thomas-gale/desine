@@ -13,7 +13,7 @@ export const TopNav = (): JSX.Element => {
       <div className="m-2 flex flex-row items-center">
         <div
           className="flex flex-row items-center rounded-xl hover:bg-gray-500 hover:cursor-pointer"
-          onClick={async () => router.push("./")}
+          onClick={async () => router.push("/")}
         >
           <img src={config.icon} className="ml-2" alt="Dedes Link Emoji Logo" />
           <h1 className="mx-2 text-light text-xl font-bold p-4 ">
@@ -23,7 +23,7 @@ export const TopNav = (): JSX.Element => {
         <Button
           mode="dark"
           className="mx-2"
-          onClick={async () => router.push("./about")}
+          onClick={async () => router.push("/about")}
         >
           About
         </Button>

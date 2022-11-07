@@ -1,6 +1,6 @@
 export const config = {
   appName: "Dedes",
-  icon: "favicon-32x32.png",
+  icon: "/favicon-32x32.png",
   description: "Dedes is a decentralized CAD Design licensing marketplace",
   github: "https://github.com/thomas-gale/dedes",
   ipfs: {
