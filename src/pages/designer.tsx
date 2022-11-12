@@ -14,19 +14,19 @@ const Designer = (): JSX.Element => {
           use multiple options for redundancy)
         </p>
         <div className="h-full flex items-center justify-center">
-          <div className="flex flow-row items-center space-x-4">
-            <Button mode="dark" href="https://nft.storage/">
+          <div className="flex flow-row flex-wrap items-center">
+            <Button mode="dark" className="m-2" href="https://nft.storage/">
               <h1>nft.storage</h1>
             </Button>
-            <Button mode="dark" href="https://pinata.cloud/">
+            <Button mode="dark" className="m-2" href="https://pinata.cloud/">
               <h1>pinata.cloud</h1>
             </Button>
-            <Button mode="dark" href="https://web3.storage/">
+            <Button mode="dark" className="m-2" href="https://web3.storage/">
               <h1>web3.storage</h1>
             </Button>
             <div>
               <h2 className="text-light">
-                An alternate IPFS storage solution of your choosing...
+                Or an alternate IPFS storage solution of your choosing!
               </h2>
             </div>
           </div>
@@ -44,7 +44,7 @@ const Designer = (): JSX.Element => {
               e.preventDefault();
               router.push(`/designer/mint?cid=${e.target.cid.value}`);
             }}
-            className="w-1/2"
+            className="xl:w-1/2 w-full"
           >
             <input
               type="text"
@@ -52,17 +52,17 @@ const Designer = (): JSX.Element => {
               placeholder="QmXe... or bafy..."
               className="w-full rounded-xl p-4"
             />
-            <Button
-              mode="dark"
-              onClick={() =>
-                router.push(
-                  "/designer/mint?cid=bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a"
-                )
-              }
-            >
-              Test Sample
-            </Button>
           </form>
+          <Button
+            mode="dark"
+            onClick={() =>
+              router.push(
+                "/designer/mint?cid=bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a"
+              )
+            }
+          >
+            Test Sample
+          </Button>
         </div>
       </div>
     </div>
