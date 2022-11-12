@@ -42,7 +42,7 @@ const Designer = (): JSX.Element => {
               }
             ) => {
               e.preventDefault();
-              router.push(`/designer/mint/${e.target.cid.value}`);
+              router.push(`/designer/mint?cid=${e.target.cid.value}`);
             }}
             className="w-1/2"
           >
