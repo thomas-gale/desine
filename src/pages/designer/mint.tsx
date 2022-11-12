@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { OCJSViewport } from "../../components/viewer/OCJSViewport";
+import { CADViewer } from "../../components/viewer/CADViewer";
+// import { OCJSViewport } from "../../components/viewer/OCJSViewport";
 
 // A two step component that allows the user to first select an IPFS storage provider and then allows them to supply the hash to the webapp.
 const Mint = (): JSX.Element => {
@@ -17,8 +18,8 @@ const Mint = (): JSX.Element => {
           1. Checking that this CiD is valid and is not already minted.
         </h3>
         <h3 className="text-light">2. Loading file into CAD viewer.</h3>
-        {/* <CADViewer stepURL="https://bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a.ipfs.nftstorage.link" /> */}
-        <OCJSViewport />
+        <CADViewer stepURL="https://bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a.ipfs.nftstorage.link" />
+        {/* <OCJSViewport /> */}
         <h3 className="text-light">
           3. Provide UI for minting a new CAD NFT for this CiD.
         </h3>
