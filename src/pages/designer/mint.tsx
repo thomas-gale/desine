@@ -8,6 +8,9 @@ const Mint = (): JSX.Element => {
   const router = useRouter();
   const { cid } = router.query;
 
+  if (!cid) {
+    return <div />;
+  }
   return (
     <div className="h-full flex flex-col p-4 space-y-4">
       <div className="flex flex-col h-full p-4 space-y-2 rounded-xl bg-dark">
@@ -18,8 +21,7 @@ const Mint = (): JSX.Element => {
           1. Checking that this CiD is valid and is not already minted.
         </h3>
         <h3 className="text-light">2. Loading file into CAD viewer.</h3>
-        <CADViewer stepURL="https://bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a.ipfs.nftstorage.link" />
-        {/* <OCJSViewport /> */}
+        <CADViewer stepURL={`https://ipfs.io/ipfs/${cid}`} />
         <h3 className="text-light">
           3. Provide UI for minting a new CAD NFT for this CiD.
         </h3>

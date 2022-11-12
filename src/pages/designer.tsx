@@ -52,6 +52,16 @@ const Designer = (): JSX.Element => {
               placeholder="QmXe... or bafy..."
               className="w-full rounded-xl p-4"
             />
+            <Button
+              mode="dark"
+              onClick={() =>
+                router.push(
+                  "/designer/mint?cid=bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a"
+                )
+              }
+            >
+              Test Sample
+            </Button>
           </form>
         </div>
       </div>

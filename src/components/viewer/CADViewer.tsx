@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { Canvas, useFrame, ThreeElements } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import occtimportjs from "occt-import-js";
 
@@ -16,15 +16,20 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
       console.log("CADViewer: about to load URL: ", stepURL);
       const occt = await occtimportjs();
 
-      // download step file
+      // Step 1: download step file
+      console.log("CADViewer: downloading step...");
       let response = await fetch(stepURL);
       let buffer = await response.arrayBuffer();
+      let fileBuffer = new Uint8Array(buffer);
+      console.log("CADViewer: downloaded step!");
 
       // read the imported step file
-      let fileBuffer = new Uint8Array(buffer);
+      console.log("CADViewer: meshing step...");
       let result = occt.ReadStepFile(fileBuffer, null);
+      console.log("CADViewer: meshed step!");
 
       // process the geometries of the result
+      console.log("CADViewer: building three.js geometries...");
       for (let resultMesh of result.meshes) {
         let geometry = new THREE.BufferGeometry();
 
@@ -62,6 +67,7 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
         const mesh = new THREE.Mesh(geometry, material);
         object.current.add(mesh);
       }
+      console.log("CADViewer: built three.js geometries!");
     })();
   }, [stepURL]);
 
