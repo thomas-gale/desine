@@ -4,6 +4,9 @@ export const config = {
   icon: "/favicon-32x32.png",
   description: "Desine is a decentralized CAD Design licensing marketplace",
   github: "https://github.com/thomas-gale/desine",
+  settings: {
+    todo: "sadfas",
+  },
   ipfs: {
     gateway: {
       exampleDir:

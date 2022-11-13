@@ -1,17 +1,14 @@
 import React, { FormEvent } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/state";
-import {
-  setIpfsGatewayPrefix,
-  setIpfsGatewaySuffix,
-} from "../state/config/configSlice";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Settings = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const ipfsGatewayPrefix = useAppSelector(
-    (state) => state.config.ipfsGatewayPrefix
+  const [ipfsGatewayPrefix, setIpfsGatewayPrefix] = useLocalStorage(
+    "ipfsGatewayPrefix",
+    "https://ipfs.io/ipfs/"
   );
-  const ipfsGatewaySuffix = useAppSelector(
-    (state) => state.config.ipfsGatewaySuffix
+  const [ipfsGatewaySuffix, setIpfsGatewaySuffix] = useLocalStorage(
+    "ipfsGatewaySuffix",
+    ""
   );
 
   return (
@@ -26,7 +23,7 @@ const Settings = (): JSX.Element => {
               }
             ) => {
               e.preventDefault();
-              dispatch(setIpfsGatewayPrefix(e.target.ipfsGatewayPrefix.value));
+              setIpfsGatewayPrefix(e.target.ipfsGatewayPrefix.value);
             }}
           >
             <input
@@ -46,7 +43,7 @@ const Settings = (): JSX.Element => {
               }
             ) => {
               e.preventDefault();
-              dispatch(setIpfsGatewaySuffix(e.target.ipsGatewaySuffix.value));
+              setIpfsGatewaySuffix(e.target.ipsGatewaySuffix.value);
             }}
           >
             <input
