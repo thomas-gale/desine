@@ -2,6 +2,7 @@
 import React from "react";
 import Head from "next/head";
 import { AppProps } from "next/app";
+import { debounce } from "debounce";
 import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Provider as ReduxProvider } from "react-redux";
@@ -10,6 +11,7 @@ import { config } from "../env/config";
 import { TopNav } from "../components/elements/TopNav";
 import { store } from "../state/store";
 import "../styles/globals.css";
+import { saveState } from "../hooks/state";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getLibrary = (provider: any): Web3Provider => {
@@ -17,6 +19,13 @@ const getLibrary = (provider: any): Web3Provider => {
   library.pollingInterval = 12000;
   return library;
 };
+
+// Commit the redux state to local storage every 500ms second
+store.subscribe(
+  debounce(() => {
+    saveState(store.getState());
+  }, 500)
+);
 
 const queryClient = new QueryClient();
 
