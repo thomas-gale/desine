@@ -8,6 +8,7 @@ export interface CADViewerProps {
   stepURL: string;
 }
 
+// Attribution: https://github.com/kovacsv/occt-import-js
 export const CADViewer = ({ stepURL }: CADViewerProps) => {
   const object = useRef<THREE.Object3D>(null!);
 

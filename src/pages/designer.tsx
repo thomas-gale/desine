@@ -14,7 +14,7 @@ const Designer = (): JSX.Element => {
           use multiple options for redundancy)
         </p>
         <div className="h-full flex items-center justify-center">
-          <div className="flex flow-row flex-wrap items-center">
+          <div className="flex flow-row flex-wrap items-center justify-center">
             <Button mode="dark" className="m-2" href="https://nft.storage/">
               <h1>nft.storage</h1>
             </Button>
@@ -34,7 +34,7 @@ const Designer = (): JSX.Element => {
       </div>
       <div className="flex flex-col h-full p-4 rounded-xl bg-dark">
         <h3 className="text-light">2. Paste the CiD (Content Identifier)</h3>
-        <div className="h-full flex items-center justify-center">
+        <div className="h-full flex items-center justify-center space-x-2">
           <form
             onSubmit={(
               e: FormEvent<HTMLFormElement> & {
@@ -61,7 +61,7 @@ const Designer = (): JSX.Element => {
               )
             }
           >
-            Test Sample
+            <h3>!Test</h3>
           </Button>
         </div>
       </div>

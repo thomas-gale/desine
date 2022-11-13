@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { Spinner } from "../../components/elements/Spinner";
 import { CADViewer } from "../../components/viewer/CADViewer";
-// import { OCJSViewport } from "../../components/viewer/OCJSViewport";
 
-// A two step component that allows the user to first select an IPFS storage provider and then allows them to supply the hash to the webapp.
 const Mint = (): JSX.Element => {
   const router = useRouter();
   const { cid } = router.query;
@@ -14,17 +13,16 @@ const Mint = (): JSX.Element => {
   return (
     <div className="h-full flex flex-col p-4 space-y-4">
       <div className="flex flex-col h-full p-4 space-y-2 rounded-xl bg-dark">
-        <h2 className="text-light">
+        <h2 className="text-light break-words">
           Minting workflow for <b>{cid}</b>
         </h2>
-        <h3 className="text-light">
-          1. Checking that this CiD is valid and is not already minted.
-        </h3>
-        <h3 className="text-light">2. Loading file into CAD viewer.</h3>
         <CADViewer stepURL={`https://ipfs.io/ipfs/${cid}`} />
-        <h3 className="text-light">
-          3. Provide UI for minting a new CAD NFT for this CiD.
-        </h3>
+        <div className="flex flex-row items-center p-2 space-x-2">
+          <Spinner />
+          <h3 className="text-light">
+            (TODO) Checking that this CiD is valid and is not already minted
+          </h3>
+        </div>
       </div>
     </div>
   );
