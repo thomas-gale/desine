@@ -2,13 +2,13 @@
 import React from "react";
 import Head from "next/head";
 import { AppProps } from "next/app";
-
 import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core";
-
+import { Provider as ReduxProvider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { config } from "../env/config";
 import { TopNav } from "../components/elements/TopNav";
+import { store } from "../state/store";
 import "../styles/globals.css";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,20 +46,22 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <Web3ReactProvider getLibrary={getLibrary}>
-        <QueryClientProvider client={queryClient}>
-          <div className="flex flex-col h-full">
-            <div>
-              <div className="bg-red-400 p-2">
-                This project in in early alpha - most things are still being
-                built and tested! It is not ready for any wonderful users yet!
+        <ReduxProvider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <div className="flex flex-col h-full">
+              <div>
+                <div className="bg-red-400 p-2">
+                  This project in in early alpha - most things are still being
+                  built and tested! It is not ready for any wonderful users yet!
+                </div>
+                <TopNav />
               </div>
-              <TopNav />
+              <div className="bg-light flex-grow">
+                <Component {...pageProps} />
+              </div>
             </div>
-            <div className="bg-light flex-grow">
-              <Component {...pageProps} />
-            </div>
-          </div>
-        </QueryClientProvider>
+          </QueryClientProvider>
+        </ReduxProvider>
       </Web3ReactProvider>
     </>
   );

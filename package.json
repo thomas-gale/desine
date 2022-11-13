@@ -19,6 +19,7 @@
     "@metamask/eth-sig-util": "^4.0.0",
     "@react-three/drei": "^9.40.0",
     "@react-three/fiber": "^8.9.1",
+    "@reduxjs/toolkit": "^1.9.0",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/network-connector": "^6.2.9",
@@ -30,6 +31,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-query": "^3.39.2",
+    "react-redux": "^8.0.5",
     "react-use": "^17.4.0",
     "three": "^0.146.0"
   },
