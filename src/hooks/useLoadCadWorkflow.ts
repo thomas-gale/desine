@@ -16,12 +16,12 @@ export const useLoadCadWorkflow = (stepURL: string) => {
   const [meshedModel, setMeshedModel] = useState<any | null>(null);
   const object = useRef<THREE.Object3D>(null!);
   const [loadingState, setLoadingState] = useState<
-    "Step" | "Mesh" | "Object" | "Ready"
+    typeof STEP | typeof MESH | typeof OBJECT | typeof READY
   >(STEP);
 
   // 1. Download the step model
   useEffect(() => {
-    if (loadingState !== "Step" || !stepURL) return;
+    if (loadingState !== STEP || !stepURL) return;
     (async () => {
       console.log(`1. CADViewer: downloading step ${stepURL}...`);
       let response = await fetch(stepURL);
