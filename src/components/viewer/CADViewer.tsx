@@ -20,7 +20,7 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
 
   return (
     <Canvas>
-      <OrbitControls />
+      <OrbitControls dampingFactor={1} />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <object3D ref={object} position={[0, 0, 0]} scale={[0.01, 0.01, 0.01]} />
