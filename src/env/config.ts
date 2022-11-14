@@ -10,6 +10,12 @@ export const config = {
   },
   links: {
     publicGateWayChecker: "https://ipfs.github.io/public-gateway-checker/",
-    openCascade: "https://dev.opencascade.org/"
-  }
+    openCascade: "https://dev.opencascade.org/",
+  },
+  samples: {
+    cids: [
+      "bafybeih6tza23shwxuyjgtt523h64gnlfth3sf56nq7b72k2wv2hy65qsq",
+      "bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a",
+    ],
+  },
 };

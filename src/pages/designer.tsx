@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { FormEvent } from "react";
 import { Button } from "../components/elements/Button";
+import { config } from "../env/config";
 
 // A two step component that allows the user to first select an IPFS storage provider and then allows them to supply the hash to the webapp.
 const Designer = (): JSX.Element => {
@@ -35,34 +36,44 @@ const Designer = (): JSX.Element => {
       <div className="flex flex-col h-full p-4 rounded-xl bg-dark">
         <h3 className="text-light">2. Paste the CiD (Content Identifier)</h3>
         <div className="h-full flex items-center justify-center space-x-2">
-          <form
-            onSubmit={(
-              e: FormEvent<HTMLFormElement> & {
-                target: { cid: { value: string } };
-              }
-            ) => {
-              e.preventDefault();
-              router.push(`/designer/mint?cid=${e.target.cid.value}`);
-            }}
-            className="xl:w-1/2 w-full"
-          >
-            <input
-              type="text"
-              name="cid"
-              placeholder="QmXe... or bafy..."
-              className="w-full rounded-xl p-4"
-            />
-          </form>
-          <Button
-            mode="dark"
-            onClick={() =>
-              router.push(
-                "/designer/mint?cid=bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a"
-              )
-            }
-          >
-            <h3>!Test</h3>
-          </Button>
+          <div className="flex flex-col w-full space-y-2">
+            <form
+              onSubmit={(
+                e: FormEvent<HTMLFormElement> & {
+                  target: { cid: { value: string } };
+                }
+              ) => {
+                e.preventDefault();
+                router.push(`/designer/mint?cid=${e.target.cid.value}`);
+              }}
+              className="flex justify-center"
+            >
+              <input
+                type="text"
+                name="cid"
+                placeholder="QmXe... or bafy..."
+                className="xl:w-3/4 w-full rounded-xl p-4"
+              />
+            </form>
+            <div className="flex flex-row justify-center space-x-2">
+              <Button
+                mode="dark"
+                onClick={() =>
+                  router.push(`/designer/mint?cid=${config.samples.cids[0]}`)
+                }
+              >
+                <h3>Test Cid 0</h3>
+              </Button>
+              <Button
+                mode="dark"
+                onClick={() =>
+                  router.push(`/designer/mint?cid=${config.samples.cids[1]}`)
+                }
+              >
+                <h3>Test Cid 1</h3>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
