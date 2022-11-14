@@ -20,7 +20,6 @@ const Mint = (): JSX.Element => {
           Minting workflow for <b>{cid}</b>
         </h2>
         <CADViewer stepURL={wrapIpfsGateway(cid as string)} />
-       
       </div>
     </div>
   );

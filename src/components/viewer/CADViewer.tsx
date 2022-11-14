@@ -132,7 +132,7 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
       {loadingState !== "Ready" && (
         <Html center>
           <div className="flex flex-row items-center p-2 space-x-2">
-            <Spinner />
+            <Spinner size={16} />
             <h3 className="text-light">Loading {loadingState}...</h3>
           </div>
         </Html>

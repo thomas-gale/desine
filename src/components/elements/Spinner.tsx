@@ -1,9 +1,13 @@
+export interface SpinnerProps {
+  size: number;
+}
+
 // Attribution: https://flowbite.com/docs/components/spinner/
-export const Spinner = () => {
+export const Spinner = ({ size }: SpinnerProps) => {
   return (
     <svg
       aria-hidden="true"
-      className="mr-2 w-8 h-8 animate-spin dark:text-gray-600 fill-light"
+      className={`mr-2 w-${size.toString()} h-${size.toString()} animate-spin dark:text-gray-600 fill-light`}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
