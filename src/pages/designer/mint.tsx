@@ -20,12 +20,7 @@ const Mint = (): JSX.Element => {
           Minting workflow for <b>{cid}</b>
         </h2>
         <CADViewer stepURL={wrapIpfsGateway(cid as string)} />
-        <div className="flex flex-row items-center p-2 space-x-2">
-          <Spinner />
-          <h3 className="text-light">
-            (TODO) Checking that this CiD is valid and is not already minted
-          </h3>
-        </div>
+       
       </div>
     </div>
   );

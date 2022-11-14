@@ -1,14 +1,15 @@
 import React, { FormEvent } from "react";
+import { config } from "../env/config";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Settings = (): JSX.Element => {
   const [ipfsGatewayPrefix, setIpfsGatewayPrefix] = useLocalStorage(
     "ipfsGatewayPrefix",
-    "https://ipfs.io/ipfs/"
+    config.settings.defaultIpfsGatewayPrefix
   );
   const [ipfsGatewaySuffix, setIpfsGatewaySuffix] = useLocalStorage(
     "ipfsGatewaySuffix",
-    ""
+    config.settings.defaultIpfsGatewaySuffix
   );
 
   return (

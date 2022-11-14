@@ -1,8 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import occtimportjs from "occt-import-js";
+import { Loader, OrbitControls } from "@react-three/drei";
+import {
+  MeshingPostMessageEvent,
+  MeshRequest,
+} from "../../workers/meshing.worker";
+// import occtimportjs from "occt-import-js";
 
 export interface CADViewerProps {
   stepURL: string;
@@ -10,28 +14,60 @@ export interface CADViewerProps {
 
 // Attribution: https://github.com/kovacsv/occt-import-js
 export const CADViewer = ({ stepURL }: CADViewerProps) => {
+  const meshingWorkerRef = useRef<Worker>();
+  const [stepModel, setStepModel] = useState<Uint8Array | null>(null);
+  const [meshedModel, setMeshedModel] = useState<any | null>(null);
   const object = useRef<THREE.Object3D>(null!);
 
+  // 1. Download the step model
   useEffect(() => {
     (async () => {
-      console.log("CADViewer: about to load URL: ", stepURL);
-      const occt = await occtimportjs();
-
-      // Step 1: download step file
-      console.log("CADViewer: downloading step...");
+      console.log("1. CADViewer: downloading step...");
       let response = await fetch(stepURL);
       let buffer = await response.arrayBuffer();
       let fileBuffer = new Uint8Array(buffer);
-      console.log("CADViewer: downloaded step!");
+      console.log("1. CADViewer: downloaded step!");
+      setStepModel(fileBuffer);
+    })();
+  }, [stepURL]);
 
-      // read the imported step file
-      console.log("CADViewer: meshing step...");
-      let result = occt.ReadStepFile(fileBuffer, null);
-      console.log("CADViewer: meshed step!");
+  // 2.1 Create worker and configure handlers
+  useEffect(() => {
+    meshingWorkerRef.current = new Worker(
+      new URL("../../workers/meshing.worker", import.meta.url)
+    );
+    meshingWorkerRef.current.onmessage = (event: MeshingPostMessageEvent) => {
+      console.log("2.1 Receiving meshing post event data, storing result...");
+      setMeshedModel(event.data);
+      console.log("2.1 Receiving meshing post event data, stored result!");
+    };
+    return () => {
+      console.log("Terminating meshing web worker...");
+      meshingWorkerRef.current?.terminate();
+    };
+  }, []);
 
-      // process the geometries of the result
-      console.log("CADViewer: building three.js geometries...");
-      for (let resultMesh of result.meshes) {
+  // 2.2 Trigger step->mesh conversion
+  useEffect(() => {
+    if (stepModel) {
+      (async () => {
+        console.log(
+          "2.1 Posting message to start meshing worker with model..."
+        );
+        await meshingWorkerRef.current.postMessage({
+          stepFile: stepModel,
+        } as MeshRequest);
+        console.log("2.1 Posted message to start meshing worker with model!");
+      })();
+    }
+  }, [stepModel]);
+
+  // 3. Hook to convert mesh into three.js geometry
+  useEffect(() => {
+    if (!meshedModel) return;
+    (async () => {
+      console.log("3. CADViewer: building three.js geometries...");
+      for (let resultMesh of meshedModel.meshes) {
         let geometry = new THREE.BufferGeometry();
 
         geometry.setAttribute(
@@ -68,16 +104,34 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
         const mesh = new THREE.Mesh(geometry, material);
         object.current.add(mesh);
       }
-      console.log("CADViewer: built three.js geometries!");
+      console.log("3. CADViewer: built three.js geometries!");
     })();
-  }, [stepURL]);
+  }, [meshedModel]);
+
+  /*
+ <div className="flex flex-row items-center p-2 space-x-2">
+          <Spinner />
+          <h3 className="text-light">
+            (TODO) Checking that this CiD is valid and is not already minted
+          </h3>
+        </div>
+  */
 
   return (
-    <Canvas>
-      <OrbitControls />
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      <object3D ref={object} position={[0, 0, 0]} scale={[0.01, 0.01, 0.01]} />
-    </Canvas>
+    <>
+      <Canvas>
+        <OrbitControls />
+        <ambientLight />
+        <pointLight position={[10, 10, 10]} />
+        <Suspense fallback={null}>
+          <object3D
+            ref={object}
+            position={[0, 0, 0]}
+            scale={[0.01, 0.01, 0.01]}
+          />
+        </Suspense>
+      </Canvas>
+      <Loader />
+    </>
   );
 };

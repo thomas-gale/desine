@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 // Attribution: https://www.robinwieruch.de/local-storage-react/#react-local-storage-hook
-export const useLocalStorage = (storageKey: string, fallbackState: string) => {
-  const [value, setValue] = useState<string | null>(null);
+export const useLocalStorage = <T>(
+  storageKey: string,
+  fallbackState: T
+): [T, Dispatch<SetStateAction<T>>] => {
+  const [value, setValue] = useState<T | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

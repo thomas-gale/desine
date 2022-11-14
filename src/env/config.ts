@@ -5,7 +5,8 @@ export const config = {
   description: "Desine is a decentralized CAD Design licensing marketplace",
   github: "https://github.com/thomas-gale/desine",
   settings: {
-    todo: "sadfas",
+    defaultIpfsGatewayPrefix: "https://ipfs.io/ipfs/",
+    defaultIpfsGatewaySuffix: "",
   },
   ipfs: {
     gateway: {
