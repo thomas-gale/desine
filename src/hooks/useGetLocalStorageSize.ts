@@ -11,7 +11,7 @@ export const useGetLocalStorageSize = () => {
         }
       }
       return allStrings
-        ? 3 + (allStrings.length * 16) / (8 * 1024) + " KB"
+        ? (3 + (allStrings.length * 16) / (8 * 1024)).toFixed(3) + " KB"
         : "Empty (0 KB)";
     }
   }, []);

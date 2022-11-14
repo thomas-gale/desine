@@ -8,18 +8,10 @@ const Index = (): JSX.Element => {
   return (
     <div className="h-full flex items-center justify-center">
       <div className="flex flex-col">
-        <Button
-          className="m-2"
-          mode="light"
-          onClick={async () => router.push("/designer")}
-        >
+        <Button className="m-2" mode="light" href="/designer" target="">
           <h1>I'm a Designer</h1>
         </Button>
-        <Button
-          className="m-2"
-          mode="light"
-          onClick={async () => router.push("/customer")}
-        >
+        <Button className="m-2" mode="light" href="/customer" target="">
           <h1>I'm a Customer</h1>
         </Button>
       </div>

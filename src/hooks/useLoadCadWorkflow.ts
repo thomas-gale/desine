@@ -88,6 +88,9 @@ export const useLoadCadWorkflow = (stepCid: string) => {
   useEffect(() => {
     if (loadingState !== OBJECT || !meshedModel || !meshedModel.meshes) return;
     (async () => {
+      while (!object.current) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
       console.log("3. CADViewer: building three.js geometries...");
       for (let resultMesh of meshedModel.meshes) {
         let geometry = new THREE.BufferGeometry();

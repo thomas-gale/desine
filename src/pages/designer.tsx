@@ -58,17 +58,15 @@ const Designer = (): JSX.Element => {
             <div className="flex flex-row justify-center space-x-2">
               <Button
                 mode="dark"
-                onClick={() =>
-                  router.push(`/designer/mint?cid=${config.samples.cids[0]}`)
-                }
+                href={`/designer/mint?cid=${config.samples.cids[0]}`}
+                target=""
               >
                 <h3>Test Cid 0</h3>
               </Button>
               <Button
                 mode="dark"
-                onClick={() =>
-                  router.push(`/designer/mint?cid=${config.samples.cids[1]}`)
-                }
+                href={`/designer/mint?cid=${config.samples.cids[1]}`}
+                target=""
               >
                 <h3>Test Cid 1</h3>
               </Button>
