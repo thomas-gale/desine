@@ -6,7 +6,7 @@ import { debounce } from "debounce";
 import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Provider as ReduxProvider } from "react-redux";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "../env/config";
 import { TopNav } from "../components/elements/TopNav";
 import { store } from "../state/store";

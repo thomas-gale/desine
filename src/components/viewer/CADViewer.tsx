@@ -20,9 +20,16 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
       <object3D ref={object} position={[0, 0, 0]} scale={[0.01, 0.01, 0.01]} />
       {loadingState !== "Ready" && (
         <Html center>
-          <div className="flex flex-row items-center p-2 space-x-2">
-            <Spinner size={16} />
-            <h3 className="text-light">Loading {loadingState}...</h3>
+          <div className="flex flex-row items-center p-2 space-x-8">
+            <div className="h-32 w-32">
+              <Spinner />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <h3 className="text-light">Processing {loadingState}...</h3>
+              <h4 className="text-light">
+                <i>Locally within your browser</i>
+              </h4>
+            </div>
           </div>
         </Html>
       )}
