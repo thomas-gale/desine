@@ -5,6 +5,11 @@ import {
   MeshRequest,
 } from "../workers/meshing.worker";
 
+const STEP = "Step";
+const MESH = "Mesh";
+const OBJECT = "Object";
+const READY = "Ready";
+
 export const useLoadCadWorkflow = (stepURL: string) => {
   const meshingWorkerRef = useRef<Worker>();
   const [stepModel, setStepModel] = useState<Uint8Array | null>(null);
@@ -12,18 +17,18 @@ export const useLoadCadWorkflow = (stepURL: string) => {
   const object = useRef<THREE.Object3D>(null!);
   const [loadingState, setLoadingState] = useState<
     "Step" | "Mesh" | "Object" | "Ready"
-  >("Step");
+  >(STEP);
 
   // 1. Download the step model
   useEffect(() => {
-    if (loadingState !== "Step") return;
+    if (loadingState !== "Step" || !stepURL) return;
     (async () => {
-      console.log("1. CADViewer: downloading step...");
+      console.log(`1. CADViewer: downloading step ${stepURL}...`);
       let response = await fetch(stepURL);
       let buffer = await response.arrayBuffer();
       let fileBuffer = new Uint8Array(buffer);
       setStepModel(fileBuffer);
-      setLoadingState("Mesh");
+      setLoadingState(MESH);
       console.log("1. CADViewer: downloaded step!");
     })();
   }, [stepURL, loadingState]);
@@ -39,7 +44,7 @@ export const useLoadCadWorkflow = (stepURL: string) => {
       (event: MeshingPostMessageEvent) => {
         console.log("2.1 Receiving meshing post event data, storing result...");
         setMeshedModel(event.data);
-        setLoadingState("Object");
+        setLoadingState(OBJECT);
         console.log("2.1 Receiving meshing post event data, stored result!");
       }
     );
@@ -51,7 +56,7 @@ export const useLoadCadWorkflow = (stepURL: string) => {
 
   // 2.2 Trigger step->mesh conversion
   useEffect(() => {
-    if (loadingState !== "Mesh") return;
+    if (loadingState !== MESH) return;
     if (stepModel) {
       (async () => {
         console.log(
@@ -67,8 +72,7 @@ export const useLoadCadWorkflow = (stepURL: string) => {
 
   // 3. Hook to convert mesh into three.js geometry
   useEffect(() => {
-    if (loadingState !== "Object" || !meshedModel || !meshedModel.meshes)
-      return;
+    if (loadingState !== OBJECT || !meshedModel || !meshedModel.meshes) return;
     (async () => {
       console.log("3. CADViewer: building three.js geometries...");
       for (let resultMesh of meshedModel.meshes) {
@@ -108,14 +112,14 @@ export const useLoadCadWorkflow = (stepURL: string) => {
         const mesh = new THREE.Mesh(geometry, material);
         object.current.add(mesh);
       }
-      setLoadingState("Ready");
+      setLoadingState(READY);
       console.log("3. CADViewer: built three.js geometries!");
     })();
   }, [meshedModel]);
 
   // 4. Hook to center the camera on the loaded object
   useEffect(() => {
-    if (loadingState !== "Ready") return;
+    if (loadingState !== READY) return;
     console.log("Centering camera TODO...");
   }, [loadingState]);
 

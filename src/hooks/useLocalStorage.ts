@@ -5,19 +5,21 @@ export const useLocalStorage = <T>(
   storageKey: string,
   fallbackState: T
 ): [T, Dispatch<SetStateAction<T>>] => {
-  const [value, setValue] = useState<T | null>(null);
+  const [value, setValue] = useState<T>(fallbackState);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setValue(JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState);
+      setLoaded(true);
     }
   }, [storageKey, fallbackState]);
 
   useEffect(() => {
-    if (value !== null) {
+    if (loaded) {
       localStorage.setItem(storageKey, JSON.stringify(value));
     }
-  }, [value, storageKey]);
+  }, [value, storageKey, loaded]);
 
   return [value, setValue];
 };

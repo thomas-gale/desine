@@ -1,14 +1,8 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { Html, Loader, OrbitControls } from "@react-three/drei";
-import {
-  MeshingPostMessageEvent,
-  MeshRequest,
-} from "../../workers/meshing.worker";
+import { Html, OrbitControls } from "@react-three/drei";
 import { Spinner } from "../elements/Spinner";
 import { useLoadCadWorkflow } from "../../hooks/useLoadCadWorkflow";
-// import occtimportjs from "occt-import-js";
 
 export interface CADViewerProps {
   stepURL: string;
