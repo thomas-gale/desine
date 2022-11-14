@@ -1,10 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 // Attribution: https://www.robinwieruch.de/local-storage-react/#react-local-storage-hook
+// Modified with a loaded state check to avoid issues with next.js pre-rendering
 export const useLocalStorage = <T>(
   storageKey: string,
   fallbackState: T
-): [T, Dispatch<SetStateAction<T>>] => {
+): [T, boolean, Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState<T>(fallbackState);
   const [loaded, setLoaded] = useState(false);
 
@@ -21,5 +22,5 @@ export const useLocalStorage = <T>(
     }
   }, [value, storageKey, loaded]);
 
-  return [value, setValue];
+  return [value, loaded, setValue];
 };

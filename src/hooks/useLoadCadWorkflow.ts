@@ -7,10 +7,10 @@ import {
 } from "../workers/meshing.worker";
 import { useWrapIpfsGateway } from "./useWrapIpfsGateway";
 
-const STEP = "Step";
-const MESH = "Mesh";
-const OBJECT = "Object";
-const READY = "Ready";
+export const STEP = "Step";
+export const MESH = "Mesh";
+export const OBJECT = "Object";
+export const READY = "Ready";
 
 export const useLoadCadWorkflow = (stepCid: string) => {
   const meshingWorkerRef = useRef<Worker>();
@@ -21,8 +21,7 @@ export const useLoadCadWorkflow = (stepCid: string) => {
   >(STEP);
 
   // 0. Wrap the IPFS gateway
-  const wrapIpfsGateway = useWrapIpfsGateway();
-  const stepURL = useMemo(() => wrapIpfsGateway(stepCid), [stepCid]);
+  const [stepURL, isURLWrapped] = useWrapIpfsGateway(stepCid);
 
   // 1. Download the step model
   const { data: stepModel } = useQuery(
@@ -36,7 +35,7 @@ export const useLoadCadWorkflow = (stepCid: string) => {
       return fileBuffer;
     },
     {
-      enabled: loadingState === STEP && !!stepCid,
+      enabled: loadingState === STEP && isURLWrapped && !!stepCid,
       onSuccess: () => setLoadingState(MESH),
     }
   );

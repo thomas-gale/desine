@@ -29,8 +29,8 @@ const About = (): JSX.Element => {
       </p>
       <h2 className="mt-2">What do you mean by decentralized?</h2>
       <p>
-        There is no gatekeeper. No platform or company will eventually
-        change its terms of service behind this tool. You are in{" "}
+        There is no gatekeeper. No platform or company will eventually change
+        its terms of service behind this tool. You are in{" "}
         <b>complete control</b>, you can even cache a copy of{" "}
         <a href="http://desine.eth.limo/">the Desine web app</a> which is a
         static webpage that doesn't talk to any server but instead is hosted on{" "}
@@ -62,8 +62,8 @@ const About = (): JSX.Element => {
           and paste it into the NFT minting transaction inputs. The minting
           contract will check that that content hash hasn't already been minted
           by somebody else. You will also configure tags and other properties
-          associated with your design. Once minted, you will now possess a unique
-          NFT that represents your design.
+          associated with your design. Once minted, you will now possess a
+          unique NFT that represents your design.
         </li>
         <li>
           Configure a licensing agreement for your design. You can then execute
@@ -76,13 +76,14 @@ const About = (): JSX.Element => {
         <ol className="list-decimal list-inside">
           <li>Browse OpenSea or inbuilt Desine browsing tools</li>
           <li>
-            Load the desired desine NFT into the viewer and execute a contract to
-            either buy (using OpenSea/Desine web app) or License (Desine web app).
+            Load the desired desine NFT into the viewer and execute a contract
+            to either buy (using OpenSea/Desine web app) or License (Desine web
+            app).
           </li>
         </ol>
       </h3>
       <h2 className="mt-2">
-        Isn't the blockchain expensive (e.g. aren't gas fees loads)?
+        Isn't the blockchain expensive (e.g. high gas fees)?
       </h2>
       <p>
         We plan on deploying this application on{" "}
@@ -98,39 +99,38 @@ const About = (): JSX.Element => {
         Yes. While we could protect your design via some form of encryption,
         unfortunately, it will only create complexity without benefit. Anyone
         could always license your design for a short while, download it and then
-        upload it in unencrypted form for others to use. We feel the true solution
-        will be a <b>social movement</b> whereby we will provide embeddable
-        widgets that manufacturers can use to provide that this design is either
-        owned or licensed by a particular person or company and valid at the
-        point in time. Ultimately we want end users to adopt a{" "}
+        upload it in unencrypted form for others to use. We feel the true
+        solution will be a <b>social movement</b> whereby we will provide
+        embeddable widgets that manufacturers can use to provide that this
+        design is either owned or licensed by a particular person or company and
+        valid at the point in time. Ultimately we want end users to adopt a{" "}
         <i>"don't trust, verify"</i> approach to using your designs and ensuring
         that the original owner is either getting attribution via licensing
-        payments or has been correctly compensated and has willing sold the design
-        to this manufacturer/consumer. The true solution is for purchasers of
-        goods derived from your designs to be able to verify directly on the
-        blockchain that the design ownership/license is valid at the point of
-        sale. This is how artwork NFTs work.
+        payments or has been correctly compensated and has willing sold the
+        design to this manufacturer/consumer. The true solution is for
+        purchasers of goods derived from your designs to be able to verify
+        directly on the blockchain that the design ownership/license is valid at
+        the point of sale. This is how artwork NFTs work.
       </p>
       <h2 className="mt-2">
         Somebody has uploaded (plagiarized) my design(s) to desine, how do I
         stop them?
       </h2>
       <p>
-        While, somebody cam't mint an exact copy of your design
-        (as the IPFS content hash is checked during the minting contract
-        execution), sadly, in a trustless non-gatekept ecosystem, copying and
-        derived works/blatant copies are very common. We do plan on implementing
-        a means to try and contest a work, however, we fear this will lead to
-        some form of centralization (which we don't want). OpenSea does
-        have a ban list, we could see if there is a way to integrate something
-        similar. We would probably require you to post some kind of collateral,
-        and if it's deemed that work is not plagiarized, we would take a small
-        fee in payment for whoever had to spend time appraised a false claim.
-        However, if the claim is upheld, we will take only the gas fee to post a
-        plagiarized warning against that desine NFT. Future consumers could be
-        presented with that warning and link to your original work in the web app
-        (they can then make an informed decision if to license your more
-        original design).
+        While, somebody cam't mint an exact copy of your design (as the IPFS
+        content hash is checked during the minting contract execution), sadly,
+        in a trustless non-gatekept ecosystem, copying and derived works/blatant
+        copies are very common. We do plan on implementing a means to try and
+        contest a work, however, we fear this will lead to some form of
+        centralization (which we don't want). OpenSea does have a ban list, we
+        could see if there is a way to integrate something similar. We would
+        probably require you to post some kind of collateral, and if it's deemed
+        that work is not plagiarized, we would take a small fee in payment for
+        whoever had to spend time appraised a false claim. However, if the claim
+        is upheld, we will take only the gas fee to post a plagiarized warning
+        against that desine NFT. Future consumers could be presented with that
+        warning and link to your original work in the web app (they can then
+        make an informed decision if to license your more original design).
       </p>
     </div>
   );

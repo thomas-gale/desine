@@ -13,7 +13,7 @@ export const Button = (
 
   return (
     <a
-      className={`pointer-events-auto p-2 ${
+      className={`pointer-events-auto p-2 decoration-0 no-underline font-normal ${
         mode === "dark" ? "bg-light text-dark" : "bg-dark text-light"
       } font-artifakt font-bold rounded-xl hover:cursor-pointer hover:ring-gray-500 hover:ring-2 disabled:hover:ring-0 disabled:bg-gray-500 ${className}`}
       target="_blank"

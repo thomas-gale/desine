@@ -34,6 +34,13 @@ export const TopNav = (): JSX.Element => {
         <Button mode="dark" className="mx-2" href={config.github}>
           Source Code
         </Button>
+        <Button
+          mode="dark"
+          className="mx-2"
+          onClick={async () => router.push("/settings")}
+        >
+          Settings
+        </Button>
       </div>
       <div className="flex-grow" />
       <Identity />

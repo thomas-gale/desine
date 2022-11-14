@@ -29,6 +29,8 @@
     @apply text-lg;
   }
   a {
-    @apply text-blue-500;
+    @apply underline;
+    @apply decoration-1;
+    @apply font-bold;
   }
 }
