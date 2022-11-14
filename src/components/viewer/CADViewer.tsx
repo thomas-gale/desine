@@ -36,11 +36,14 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
     meshingWorkerRef.current = new Worker(
       new URL("../../workers/meshing.worker", import.meta.url)
     );
-    meshingWorkerRef.current.onmessage = (event: MeshingPostMessageEvent) => {
-      console.log("2.1 Receiving meshing post event data, storing result...");
-      setMeshedModel(event.data);
-      console.log("2.1 Receiving meshing post event data, stored result!");
-    };
+    meshingWorkerRef.current.addEventListener(
+      "message",
+      (event: MeshingPostMessageEvent) => {
+        console.log("2.1 Receiving meshing post event data, storing result...");
+        setMeshedModel(event.data);
+        console.log("2.1 Receiving meshing post event data, stored result!");
+      }
+    );
     return () => {
       console.log("Terminating meshing web worker...");
       meshingWorkerRef.current?.terminate();
