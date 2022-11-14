@@ -74,7 +74,7 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
 
   // 3. Hook to convert mesh into three.js geometry
   useEffect(() => {
-    if (!meshedModel) return;
+    if (!meshedModel || !meshedModel.meshes) return;
     (async () => {
       console.log("3. CADViewer: building three.js geometries...");
       for (let resultMesh of meshedModel.meshes) {
@@ -119,9 +119,11 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
     })();
   }, [meshedModel]);
 
-  /*
-
-  */
+  // 4. Hook to center the camera on the loaded object
+  useEffect(() => {
+    if (loadingState !== "Ready") return;
+    console.log("Centering camera TODO...");
+  }, [loadingState]);
 
   return (
     <Canvas>
