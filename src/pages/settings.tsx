@@ -1,19 +1,37 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useCallback, useMemo, useState } from "react";
 import { Button } from "../components/elements/Button";
 import { config } from "../env/config";
+import { useClearLocalStorage } from "../hooks/useClearLocalStorage";
+import { useGetLocalStorageSize } from "../hooks/useGetLocalStorageSize";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Settings = (): JSX.Element => {
+  const [readSeed, setReadSeed] = useState(1);
+  const [writeSeed, setWriteSeed] = useState(1);
+  const randomReadSeed = useCallback(() => setReadSeed(Math.random()), []);
+  const randomWriteSeed = useCallback(() => setWriteSeed(Math.random()), []);
+
   const [ipfsGatewayPrefix, isIpfsGatewayPrefixLoaded, setIpfsGatewayPrefix] =
     useLocalStorage(
       "ipfsGatewayPrefix",
-      config.settings.defaultIpfsGatewayPrefix
+      config.settings.defaultIpfsGatewayPrefix,
+      [readSeed]
     );
   const [ipfsGatewaySuffix, isIpfsGatewaySuffixLoaded, setIpfsGatewaySuffix] =
     useLocalStorage(
       "ipfsGatewaySuffix",
-      config.settings.defaultIpfsGatewaySuffix
+      config.settings.defaultIpfsGatewaySuffix,
+      [readSeed]
     );
+
+  const getLocalStorageSize = useGetLocalStorageSize();
+  const localStorageSize = useMemo(() => getLocalStorageSize(), [writeSeed]);
+  const clearLocalStorage = useClearLocalStorage();
+  const clearLocalStorageAndReload = useCallback(() => {
+    clearLocalStorage();
+    randomReadSeed();
+    randomWriteSeed();
+  }, [clearLocalStorage, randomReadSeed, randomWriteSeed]);
 
   if (!isIpfsGatewayPrefixLoaded || !isIpfsGatewaySuffixLoaded) return <div />;
   return (
@@ -24,7 +42,7 @@ const Settings = (): JSX.Element => {
         </Button>
         <div className="flex flex-col">
           <h4 className="text-light">Current IPFS gateway configuration</h4>
-          <h3 className="text-light">
+          <h3 className="text-light break-words">
             <b>{ipfsGatewayPrefix}</b>
             <i>{"bafy...sk3m"}</i>
             <b>{ipfsGatewaySuffix}</b>
@@ -40,6 +58,7 @@ const Settings = (): JSX.Element => {
             ) => {
               e.preventDefault();
               setIpfsGatewayPrefix(e.target.ipfsGatewayPrefix.value);
+              randomWriteSeed();
             }}
           >
             <input
@@ -60,6 +79,7 @@ const Settings = (): JSX.Element => {
             ) => {
               e.preventDefault();
               setIpfsGatewaySuffix(e.target.ipsGatewaySuffix.value);
+              randomWriteSeed();
             }}
           >
             <input
@@ -69,6 +89,20 @@ const Settings = (): JSX.Element => {
               className="w-full rounded-xl p-4"
             />
           </form>
+        </div>
+        <div className="flex flex-col">
+          <h3 className="text-light">
+            How much data is stored in your browser{" "}
+            <i>(on refresh, we will cache default settings)</i>
+          </h3>
+          <div className="flex flew-row items-center space-x-4">
+            <h4 className="text-light">
+              <b>{localStorageSize}</b>
+            </h4>
+            <Button mode="dark" onClick={clearLocalStorageAndReload}>
+              Clear local storage
+            </Button>
+          </div>
         </div>
       </div>
     </div>

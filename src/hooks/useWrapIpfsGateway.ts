@@ -7,11 +7,13 @@ import { useLocalStorage } from "./useLocalStorage";
 export const useWrapIpfsGateway = (ipfsHash: string): [string, boolean] => {
   const [ipfsGatewayPrefix, ipfsGatewayPrefixLoaded] = useLocalStorage(
     "ipfsGatewayPrefix",
-    config.settings.defaultIpfsGatewayPrefix
+    config.settings.defaultIpfsGatewayPrefix,
+    []
   );
   const [ipfsGatewaySuffix, ipfsGatewaySuffixLoaded] = useLocalStorage(
     "ipfsGatewaySuffix",
-    config.settings.defaultIpfsGatewaySuffix
+    config.settings.defaultIpfsGatewaySuffix,
+    []
   );
   return useMemo(
     () => [
