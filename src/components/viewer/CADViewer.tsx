@@ -1,11 +1,12 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { Loader, OrbitControls } from "@react-three/drei";
+import { Html, Loader, OrbitControls } from "@react-three/drei";
 import {
   MeshingPostMessageEvent,
   MeshRequest,
 } from "../../workers/meshing.worker";
+import { Spinner } from "../elements/Spinner";
 // import occtimportjs from "occt-import-js";
 
 export interface CADViewerProps {
@@ -19,6 +20,10 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
   const [meshedModel, setMeshedModel] = useState<any | null>(null);
   const object = useRef<THREE.Object3D>(null!);
 
+  const [loadingState, setLoadingState] = useState<
+    "Step" | "Mesh" | "Object" | "Ready"
+  >("Step");
+
   // 1. Download the step model
   useEffect(() => {
     (async () => {
@@ -26,8 +31,9 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
       let response = await fetch(stepURL);
       let buffer = await response.arrayBuffer();
       let fileBuffer = new Uint8Array(buffer);
-      console.log("1. CADViewer: downloaded step!");
       setStepModel(fileBuffer);
+      setLoadingState("Mesh");
+      console.log("1. CADViewer: downloaded step!");
     })();
   }, [stepURL]);
 
@@ -41,6 +47,7 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
       (event: MeshingPostMessageEvent) => {
         console.log("2.1 Receiving meshing post event data, storing result...");
         setMeshedModel(event.data);
+        setLoadingState("Object");
         console.log("2.1 Receiving meshing post event data, stored result!");
       }
     );
@@ -107,34 +114,29 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
         const mesh = new THREE.Mesh(geometry, material);
         object.current.add(mesh);
       }
+      setLoadingState("Ready");
       console.log("3. CADViewer: built three.js geometries!");
     })();
   }, [meshedModel]);
 
   /*
- <div className="flex flex-row items-center p-2 space-x-2">
-          <Spinner />
-          <h3 className="text-light">
-            (TODO) Checking that this CiD is valid and is not already minted
-          </h3>
-        </div>
+
   */
 
   return (
-    <>
-      <Canvas>
-        <OrbitControls />
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <Suspense fallback={null}>
-          <object3D
-            ref={object}
-            position={[0, 0, 0]}
-            scale={[0.01, 0.01, 0.01]}
-          />
-        </Suspense>
-      </Canvas>
-      <Loader />
-    </>
+    <Canvas>
+      <OrbitControls />
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      <object3D ref={object} position={[0, 0, 0]} scale={[0.01, 0.01, 0.01]} />
+      {loadingState !== "Ready" && (
+        <Html center>
+          <div className="flex flex-row items-center p-2 space-x-2">
+            <Spinner />
+            <h3 className="text-light">Loading {loadingState}...</h3>
+          </div>
+        </Html>
+      )}
+    </Canvas>
   );
 };
