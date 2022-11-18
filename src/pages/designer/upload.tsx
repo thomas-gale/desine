@@ -89,7 +89,7 @@ const Upload = (): JSX.Element => {
                     e.preventDefault();
                     router.push(`/designer/mint?cid=${e.target.cid.value}`);
                   }}
-                  className="flex justify-center"
+                  className="flex justify-center items-center space-x-2"
                 >
                   <input
                     type="text"
@@ -97,6 +97,9 @@ const Upload = (): JSX.Element => {
                     placeholder="Paste QmXe... or bafy... CiD from your provider"
                     className="xl:w-3/4 w-full rounded-xl p-4"
                   />
+                  <button className="btn" type="submit">
+                    Begin Minting!
+                  </button>
                 </form>
                 <div className="flex flex-row justify-center space-x-2">
                   <Button
