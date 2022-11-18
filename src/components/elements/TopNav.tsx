@@ -10,9 +10,9 @@ export const TopNav = (): JSX.Element => {
   const router = useRouter();
 
   return (
-    <div className="bg-base-300 w-full flex flex-row flex-wrap items-center shadow-md">
-      <div className="m-2 flex flex-row flex-wrap items-center">
-        <Button href="/" external={false}>
+    <div className="bg-base-300 w-full flex flex-row flex-wrap items-center p-2 shadow-md">
+      <div className="flex flex-row flex-wrap items-center">
+        <Button className="mx-2" href="/" external={false}>
           <div className="flex flex-row space-x-2 items-center">
             <img
               src={config.icon}
