@@ -4,34 +4,32 @@ import { useRouter } from "next/router";
 import { config } from "../../env/config";
 import { Button } from "./Button";
 import { Identity } from "../web3/Identity";
+import { MdOpenInNew } from "react-icons/md";
 
 export const TopNav = (): JSX.Element => {
   const router = useRouter();
 
   return (
-    <div className="bg-black w-full flex flex-row flex-wrap items-center shadow-md">
-      <div className="m-2 flex flex-row items-center">
-        <a
-          className="flex flex-row items-center rounded-xl hover:bg-gray-500 hover:cursor-pointer decoration-0 no-underline font-normal"
-          href="/"
-          target=""
-        >
-          <img
-            src={config.icon}
-            className="ml-2"
-            alt="desine Link Emoji Logo"
-          />
-          <h1 className="mx-2 text-light text-xl font-bold p-4 ">
-            {config.appName}
-          </h1>
-        </a>
-        <Button mode="dark" className="mx-2" href="/about" target="">
+    <div className="bg-base-300 w-full flex flex-row flex-wrap items-center shadow-md">
+      <div className="m-2 flex flex-row flex-wrap items-center">
+        <Button href="/" external={false}>
+          <div className="flex flex-row space-x-2 items-center">
+            <img
+              src={config.icon}
+              height="20em"
+              width="20em"
+              alt="desine Link Emoji Logo"
+            />
+            <h2 className="font-bold">{config.appName}</h2>
+          </div>
+        </Button>
+        <Button className="mx-2" href="/about" external={false}>
           About
         </Button>
-        <Button mode="dark" className="mx-2" href="/settings" target="">
+        <Button className="mx-2" href="/settings" external={false}>
           Settings
         </Button>
-        <Button mode="dark" className="mx-2" href={config.github}>
+        <Button className="mx-2" href={config.github} external={true}>
           Source Code
         </Button>
       </div>

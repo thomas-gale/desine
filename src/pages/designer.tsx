@@ -9,32 +9,45 @@ const Designer = (): JSX.Element => {
   return (
     <div className="h-full flex flex-col p-4 space-y-4">
       <div className="flex flex-col h-full p-4 rounded-xl bg-dark">
-        <h3 className="text-light">1. Select IPFS Storage Solution</h3>
-        <p className="text-light">
+        <h3 className="">1. Select IPFS Storage Solution</h3>
+        <p className="">
           Pin your .step/stp file with a provider or self pin (we recommend you
           use multiple options for redundancy)
         </p>
         <div className="h-full flex items-center justify-center">
           <div className="flex flow-row flex-wrap items-center justify-center">
-            <Button mode="dark" className="m-2" href="https://nft.storage/">
+            <Button
+              className="m-2"
+              href="https://nft.storage/"
+              external={true}
+              iconSize="2em"
+            >
               <h1>nft.storage</h1>
             </Button>
-            <Button mode="dark" className="m-2" href="https://pinata.cloud/">
+            <Button
+              className="m-2"
+              href="https://pinata.cloud/"
+              external={true}
+              iconSize="2em"
+            >
               <h1>pinata.cloud</h1>
             </Button>
-            <Button mode="dark" className="m-2" href="https://web3.storage/">
+            <Button
+              className="m-2"
+              href="https://web3.storage/"
+              external={true}
+              iconSize="2em"
+            >
               <h1>web3.storage</h1>
             </Button>
             <div>
-              <h2 className="text-light">
-                Or an alternate IPFS storage solution of your choosing!
-              </h2>
+              <h2>Or an alternate IPFS storage solution of your choosing!</h2>
             </div>
           </div>
         </div>
       </div>
       <div className="flex flex-col h-full p-4 rounded-xl bg-dark">
-        <h3 className="text-light">2. Paste the CiD (Content Identifier)</h3>
+        <h3>2. Paste the CiD (Content Identifier)</h3>
         <div className="h-full flex items-center justify-center space-x-2">
           <div className="flex flex-col w-full space-y-2">
             <form
@@ -57,16 +70,14 @@ const Designer = (): JSX.Element => {
             </form>
             <div className="flex flex-row justify-center space-x-2">
               <Button
-                mode="dark"
                 href={`/designer/mint?cid=${config.samples.cids[0]}`}
-                target=""
+                external={false}
               >
                 <h3>Test Cid 0</h3>
               </Button>
               <Button
-                mode="dark"
                 href={`/designer/mint?cid=${config.samples.cids[1]}`}
-                target=""
+                external={false}
               >
                 <h3>Test Cid 1</h3>
               </Button>

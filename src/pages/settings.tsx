@@ -37,19 +37,19 @@ const Settings = (): JSX.Element => {
   return (
     <div className="h-full flex flex-col p-4 space-y-4">
       <div className="flex flex-col h-full p-4 rounded-xl bg-dark space-y-4">
-        <Button mode="dark" href={config.links.publicGateWayChecker}>
+        <Button href={config.links.publicGateWayChecker} external={true}>
           Public IPFS gateway checker
         </Button>
         <div className="flex flex-col">
-          <h4 className="text-light">Current IPFS gateway configuration</h4>
-          <h3 className="text-light break-words">
+          <h4 className="">Current IPFS gateway configuration</h4>
+          <h3 className=" break-words">
             <b>{ipfsGatewayPrefix}</b>
             <i>{"bafy...sk3m"}</i>
             <b>{ipfsGatewaySuffix}</b>
           </h3>
         </div>
         <div className="flex flex-col">
-          <h3 className="text-light">Set IPFS gateway prefix</h3>
+          <h3 className="">Set IPFS gateway prefix</h3>
           <form
             onSubmit={(
               e: FormEvent<HTMLFormElement> & {
@@ -70,7 +70,7 @@ const Settings = (): JSX.Element => {
           </form>
         </div>
         <div className="flex flex-col">
-          <h3 className="text-light">Set ipfs gateway suffix (can be blank)</h3>
+          <h3 className="">Set ipfs gateway suffix (can be blank)</h3>
           <form
             onSubmit={(
               e: FormEvent<HTMLFormElement> & {
@@ -91,15 +91,15 @@ const Settings = (): JSX.Element => {
           </form>
         </div>
         <div className="flex flex-col">
-          <h3 className="text-light">
+          <h3 className="">
             How much data is stored in your browser{" "}
             <i>(on refresh, we will cache default settings)</i>
           </h3>
           <div className="flex flew-row items-center space-x-4">
-            <h4 className="text-light">
+            <h4 className="">
               <b>{localStorageSize}</b>
             </h4>
-            <Button mode="dark" onClick={clearLocalStorageAndReload}>
+            <Button onClick={clearLocalStorageAndReload} external={false}>
               Clear local storage
             </Button>
           </div>

@@ -32,22 +32,20 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
             </div>
             <div className="flex flex-col space-y-2">
               {loadingState === STEP && (
-                <h3 className="text-light">
+                <h3 className="">
                   Downloading .step from IPFS via configured gateway...
                 </h3>
               )}
               {loadingState === MESH && (
-                <h3 className="text-light">
+                <h3 className="">
                   Converting .step to mesh with{" "}
                   <a href={config.links.openCascade}>OpenCascade</a> ...
                 </h3>
               )}
               {loadingState === OBJECT && (
-                <h3 className="text-light">
-                  Building three.js primitive from mesh...
-                </h3>
+                <h3 className="">Building three.js primitive from mesh...</h3>
               )}
-              <h4 className="text-light">
+              <h4 className="">
                 <i>Running locally within your browser</i>
               </h4>
             </div>

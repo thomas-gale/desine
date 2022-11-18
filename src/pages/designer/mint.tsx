@@ -14,8 +14,8 @@ const Mint = (): JSX.Element => {
     return <div />;
   }
   return (
-    <div className="h-full flex flex-col p-4 space-y-4">
-      <ul className="steps">
+    <div className="h-full flex flex-col space-y-4">
+      <ul className="steps bg-base-200 p-4">
         <li
           className="step step-primary hover:text-primary cursor-pointer"
           onClick={() => setStep("model")}
@@ -38,7 +38,7 @@ const Mint = (): JSX.Element => {
       <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl bg-dark">
         {step === "model" && (
           <>
-            <h2 className="text-light break-words">
+            <h2 className=" break-words">
               Model: <b>{cid}</b>
             </h2>
             <CADViewer stepURL={cid as string} />

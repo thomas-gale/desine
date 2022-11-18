@@ -1,25 +1,29 @@
 import { HTMLAttributes } from "react";
+import { FaExternalLinkSquareAlt } from "react-icons/fa";
 
 export interface ButtonProps {
-  mode: "dark" | "light";
+  external: boolean;
   href?: string;
-  target?: string;
+  iconSize?: string | number;
 }
 
 /** Generic styled HTML button alternative */
 export const Button = (
   props: ButtonProps & HTMLAttributes<HTMLAnchorElement>
 ): JSX.Element => {
-  const { mode, className, target, ...restprops } = props;
+  const { className, external, children, iconSize, ...restprops } = props;
 
   return (
     <a
-      className={`pointer-events-auto p-2 decoration-0 no-underline font-normal ${
-        mode === "dark" ? "bg-light text-dark" : "bg-dark text-light"
-      } font-artifakt font-bold rounded-xl hover:cursor-pointer hover:ring-gray-500 hover:ring-2 disabled:hover:ring-0 disabled:bg-gray-500 ${className}`}
-      target={target ?? "_blank"}
+      className={`btn ${className}`}
+      target={external ? "_blank" : ""}
       rel="noopener noreferrer"
       {...restprops}
-    />
+    >
+      <div className="flex flex-row items-center space-x-2">
+        <div>{children}</div>
+        {external && <FaExternalLinkSquareAlt size={iconSize ?? "1em"} />}
+      </div>
+    </a>
   );
 };

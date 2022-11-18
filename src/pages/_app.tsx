@@ -59,13 +59,16 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           <QueryClientProvider client={queryClient}>
             <div className="flex flex-col h-full">
               <div>
-                <div className="bg-red-400 p-2">
-                  This project in in early alpha - most things are still being
-                  built and tested! It is not ready for any wonderful users yet!
+                <div className="bg-warning p-2">
+                  <p className="text-primary">
+                    This project in in early alpha - most things are still being
+                    built and tested! It is not ready for any wonderful users
+                    yet!
+                  </p>
                 </div>
                 <TopNav />
               </div>
-              <div className="bg-light flex-grow">
+              <div className="flex-grow">
                 <Component {...pageProps} />
               </div>
             </div>
