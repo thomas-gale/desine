@@ -36,7 +36,7 @@ const Settings = (): JSX.Element => {
   if (!isIpfsGatewayPrefixLoaded || !isIpfsGatewaySuffixLoaded) return <div />;
   return (
     <div className="h-full flex flex-col p-4 space-y-4">
-      <div className="flex flex-col h-full p-4 rounded-xl bg-dark space-y-4">
+      <div className="flex flex-col h-full p-4 rounded-xl space-y-4">
         <Button href={config.links.publicGateWayChecker} external={true}>
           Public IPFS gateway checker
         </Button>

@@ -35,7 +35,7 @@ const Mint = (): JSX.Element => {
           Mint ERC1155 NFT
         </li>
       </ul>
-      <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl bg-dark">
+      <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl">
         {step === "model" && (
           <>
             <h2 className=" break-words">

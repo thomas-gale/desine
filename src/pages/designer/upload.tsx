@@ -27,7 +27,7 @@ const Upload = (): JSX.Element => {
           Paste CiD
         </li>
       </ul>
-      <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl bg-dark">
+      <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl">
         {step === "upload" && (
           <>
             <p>
