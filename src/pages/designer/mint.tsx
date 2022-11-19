@@ -203,12 +203,14 @@ const Mint = (): JSX.Element => {
               <Button
                 className="no-animation flex-grow"
                 onClick={() =>
-                  console.log("TODO: Trigger web3 wallet operation")
+                  console.log(
+                    `TODO: Trigger web3 wallet check and mint operation for CID ${cid} and Metadata CID ${metadataCid}`
+                  )
                 }
                 disabled={!previewMetadataLoaded}
                 external={false}
               >
-                Mint
+                Mint (TODO)
               </Button>
             </div>
           </>
