@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Button } from "../../components/elements/Button";
 import { DesineCard } from "../../components/elements/DesineCard";
-import { Spinner } from "../../components/elements/Spinner";
 import { CADViewer } from "../../components/viewer/CADViewer";
-import { useWrapIpfsGateway } from "../../hooks/useWrapIpfsGateway";
+import { Metadata } from "../../types/Metadata";
 
 const Mint = (): JSX.Element => {
   const router = useRouter();
@@ -36,7 +35,7 @@ const Mint = (): JSX.Element => {
         // TODO Add external_url once decided on path
         // TODO Add background_color once decided on desine.eth primary theme
         // TODO Add animation_url (generated from render)
-      }),
+      } as Metadata),
 
     [name, description, render]
   );
@@ -152,7 +151,10 @@ const Mint = (): JSX.Element => {
         )}
         {step === "mint" && (
           <>
-            <div className="flex h-full items-center justify-center">
+            <h2 className=" break-words">
+              Metadata CID: <b>{metadataCid}</b>
+            </h2>
+            <div className="flex h-full p-8 items-center justify-center">
               <DesineCard cadCid={cid as string} metadataCid={metadataCid} />
             </div>
             <div className="flex flex-row space-x-2">
