@@ -51,6 +51,8 @@ const Mint = (): JSX.Element => {
     }
   }, [metacid]);
 
+  const [previewMetadataLoaded, setPreviewMetadataLoaded] = useState(false);
+
   if (!cid) {
     return <div />;
   }
@@ -180,7 +182,12 @@ const Mint = (): JSX.Element => {
               Metadata CID: <b>{metadataCid}</b>
             </h2>
             <div className="flex h-full p-8 items-center justify-center">
-              <DesineCard cadCid={cid as string} metadataCid={metadataCid} />
+              <DesineCard
+                cadCid={cid as string}
+                metadataCid={metadataCid}
+                onLoading={() => setPreviewMetadataLoaded(false)}
+                onSuccessfullyLoaded={() => setPreviewMetadataLoaded(true)}
+              />
             </div>
             <div className="flex flex-row space-x-2">
               <Button
@@ -195,6 +202,7 @@ const Mint = (): JSX.Element => {
                 onClick={() =>
                   console.log("TODO: Trigger web3 wallet operation")
                 }
+                disabled={!previewMetadataLoaded}
                 external={false}
               >
                 Mint
