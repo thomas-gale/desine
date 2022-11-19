@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../../components/elements/Button";
 import { DesineCard } from "../../components/elements/DesineCard";
 import { CADViewer } from "../../components/viewer/CADViewer";
@@ -7,8 +7,9 @@ import { Metadata } from "../../types/Metadata";
 
 const Mint = (): JSX.Element => {
   const router = useRouter();
-  const { cid } = router.query;
+  const { cid, metacid } = router.query;
 
+  // State of the minting workflow
   const [step, setStep] = useState<"model" | "metadata" | "mint">("model");
   const stepIndex = useMemo(() => {
     switch (step) {
@@ -21,11 +22,13 @@ const Mint = (): JSX.Element => {
     }
   }, [step]);
 
+  // State of the metadata definition
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [render, setRender] = useState("");
   const [metadataCid, setMetadataCid] = useState("");
 
+  // Util for creating metadata JSON payload that user can then upload to IPFS
   const getMetadata = useCallback(
     () =>
       JSON.stringify({
@@ -39,6 +42,14 @@ const Mint = (): JSX.Element => {
 
     [name, description, render]
   );
+
+  // Checking if we have a metadata CID, if so, we can skip the metadata step
+  useEffect(() => {
+    if (!!metacid) {
+      setMetadataCid(metacid as string);
+      setStep("mint");
+    }
+  }, [metacid]);
 
   if (!cid) {
     return <div />;
@@ -129,7 +140,7 @@ const Mint = (): JSX.Element => {
               </h3>
               <input
                 type="text"
-                placeholder="Paste Metadata JSON CiD"
+                placeholder={metadataCid ?? "Paste Metadata JSON CiD"}
                 className="input input-bordered input-primary bg-neutral w-full"
                 onChange={(e) => setMetadataCid(e.target.value)}
               />
@@ -145,7 +156,17 @@ const Mint = (): JSX.Element => {
               </Button>
               <Button
                 className="no-animation flex-grow"
-                onClick={() => setStep("mint")}
+                href={
+                  !metacid
+                    ? `/designer/mint?cid=${cid}&metacid=${metadataCid}`
+                    : undefined
+                }
+                onClick={() => {
+                  if (!!metacid) {
+                    setStep("mint");
+                  }
+                }}
+                disabled={!metadataCid || metadataCid.length === 0}
                 external={false}
               >
                 Next

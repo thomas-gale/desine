@@ -21,22 +21,26 @@ export const DesineCard = ({
       className="card lg:card-side w-full h-full bg-neutral shadow-2xl"
       {...props}
     >
-      {metadataStatus === "loading" ||
-        !imageUrl ||
-        (!isImageUrlWrapped && (
-          <div className="h-full flex items-center justify-center space-x-2">
-            <div className="flex h-32 w-32">
-              <Spinner />
-            </div>
-            <div className="flex flex-shrink flex-col max-w-md space-y-2">
-              <h3 className="">
-                Checking and downloading metadata.json from IPFS via configured
-                gateway...
-              </h3>
-            </div>
+      {(metadataStatus === "loading" || !imageUrl || !isImageUrlWrapped) && (
+        <div className="h-full w-full flex items-center justify-center space-x-2">
+          <div className="flex h-16 w-16">
+            <Spinner />
           </div>
-        ))}
-      {metadataStatus === "error" && <div>Failed to load metadata</div>}
+          <div className="flex flex-shrink flex-col max-w-md space-y-2">
+            <h3 className="">
+              Checking and downloading metadata.json from IPFS via configured
+              gateway...
+            </h3>
+          </div>
+        </div>
+      )}
+      {metadataStatus === "error" && (
+        <div className="h-full w-full flex items-center justify-center">
+          <div className="items-center justify-center">
+            <h3 className="text-error">Failed to load metadata</h3>
+          </div>
+        </div>
+      )}
       {metadataStatus === "success" && !!imageUrl && isImageUrlWrapped && (
         <>
           <div className="overflow-hidden h-full w-full">

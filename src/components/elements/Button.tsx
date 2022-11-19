@@ -1,26 +1,30 @@
-import { HTMLAttributes } from "react";
+import { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
 import { FaExternalLinkSquareAlt } from "react-icons/fa";
 
 export interface ButtonProps {
   external: boolean;
   href?: string;
   iconSize?: string | number;
-  download?: string;
+  disabled?: boolean;
 }
 
 /** Generic styled HTML button alternative */
 export const Button = (
-  props: ButtonProps & HTMLAttributes<HTMLAnchorElement>
+  props: ButtonProps &
+    DetailedHTMLProps<
+      AnchorHTMLAttributes<HTMLAnchorElement>,
+      HTMLAnchorElement
+    >
 ): JSX.Element => {
-  const { className, external, children, iconSize, download, ...restprops } =
+  const { className, external, children, iconSize, disabled, ...restprops } =
     props;
 
   return (
     <a
-      className={`btn ${className}`}
+      className={`btn ${disabled && "btn-disabled"} ${className}`}
       target={external ? "_blank" : ""}
       rel="noopener noreferrer"
-      download={download}
+      aria-disabled={disabled}
       {...restprops}
     >
       <div className="flex flex-row items-center space-x-2">
