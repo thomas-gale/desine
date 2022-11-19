@@ -92,8 +92,7 @@ const Settings = (): JSX.Element => {
         </div>
         <div className="flex flex-col">
           <h3 className="">
-            How much data is stored in your browser{" "}
-            <i>(on refresh, we will cache default settings)</i>
+            How much data we are storing in your browser (to make stuff faster to load)
           </h3>
           <div className="flex flew-row items-center space-x-4">
             <h4 className="">

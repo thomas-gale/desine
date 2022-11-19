@@ -39,7 +39,14 @@ export const CADViewer = ({ stepURL }: CADViewerProps) => {
               {loadingState === MESH && (
                 <h3 className="">
                   Converting .step to mesh with{" "}
-                  <a href={config.links.openCascade}>OpenCascade</a> ...
+                  <a
+                    href={config.links.openCascade}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    OpenCascade
+                  </a>{" "}
+                  ...
                 </h3>
               )}
               {loadingState === OBJECT && (
