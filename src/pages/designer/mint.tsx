@@ -85,7 +85,7 @@ const Mint = (): JSX.Element => {
           } cursor-pointer`}
           onClick={() => setStep("mint")}
         >
-          Review and Mint ERC1155 NFT
+          Preview and Mint ERC1155 NFT
         </li>
       </ul>
       <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl">
@@ -159,12 +159,12 @@ const Mint = (): JSX.Element => {
               <Button
                 className="no-animation flex-grow"
                 href={
-                  !metacid
+                  !metacid || metacid !== metadataCid
                     ? `/designer/mint?cid=${cid}&metacid=${metadataCid}`
                     : undefined
                 }
                 onClick={() => {
-                  if (!!metacid) {
+                  if (!!metacid && metacid === metadataCid) {
                     setStep("mint");
                   }
                 }}
@@ -178,9 +178,12 @@ const Mint = (): JSX.Element => {
         )}
         {step === "mint" && (
           <>
-            <h2 className=" break-words">
+            <h4 className=" break-words">
+              Model CID: <b>{cid}</b>
+            </h4>
+            <h4 className=" break-words">
               Metadata CID: <b>{metadataCid}</b>
-            </h2>
+            </h4>
             <div className="flex h-full p-8 items-center justify-center">
               <DesineCard
                 cadCid={cid as string}
