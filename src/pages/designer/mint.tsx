@@ -123,10 +123,14 @@ const Mint = (): JSX.Element => {
               >
                 Generate & Download Metadata JSON
               </Button>
+              <h3 className="pt-8">
+                Now upload this JSON file to your IPFS storage provider{" "}
+                <i>(sorry this is a bit painful)</i>
+              </h3>
               <input
                 type="text"
-                placeholder="Metadata JSON CiD"
-                className="input input-bordered input-primary w-full"
+                placeholder="Paste Metadata JSON CiD"
+                className="input input-bordered input-primary bg-neutral w-full"
                 onChange={(e) => setMetadataCid(e.target.value)}
               />
             </div>
