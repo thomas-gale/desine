@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../../components/elements/Button";
+import { DesineCard } from "../../components/elements/DesineCard";
 import { Spinner } from "../../components/elements/Spinner";
 import { CADViewer } from "../../components/viewer/CADViewer";
 import { useWrapIpfsGateway } from "../../hooks/useWrapIpfsGateway";
@@ -21,6 +22,25 @@ const Mint = (): JSX.Element => {
     }
   }, [step]);
 
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [render, setRender] = useState("");
+  const [metadataCid, setMetadataCid] = useState("");
+
+  const getMetadata = useCallback(
+    () =>
+      JSON.stringify({
+        name,
+        description,
+        image: `ipfs://${render}`,
+        // TODO Add external_url once decided on path
+        // TODO Add background_color once decided on desine.eth primary theme
+        // TODO Add animation_url (generated from render)
+      }),
+
+    [name, description, render]
+  );
+
   if (!cid) {
     return <div />;
   }
@@ -28,7 +48,9 @@ const Mint = (): JSX.Element => {
     <div className="h-full flex flex-col space-y-4">
       <ul className="steps bg-base-200 p-4">
         <li
-          className="step step-primary hover:text-primary cursor-pointer"
+          className={`step step-primary hover:text-primary ${
+            step == "model" && "font-black"
+          } cursor-pointer`}
           onClick={() => setStep("model")}
         >
           Review Model
@@ -36,7 +58,9 @@ const Mint = (): JSX.Element => {
         <li
           className={`step ${
             stepIndex >= 1 && "step-primary"
-          } hover:text-primary cursor-pointer`}
+          } hover:text-primary ${
+            step == "metadata" && "font-black"
+          } cursor-pointer`}
           onClick={() => setStep("metadata")}
         >
           Define Metadata
@@ -44,17 +68,19 @@ const Mint = (): JSX.Element => {
         <li
           className={`step ${
             stepIndex >= 2 && "step-primary"
-          } hover:text-primary cursor-pointer`}
+          } hover:text-primary ${
+            step == "mint" && "font-black"
+          } cursor-pointer`}
           onClick={() => setStep("mint")}
         >
-          Mint ERC1155 NFT
+          Review and Mint ERC1155 NFT
         </li>
       </ul>
       <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl">
         {step === "model" && (
           <>
             <h2 className=" break-words">
-              Model: <b>{cid}</b>
+              Model CID: <b>{cid}</b>
             </h2>
             <CADViewer stepURL={cid as string} />
             <Button
@@ -68,8 +94,44 @@ const Mint = (): JSX.Element => {
         )}
         {step === "metadata" && (
           <>
-            <h2>Define Metadata</h2>
-            <div className="h-full">TODO</div>
+            <div className="flex flex-col h-full space-y-4 py-2">
+              <input
+                type="text"
+                placeholder="Name"
+                className="input input-bordered input-primary bg-neutral max-w-xs"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <textarea
+                className="textarea textarea-primary bg-neutral flex-grow"
+                placeholder="Description"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Render image CiD"
+                className="input input-bordered input-primary bg-neutral w-full"
+                onChange={(e) => setRender(e.target.value)}
+              />
+              <Button
+                className="no-animation"
+                href={URL.createObjectURL(
+                  new Blob([getMetadata()], {
+                    type: "application/json",
+                  })
+                )}
+                download="metadata.json"
+                external={false}
+              >
+                Generate & Download Metadata JSON
+              </Button>
+              <input
+                type="text"
+                placeholder="Metadata JSON CiD"
+                className="input input-bordered input-primary w-full"
+                onChange={(e) => setMetadataCid(e.target.value)}
+              />
+            </div>
+
             <div className="flex flex-row space-x-2">
               <Button
                 className="no-animation flex-grow"
@@ -90,8 +152,9 @@ const Mint = (): JSX.Element => {
         )}
         {step === "mint" && (
           <>
-            <h2>Review and confirm Minting</h2>
-            <div className="h-full">TODO</div>
+            <div className="flex h-full items-center justify-center">
+              <DesineCard cadCid={cid as string} metadataCid={metadataCid} />
+            </div>
             <div className="flex flex-row space-x-2">
               <Button
                 className="no-animation flex-grow"

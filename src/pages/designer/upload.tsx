@@ -94,7 +94,7 @@ const Upload = (): JSX.Element => {
                   <input
                     type="text"
                     name="cid"
-                    placeholder="Paste QmXe... or bafy... CiD from your provider"
+                    placeholder="Paste QmXe... or bafy... CID from your provider"
                     className="xl:w-3/4 w-full rounded-xl p-4"
                   />
                   <button className="btn" type="submit">
@@ -106,13 +106,13 @@ const Upload = (): JSX.Element => {
                     href={`/designer/mint?cid=${config.samples.cids[0]}`}
                     external={false}
                   >
-                    <h3>Test Cid 0</h3>
+                    <h3>Test CID 0</h3>
                   </Button>
                   <Button
                     href={`/designer/mint?cid=${config.samples.cids[1]}`}
                     external={false}
                   >
-                    <h3>Test Cid 1</h3>
+                    <h3>Test CID 1</h3>
                   </Button>
                 </div>
               </div>
