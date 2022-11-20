@@ -140,7 +140,7 @@ const Mint = (): JSX.Element => {
                 placeholder={
                   !!cid
                     ? cid
-                    : "Paste .step QmXe... or bafy... CID from your provider"
+                    : "Paste .step CID from your provider (e.g. QmXe... or bafy...)"
                 }
                 className="input input-bordered input-primary bg-neutral w-full"
                 onChange={(e) => setCid(e.target.value)}
@@ -244,7 +244,7 @@ const Mint = (): JSX.Element => {
                 placeholder={
                   !!metadataCid
                     ? metadataCid
-                    : "Paste metadata.json QmXe... or bafy... CID from your provider"
+                    : "Paste metadata.json CID from your provider (e.g. QmXe... or bafy...)"
                 }
                 className="input input-bordered input-primary bg-neutral w-full"
                 onChange={(e) => setMetadataCid(e.target.value)}
