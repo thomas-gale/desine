@@ -59,7 +59,7 @@ export const DesineCard = ({
 
   return (
     <div
-      className="card lg:card-side w-full h-full bg-neutral shadow-2xl"
+      className="card lg:card-side w-full h-full bg-neutral shadow-2xl overflow-hidden"
       {...props}
     >
       {loading && (
