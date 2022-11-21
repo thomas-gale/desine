@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../elements/Button";
 import { MdWarning, MdOutlineCheckCircle, MdError } from "react-icons/md";
 
@@ -7,14 +7,22 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { Web3Provider } from "@ethersproject/providers";
 import { truncateEthAddress } from "../../helpers/web3/truncateEthAddress";
 
-// Metamask
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 5, 1337], // Main, Goerli, Localhost
+  supportedChainIds: [1337], // Main: 1, Goerli: 5, Localhost: 1337
 });
 
 export const Identity = (): JSX.Element => {
   const { connector, activate, deactivate, account, error } =
     useWeb3React<Web3Provider>();
+
+  // Attempt to auto-connect to wallet
+  useEffect(() => {
+    (async () => {
+      if (activate && injected) {
+        activate(injected);
+      }
+    })();
+  }, [activate, injected]);
 
   return (
     <div className="m-2 flex flex-row items-center space-x-2">
