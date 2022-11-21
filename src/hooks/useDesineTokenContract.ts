@@ -5,7 +5,15 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { DesineToken__factory } from "../../typechain-types";
 import { config } from "../env/config";
 
-export const useDesineContractInteraction = (
+export type DesineTokenContractMintingStatus =
+  | "idle"
+  | "disconnected"
+  | "checking"
+  | "minted"
+  | "notMinted"
+  | "error";
+
+export const useDesineTokenContract = (
   cid: string,
   metadataCid: string,
   previewCardMetadataLoaded: boolean
@@ -42,9 +50,8 @@ export const useDesineContractInteraction = (
   }, [signer]);
 
   // Checking if the user has already minted the NFT
-  const [isCidMintedStatus, setIsCidMintedStatus] = useState<
-    "idle" | "disconnected" | "checking" | "minted" | "notMinted" | "error"
-  >("idle");
+  const [isCidMintedStatus, setIsCidMintedStatus] =
+    useState<DesineTokenContractMintingStatus>("idle");
   const [checkedCid, setCheckedCid] = useState<string | null>(null);
 
   useEffect(() => {

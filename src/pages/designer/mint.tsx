@@ -11,7 +11,8 @@ import { DesineCard } from "../../components/elements/DesineCard";
 import { CADViewer } from "../../components/viewer/CADViewer";
 import { Metadata } from "../../types/Metadata";
 import { config } from "../../env/config";
-import { useDesineContractInteraction } from "../../hooks/useDesineContractInteraction";
+import { useDesineTokenContract } from "../../hooks/useDesineTokenContract";
+import { IsMintedAlert } from "../../components/elements/minting/IsMintedAlert";
 
 const Mint = (): JSX.Element => {
   const router = useRouter();
@@ -72,7 +73,7 @@ const Mint = (): JSX.Element => {
     useState(false);
 
   // Minting code.
-  const { mint, canMint, isCidMintedStatus } = useDesineContractInteraction(
+  const { mint, canMint, isCidMintedStatus } = useDesineTokenContract(
     cid,
     metadataCid,
     previewCardMetadataLoaded
@@ -108,45 +109,7 @@ const Mint = (): JSX.Element => {
           Preview and Mint ERC1155 NFT
         </li>
       </ul>
-      <div>
-        {isCidMintedStatus === "disconnected" && (
-          <div className="p-2">
-            <div className="alert alert-warning">
-              <p>Please connect wallet to check if CID is already minted</p>
-            </div>
-          </div>
-        )}
-        {isCidMintedStatus === "checking" && (
-          <div className="p-2">
-            <div className="alert alert-info">
-              <p>Checking if CID is already minted...</p>
-            </div>
-          </div>
-        )}
-        {isCidMintedStatus === "notMinted" && (
-          <div className="p-2">
-            <div className="alert alert-success">
-              <p>This CID has not been minted yet!</p>
-            </div>
-          </div>
-        )}
-        {isCidMintedStatus === "minted" && (
-          <div className="p-2">
-            <div className="alert alert-error">
-              <p>This CID has already been minted</p>
-            </div>
-          </div>
-        )}
-        {isCidMintedStatus === "error" && (
-          <div className="p-2">
-            <div className="alert alert-error">
-              <p>
-                Something when wrong when checking if the CID was already minted
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
+      <IsMintedAlert isCidMintedStatus={isCidMintedStatus} />
       <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl">
         {step === "upload" && (
           <>
