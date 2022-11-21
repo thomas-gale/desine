@@ -9,7 +9,7 @@ import { truncateEthAddress } from "../../helpers/web3/truncateEthAddress";
 
 // Metamask
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 5, 1337], // Main, Goerli, Localhost
+  supportedChainIds: [1, 5, 1337, 31337], // Main, Goerli, Localhost, Hardhat Localhost
 });
 
 export const Identity = (): JSX.Element => {

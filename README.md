@@ -13,7 +13,7 @@ yarn hardhat node
 
 ## Terminal 2
 ```shell
-yarn hardhat test
+yarn hardhat test --typecheck
 yarn hardhat run scripts/DesineToken.deployer.ts --network localhost
 ## Note the Token Address (update the env config)
 yarn dev

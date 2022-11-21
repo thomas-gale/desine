@@ -1,19 +1,21 @@
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
+// import { ethers } from "hardhat";
 import { ethers } from "ethers";
-// import hre from "hardhat";
-// import { getContractAt } from "@nomiclabs/hardhat-ethers";
-// import {  } from "hardhat";
-// import desineAbi from "../../../artifacts/contracts/DesineToken.sol/DesineToken.json";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-// import
+// import {
+//   DesineTokenInterface,
+//   DesineToken,
+// } from "../../../typechain-types/contracts/DesineToken";
+import { DesineToken__factory } from "../../../typechain-types";
+
 import { Button } from "../../components/elements/Button";
 import { DesineCard } from "../../components/elements/DesineCard";
 import { CADViewer } from "../../components/viewer/CADViewer";
-import { config } from "../../env/config";
 import { Metadata } from "../../types/Metadata";
+import { config } from "../../env/config";
 
 const Mint = (): JSX.Element => {
   const router = useRouter();
@@ -121,17 +123,23 @@ const Mint = (): JSX.Element => {
       ethers.utils.formatEther(await provider.getBalance(account))
     );
 
-    // Attempt to interact with DesineToken contract
-    // const desineTokenContract = await hre.ethers.getContractAt(
-    //   "DesineToken",
-    //   config.settings.desineTokenAddress
+    // const desineTokenContract = new ethers.Contract(
+    //   config.settings.desineTokenAddress,
+    //   typeof DesineTokenInteface,
+    //   provider
     // );
+    const desineTokenContract = DesineToken__factory.connect(
+      config.settings.desineTokenAddress,
+      signer
+    );
+    console.log(desineTokenContract);
+    console.log(
+      "Number of Tokens: ",
+      await desineTokenContract.getNumberTokenIds()
+    );
 
-    // console.log("DesineToken contract: ", desineTokenContract);
-    // console.log(
-    //   "Number of Tokens: ",
-    //   await desineTokenContract.getNumberTokenIds()
-    // );
+
+    await desineTokenContract.mint(cid, metadataCid);
   }, [canMint, cid, metadataCid, connector, active, provider, account]);
 
   return (
