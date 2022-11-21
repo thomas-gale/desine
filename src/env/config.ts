@@ -7,6 +7,7 @@ export const config = {
   settings: {
     defaultIpfsGatewayPrefix: "https://ipfs.io/ipfs/",
     defaultIpfsGatewaySuffix: "",
+    desineTokenAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
   },
   links: {
     publicGateWayChecker: "https://ipfs.github.io/public-gateway-checker/",
