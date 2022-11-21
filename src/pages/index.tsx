@@ -8,7 +8,7 @@ const Index = (): JSX.Element => {
   return (
     <div className="h-full flex items-center justify-center">
       <div className="flex flex-col">
-        <Button className="m-2" href="/browse" external={false}>
+        <Button className="m-2" href="/browse/list" external={false}>
           <h1>Browse Designs</h1>
         </Button>
         <Button className="m-2" href="/designer/mint" external={false}>

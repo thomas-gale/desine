@@ -1,6 +1,6 @@
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DesineToken__factory } from "../../typechain-types";
 import { config } from "../env/config";
@@ -13,18 +13,8 @@ export type DesineTokenContractMintingStatus =
   | "notMinted"
   | "error";
 
-export const useDesineTokenContract = (
-  cid: string,
-  metadataCid: string,
-  previewCardMetadataLoaded: boolean
-) => {
-  // Various web3 states
-  const {
-    account,
-    connector,
-    library: provider,
-    active,
-  } = useWeb3React<Web3Provider>();
+export const useDesineTokenContract = () => {
+  const { account, library: provider, active } = useWeb3React<Web3Provider>();
   const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner | null>(
     null
   );
@@ -49,11 +39,35 @@ export const useDesineTokenContract = (
     );
   }, [signer]);
 
+  return { active, provider, account, signer, desineTokenContract };
+};
+
+export const useDesineTokenContractForBrowsing = () => {
+  const { active, desineTokenContract } = useDesineTokenContract();
+  // List of all the minted NFTs TODO - check scaling properties of this (will we need to paginate?)
+  const [mintedTokenIds, setMintedTokenIds] = useState<BigNumber[]>([]);
+  useEffect(() => {
+    (async () => {
+      if (!desineTokenContract) return;
+      setMintedTokenIds(await desineTokenContract.getTokenIds());
+    })();
+  }, [desineTokenContract]);
+
+  return { active, mintedTokenIds };
+};
+
+export const useDesineTokenContractForMinting = (
+  cid: string,
+  metadataCid: string,
+  previewCardMetadataLoaded: boolean
+) => {
+  const { active, provider, account, signer, desineTokenContract } =
+    useDesineTokenContract();
+
   // Checking if the user has already minted the NFT
   const [isCidMintedStatus, setIsCidMintedStatus] =
     useState<DesineTokenContractMintingStatus>("idle");
   const [checkedCid, setCheckedCid] = useState<string | null>(null);
-
   useEffect(() => {
     (async () => {
       if (!cid) {
@@ -93,6 +107,7 @@ export const useDesineTokenContract = (
     desineTokenContract,
   ]);
 
+  // Combined status to determine if the user can mint the NFT
   const canMint = useMemo(
     () =>
       previewCardMetadataLoaded &&
@@ -113,6 +128,7 @@ export const useDesineTokenContract = (
     ]
   );
 
+  // Main Minting function
   const mint = useCallback(async () => {
     if (!canMint || !provider || !account || !signer || !desineTokenContract)
       return;
@@ -125,7 +141,6 @@ export const useDesineTokenContract = (
     canMint,
     cid,
     metadataCid,
-    connector,
     active,
     provider,
     account,
@@ -133,5 +148,5 @@ export const useDesineTokenContract = (
     desineTokenContract,
   ]);
 
-  return { active, isCidMintedStatus, mint, canMint };
+  return { isCidMintedStatus, mint, canMint };
 };

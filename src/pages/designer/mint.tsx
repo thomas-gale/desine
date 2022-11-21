@@ -11,7 +11,10 @@ import { DesineCard } from "../../components/elements/DesineCard";
 import { CADViewer } from "../../components/viewer/CADViewer";
 import { Metadata } from "../../types/Metadata";
 import { config } from "../../env/config";
-import { useDesineTokenContract } from "../../hooks/useDesineTokenContract";
+import {
+  useDesineTokenContract,
+  useDesineTokenContractForMinting,
+} from "../../hooks/useDesineTokenContract";
 import { IsMintedAlert } from "../../components/elements/design/mint/IsMintedAlert";
 
 const Mint = (): JSX.Element => {
@@ -73,7 +76,7 @@ const Mint = (): JSX.Element => {
     useState(false);
 
   // Minting code.
-  const { mint, canMint, isCidMintedStatus } = useDesineTokenContract(
+  const { isCidMintedStatus, mint, canMint } = useDesineTokenContractForMinting(
     cid,
     metadataCid,
     previewCardMetadataLoaded
@@ -205,14 +208,14 @@ const Mint = (): JSX.Element => {
             <CADViewer stepURL={cid as string} />
             <div className="flex flex-row space-x-2">
               <Button
-                className="no-animation flex-grow"
+                className="no-animation flex-1"
                 onClick={() => setStep("upload")}
                 external={false}
               >
                 Previous
               </Button>
               <Button
-                className="no-animation flex-grow"
+                className="no-animation flex-1"
                 onClick={() => setStep("metadata")}
                 external={false}
               >
@@ -254,8 +257,8 @@ const Mint = (): JSX.Element => {
                 Generate & Download Metadata JSON
               </Button>
               <h3 className="pt-8">
-                Now upload this JSON file to your IPFS storage provider{" "}
-                <i>(sorry this is a bit painful)</i>
+                Now upload this JSON file to your IPFS storage provider and copy
+                CID <i>(sorry this is a bit painful)</i>
               </h3>
               <input
                 type="text"
@@ -271,14 +274,14 @@ const Mint = (): JSX.Element => {
 
             <div className="flex flex-row space-x-2">
               <Button
-                className="no-animation flex-grow"
+                className="no-animation flex-1"
                 onClick={() => setStep("model")}
                 external={false}
               >
                 Previous
               </Button>
               <Button
-                className="no-animation flex-grow"
+                className="no-animation flex-1"
                 onClick={() => {
                   if (!!metadataCid) {
                     router.push(
@@ -317,19 +320,19 @@ const Mint = (): JSX.Element => {
             </div>
             <div className="flex flex-row space-x-2">
               <Button
-                className="no-animation flex-grow"
+                className="no-animation flex-1"
                 onClick={() => setStep("metadata")}
                 external={false}
               >
                 Previous
               </Button>
               <Button
-                className="no-animation flex-grow"
+                className={`no-animation flex-1 ${canMint && "btn-primary"}`}
                 onClick={() => mint()}
                 disabled={!canMint}
                 external={false}
               >
-                {canMint ? "Mint" : "Not able to Mint"}
+                Mint
               </Button>
             </div>
           </>
