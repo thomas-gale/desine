@@ -3,12 +3,7 @@ import { useRouter } from "next/router";
 
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
-// import { ethers } from "hardhat";
 import { ethers } from "ethers";
-// import {
-//   DesineTokenInterface,
-//   DesineToken,
-// } from "../../../typechain-types/contracts/DesineToken";
 import { DesineToken__factory } from "../../../typechain-types";
 
 import { Button } from "../../components/elements/Button";
@@ -16,6 +11,7 @@ import { DesineCard } from "../../components/elements/DesineCard";
 import { CADViewer } from "../../components/viewer/CADViewer";
 import { Metadata } from "../../types/Metadata";
 import { config } from "../../env/config";
+import { useDesineContractInteraction } from "../../hooks/useDesineContractInteraction";
 
 const Mint = (): JSX.Element => {
   const router = useRouter();
@@ -76,71 +72,11 @@ const Mint = (): JSX.Element => {
     useState(false);
 
   // Minting code.
-  const {
-    account,
-    connector,
-    library: provider,
-    active,
-  } = useWeb3React<Web3Provider>();
-
-  const canMint = useMemo(
-    () =>
-      previewCardMetadataLoaded &&
-      cid &&
-      metadataCid &&
-      account &&
-      provider &&
-      active,
-    [previewCardMetadataLoaded, cid, metadataCid, account, provider, active]
+  const { mint, canMint } = useDesineContractInteraction(
+    cid,
+    metadataCid,
+    previewCardMetadataLoaded
   );
-
-  const mint = useCallback(async () => {
-    if (!canMint || !provider || !account) return;
-
-    // Ethers code
-    console.log("About to use ethers.js to mint NFT");
-
-    console.log("Using account: ", account);
-
-    // A Web3Provider wraps a standard Web3 provider, which is
-    // what MetaMask injects as window.ethereum into each page
-    console.log(provider);
-
-    // MetaMask requires requesting permission to connect users accounts
-    await provider.send("eth_requestAccounts", []);
-
-    // The MetaMask plugin also allows signing transactions to
-    // send ether and pay to change state within the blockchain.
-    // For this, you need the account signer...
-    const signer = provider.getSigner();
-
-    // Look up the current block number
-    console.log(await provider.getBlockNumber());
-
-    // Get balance of account
-    console.log(
-      "%s ETH",
-      ethers.utils.formatEther(await provider.getBalance(account))
-    );
-
-    // const desineTokenContract = new ethers.Contract(
-    //   config.settings.desineTokenAddress,
-    //   typeof DesineTokenInteface,
-    //   provider
-    // );
-    const desineTokenContract = DesineToken__factory.connect(
-      config.settings.desineTokenAddress,
-      signer
-    );
-    console.log(desineTokenContract);
-    console.log(
-      "Number of Tokens: ",
-      await desineTokenContract.getNumberTokenIds()
-    );
-
-
-    await desineTokenContract.mint(cid, metadataCid);
-  }, [canMint, cid, metadataCid, connector, active, provider, account]);
 
   return (
     <div className="h-full flex flex-col space-y-4">
@@ -240,11 +176,6 @@ const Mint = (): JSX.Element => {
             </div>
             <Button
               className="no-animation"
-              // href={
-              //   !query_cid || query_cid !== cid
-              //     ? `/designer/mint?cid=${cid}`
-              //     : undefined
-              // }
               onClick={() => {
                 if (!!cid) {
                   router.push(
@@ -346,11 +277,6 @@ const Mint = (): JSX.Element => {
               </Button>
               <Button
                 className="no-animation flex-grow"
-                // href={
-                //   !query_metacid || query_metacid !== metadataCid
-                //     ? `/designer/mint?cid=${cid}&metacid=${metadataCid}`
-                //     : undefined
-                // }
                 onClick={() => {
                   if (!!metadataCid) {
                     router.push(
@@ -362,9 +288,6 @@ const Mint = (): JSX.Element => {
                     );
                     setStep("mint");
                   }
-                  // if (!!query_metacid && query_metacid === metadataCid) {
-                  // setStep("mint");
-                  // }
                 }}
                 disabled={!metadataCid || metadataCid.length === 0}
                 external={false}

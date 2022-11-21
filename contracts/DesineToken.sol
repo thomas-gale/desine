@@ -27,6 +27,11 @@ contract DesineToken is ERC1155 {
         return uint256(keccak256(abi.encodePacked(cid)));
     }
 
+    function isCidAlreadyMinted(string memory cid) public view returns (bool) {
+        uint256 tokenId = computeTokenId(cid);
+        return bytes(cids[tokenId]).length == 0;
+    }
+
     function mint(string memory cid, string memory metadataCid) public {
         console.log(
             "DesineToken.mint: minter %s: cid: %s, metadata_cid:",
