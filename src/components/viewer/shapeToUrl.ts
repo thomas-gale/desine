@@ -1,5 +1,5 @@
 // Takes a TopoDS_Shape, creates a GLB file from it and returns a ObjectURL
-export const shapeToUrl = (oc, shape) => {
+export const shapeToUrl = (oc: any, shape: any) => {
   // Create a document and add our shape
   const docHandle = new oc.Handle_TDocStd_Document_2(
     new oc.TDocStd_Document(new oc.TCollection_ExtendedString_1())

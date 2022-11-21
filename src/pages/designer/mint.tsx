@@ -1,10 +1,11 @@
+import { useRouter } from "next/router";
+
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 // import hre from "hardhat";
 // import { getContractAt } from "@nomiclabs/hardhat-ethers";
 // import {  } from "hardhat";
-import { useRouter } from "next/router";
 // import desineAbi from "../../../artifacts/contracts/DesineToken.sol/DesineToken.json";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 // import
@@ -92,7 +93,7 @@ const Mint = (): JSX.Element => {
   );
 
   const mint = useCallback(async () => {
-    if (!canMint) return;
+    if (!canMint || !provider || !account) return;
 
     // Ethers code
     console.log("About to use ethers.js to mint NFT");
@@ -231,13 +232,20 @@ const Mint = (): JSX.Element => {
             </div>
             <Button
               className="no-animation"
-              href={
-                !query_cid || query_cid !== cid
-                  ? `/designer/mint?cid=${cid}`
-                  : undefined
-              }
+              // href={
+              //   !query_cid || query_cid !== cid
+              //     ? `/designer/mint?cid=${cid}`
+              //     : undefined
+              // }
               onClick={() => {
-                if (!!query_cid && query_cid === cid) {
+                if (!!cid) {
+                  router.push(
+                    `/designer/mint?cid=${cid}&metacid=${metadataCid}`,
+                    undefined,
+                    {
+                      shallow: true,
+                    }
+                  );
                   setStep("model");
                 }
               }}
@@ -330,15 +338,25 @@ const Mint = (): JSX.Element => {
               </Button>
               <Button
                 className="no-animation flex-grow"
-                href={
-                  !query_metacid || query_metacid !== metadataCid
-                    ? `/designer/mint?cid=${cid}&metacid=${metadataCid}`
-                    : undefined
-                }
+                // href={
+                //   !query_metacid || query_metacid !== metadataCid
+                //     ? `/designer/mint?cid=${cid}&metacid=${metadataCid}`
+                //     : undefined
+                // }
                 onClick={() => {
-                  if (!!query_metacid && query_metacid === metadataCid) {
+                  if (!!metadataCid) {
+                    router.push(
+                      `/designer/mint?cid=${cid}&metacid=${metadataCid}`,
+                      undefined,
+                      {
+                        shallow: true,
+                      }
+                    );
                     setStep("mint");
                   }
+                  // if (!!query_metacid && query_metacid === metadataCid) {
+                  // setStep("mint");
+                  // }
                 }}
                 disabled={!metadataCid || metadataCid.length === 0}
                 external={false}

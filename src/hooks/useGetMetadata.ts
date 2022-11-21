@@ -20,11 +20,11 @@ export const useGetMetadata = (cid: string) => {
   );
 
   const imageCid = useMemo(() => {
-    if (!metadata) return null;
+    if (!metadata) return "";
     return metadata.image.split("/").pop();
   }, [metadata]);
 
-  const [imageUrl, isImageUrlWrapped] = useWrapIpfsGateway(imageCid);
+  const [imageUrl, isImageUrlWrapped] = useWrapIpfsGateway(imageCid as string);
 
   return { metadata, metadataStatus, imageUrl, isImageUrlWrapped };
 };

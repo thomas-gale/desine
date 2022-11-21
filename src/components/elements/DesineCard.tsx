@@ -99,8 +99,8 @@ export const DesineCard = ({
             </div>
           )}
           <div className="card-body flex flex-col w-full">
-            <h2 className="card-title">{metadata.name}</h2>
-            <p>{metadata.description}</p>
+            <h2 className="card-title">{metadata?.name}</h2>
+            <p>{metadata?.description}</p>
           </div>
         </>
       )}

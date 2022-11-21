@@ -12,7 +12,12 @@ export const useLocalStorage = <T>(
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setValue(JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState);
+      const storedValue = localStorage.getItem(storageKey);
+      if (!!storedValue) {
+        setValue(JSON.parse(storedValue) ?? fallbackState);
+      } else {
+        setValue(fallbackState);
+      }
       setLoaded(true);
     }
   }, [storageKey, fallbackState, ...deps]);

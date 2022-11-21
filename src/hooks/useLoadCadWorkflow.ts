@@ -75,10 +75,14 @@ export const useLoadCadWorkflow = (stepCid: string) => {
         console.log(
           "2.1 Posting message to start meshing worker with model..."
         );
-        await meshingWorkerRef.current.postMessage({
-          stepFile: stepModel,
-        } as MeshRequest);
-        console.log("2.1 Posted message to start meshing worker with model!");
+        if (meshingWorkerRef.current) {
+          await meshingWorkerRef.current.postMessage({
+            stepFile: stepModel,
+          } as MeshRequest);
+          console.log("2.1 Posted message to start meshing worker with model!");
+        } else {
+          console.error("2.1 Meshing worker not available!");
+        }
       })();
     }
   }, [stepModel, meshedModel, loadingState, isMeshedModelCacheChecked]);

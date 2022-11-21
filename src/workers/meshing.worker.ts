@@ -9,10 +9,18 @@ export interface MeshResponse {
 }
 
 class MeshingListenerMessageEvent extends Event {
+  constructor(type: string, eventInitDict?: EventInit) {
+    super(type, eventInitDict);
+    this.data = { stepFile: new Uint8Array() };
+  }
   data: MeshRequest;
 }
 
 export class MeshingPostMessageEvent extends Event {
+ constructor(type: string, eventInitDict?: EventInit) {
+    super(type, eventInitDict);
+    this.data = { meshes: [] };
+  }
   data: MeshResponse;
 }
 
