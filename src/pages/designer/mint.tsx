@@ -81,6 +81,7 @@ const Mint = (): JSX.Element => {
     metadataCid,
     previewCardMetadataLoaded
   );
+  const [isMinting, setIsMinting] = useState(false);
 
   return (
     <div className="h-full flex flex-col">
@@ -271,7 +272,14 @@ const Mint = (): JSX.Element => {
                 onChange={(e) => setMetadataCid(e.target.value)}
               />
             </div>
-
+            <div className="flex flex-row justify-center space-x-2">
+              <Button
+                onClick={() => setMetadataCid(config.samples.metadataCids[0])}
+                external={false}
+              >
+                <h3>Test Metadata CID 0</h3>
+              </Button>
+            </div>
             <div className="flex flex-row space-x-2">
               <Button
                 className="no-animation flex-1"
@@ -328,8 +336,12 @@ const Mint = (): JSX.Element => {
               </Button>
               <Button
                 className={`no-animation flex-1 ${canMint && "btn-primary"}`}
-                onClick={() => mint()}
-                disabled={!canMint}
+                onClick={async () => {
+                  setIsMinting(true);
+                  await mint();
+                  router.push(`/browse/list`); // TODO add url param to filter to just the newly minted card
+                }}
+                disabled={!canMint || isMinting}
                 external={false}
               >
                 Mint

@@ -18,5 +18,8 @@ export const config = {
       "bafybeih6tza23shwxuyjgtt523h64gnlfth3sf56nq7b72k2wv2hy65qsq",
       "bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a",
     ],
+    metadataCids: [
+      "bafkreibcozf3i4fb55ylwd54quwaxmpca33yjung5hfco2huq54hgs6exm"
+    ]
   },
 };
