@@ -72,14 +72,14 @@ const Mint = (): JSX.Element => {
     useState(false);
 
   // Minting code.
-  const { mint, canMint } = useDesineContractInteraction(
+  const { mint, canMint, isCidMintedStatus } = useDesineContractInteraction(
     cid,
     metadataCid,
     previewCardMetadataLoaded
   );
 
   return (
-    <div className="h-full flex flex-col space-y-4">
+    <div className="h-full flex flex-col">
       <ul className="steps bg-base-200 p-4">
         <li
           className={`step step-primary ${step == "upload" && "font-black"} `}
@@ -108,6 +108,45 @@ const Mint = (): JSX.Element => {
           Preview and Mint ERC1155 NFT
         </li>
       </ul>
+      <div>
+        {isCidMintedStatus === "disconnected" && (
+          <div className="p-2">
+            <div className="alert alert-warning">
+              <p>Please connect wallet to check if CID is already minted</p>
+            </div>
+          </div>
+        )}
+        {isCidMintedStatus === "checking" && (
+          <div className="p-2">
+            <div className="alert alert-info">
+              <p>Checking if CID is already minted...</p>
+            </div>
+          </div>
+        )}
+        {isCidMintedStatus === "notMinted" && (
+          <div className="p-2">
+            <div className="alert alert-success">
+              <p>This CID has not been minted yet!</p>
+            </div>
+          </div>
+        )}
+        {isCidMintedStatus === "minted" && (
+          <div className="p-2">
+            <div className="alert alert-error">
+              <p>This CID has already been minted</p>
+            </div>
+          </div>
+        )}
+        {isCidMintedStatus === "error" && (
+          <div className="p-2">
+            <div className="alert alert-error">
+              <p>
+                Something when wrong when checking if the CID was already minted
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
       <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl">
         {step === "upload" && (
           <>
@@ -327,7 +366,7 @@ const Mint = (): JSX.Element => {
                 disabled={!canMint}
                 external={false}
               >
-                {`Mint${canMint ? "" : " - Please Connect Wallet"}`}
+                {canMint ? "Mint" : "Not able to Mint"}
               </Button>
             </div>
           </>

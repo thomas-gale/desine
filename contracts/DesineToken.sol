@@ -29,7 +29,7 @@ contract DesineToken is ERC1155 {
 
     function isCidAlreadyMinted(string memory cid) public view returns (bool) {
         uint256 tokenId = computeTokenId(cid);
-        return bytes(cids[tokenId]).length == 0;
+        return bytes(cids[tokenId]).length != 0;
     }
 
     function mint(string memory cid, string memory metadataCid) public {
@@ -42,8 +42,6 @@ contract DesineToken is ERC1155 {
 
         uint256 tokenId = computeTokenId(cid);
         console.log("Computed uint256 token id:", tokenId);
-
-        // Check if the token already exists and revert if so.
         require(
             bytes(cids[tokenId]).length == 0,
             "DesineToken.mint: token already exists"

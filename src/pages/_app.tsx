@@ -60,7 +60,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
             <div className="flex flex-col h-full">
               <div>
                 <div className="bg-warning p-2">
-                  <p className="text-primary">
+                  <p className="text-neutral">
                     This project in in early alpha - most things are still being
                     built and tested! It is not ready for any wonderful users
                     yet!
