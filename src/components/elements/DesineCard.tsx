@@ -26,6 +26,11 @@ export const DesineCard = ({
   ...props
 }: DesineCardProps &
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
+  useEffect(() => {
+    console.log("cadCid", cadCid);
+    console.log("metadataCid", metadataCid);
+  }, [cadCid, metadataCid]);
+
   const { metadata, metadataStatus, imageUrl, isImageUrlWrapped } =
     useGetMetadata(metadataCid);
 
@@ -98,7 +103,7 @@ export const DesineCard = ({
               <CADViewer stepURL={cadCid} />
             </div>
           )}
-          <div className="card-body flex flex-col w-full">
+          <div className="card-body flex flex-col">
             <h2 className="card-title">{metadata?.name}</h2>
             <p>{metadata?.description}</p>
           </div>

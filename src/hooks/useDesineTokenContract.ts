@@ -53,7 +53,7 @@ export const useDesineTokenContractForBrowsing = () => {
     })();
   }, [desineTokenContract]);
 
-  return { active, mintedTokenIds };
+  return { active, mintedTokenIds, desineTokenContract };
 };
 
 export const useDesineTokenContractForMinting = (
