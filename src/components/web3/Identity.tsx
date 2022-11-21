@@ -8,7 +8,9 @@ import { Web3Provider } from "@ethersproject/providers";
 import { truncateEthAddress } from "../../helpers/web3/truncateEthAddress";
 
 // Metamask
-export const injected = new InjectedConnector({ supportedChainIds: [1, 5] });
+export const injected = new InjectedConnector({
+  supportedChainIds: [1, 5, 1337], // Main, Goerli, Localhost
+});
 
 export const Identity = (): JSX.Element => {
   const { connector, activate, deactivate, account, error } =
@@ -40,7 +42,7 @@ export const Identity = (): JSX.Element => {
           onClick={async (): Promise<void> => activate(injected)}
           external={false}
         >
-          Link to Metamask
+          Link to Wallet
         </Button>
       )}
       {connector && (

@@ -1,5 +1,13 @@
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
+import { ethers } from "ethers";
+// import hre from "hardhat";
+// import { getContractAt } from "@nomiclabs/hardhat-ethers";
+// import {  } from "hardhat";
 import { useRouter } from "next/router";
+// import desineAbi from "../../../artifacts/contracts/DesineToken.sol/DesineToken.json";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+// import
 import { Button } from "../../components/elements/Button";
 import { DesineCard } from "../../components/elements/DesineCard";
 import { CADViewer } from "../../components/viewer/CADViewer";
@@ -63,6 +71,67 @@ const Mint = (): JSX.Element => {
 
   const [previewCardMetadataLoaded, setPreviewCardMetadataLoaded] =
     useState(false);
+
+  // Minting code.
+  const {
+    account,
+    connector,
+    library: provider,
+    active,
+  } = useWeb3React<Web3Provider>();
+
+  const canMint = useMemo(
+    () =>
+      previewCardMetadataLoaded &&
+      cid &&
+      metadataCid &&
+      account &&
+      provider &&
+      active,
+    [previewCardMetadataLoaded, cid, metadataCid, account, provider, active]
+  );
+
+  const mint = useCallback(async () => {
+    if (!canMint) return;
+
+    // Ethers code
+    console.log("About to use ethers.js to mint NFT");
+
+    console.log("Using account: ", account);
+
+    // A Web3Provider wraps a standard Web3 provider, which is
+    // what MetaMask injects as window.ethereum into each page
+    console.log(provider);
+
+    // MetaMask requires requesting permission to connect users accounts
+    await provider.send("eth_requestAccounts", []);
+
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner();
+
+    // Look up the current block number
+    console.log(await provider.getBlockNumber());
+
+    // Get balance of account
+    console.log(
+      "%s ETH",
+      ethers.utils.formatEther(await provider.getBalance(account))
+    );
+
+    // Attempt to interact with DesineToken contract
+    // const desineTokenContract = await hre.ethers.getContractAt(
+    //   "DesineToken",
+    //   config.settings.desineTokenAddress
+    // );
+
+    // console.log("DesineToken contract: ", desineTokenContract);
+    // console.log(
+    //   "Number of Tokens: ",
+    //   await desineTokenContract.getNumberTokenIds()
+    // );
+  }, [canMint, cid, metadataCid, connector, active, provider, account]);
 
   return (
     <div className="h-full flex flex-col space-y-4">
@@ -305,15 +374,11 @@ const Mint = (): JSX.Element => {
               </Button>
               <Button
                 className="no-animation flex-grow"
-                onClick={() =>
-                  console.log(
-                    `TODO: Trigger web3 wallet check and mint operation for CID ${cid} and Metadata CID ${metadataCid}`
-                  )
-                }
-                disabled={!previewCardMetadataLoaded}
+                onClick={() => mint()}
+                disabled={!canMint}
                 external={false}
               >
-                Mint (TODO)
+                {`Mint${canMint ? "" : " - Please Connect Wallet"}`}
               </Button>
             </div>
           </>
