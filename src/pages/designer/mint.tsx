@@ -12,7 +12,7 @@ import { CADViewer } from "../../components/viewer/CADViewer";
 import { Metadata } from "../../types/Metadata";
 import { config } from "../../env/config";
 import { useDesineTokenContract } from "../../hooks/useDesineTokenContract";
-import { IsMintedAlert } from "../../components/elements/minting/IsMintedAlert";
+import { IsMintedAlert } from "../../components/elements/design/mint/IsMintedAlert";
 
 const Mint = (): JSX.Element => {
   const router = useRouter();

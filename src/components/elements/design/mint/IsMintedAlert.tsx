@@ -1,4 +1,4 @@
-import { DesineTokenContractMintingStatus } from "../../../hooks/useDesineTokenContract";
+import { DesineTokenContractMintingStatus } from "../../../../hooks/useDesineTokenContract";
 
 export interface IsMintedAlertProps {
   isCidMintedStatus: DesineTokenContractMintingStatus;
@@ -10,7 +10,9 @@ export const IsMintedAlert = ({ isCidMintedStatus }: IsMintedAlertProps) => {
       {isCidMintedStatus === "disconnected" && (
         <div className="p-2">
           <div className="alert alert-warning">
-            <p>Please connect wallet to check if CID is already minted</p>
+            <p>
+              Please <b>connect wallet</b> to check if CID is already minted
+            </p>
           </div>
         </div>
       )}

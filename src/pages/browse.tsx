@@ -1,6 +1,6 @@
 import React from "react";
 
-const Customer = (): JSX.Element => {
+const Browse = (): JSX.Element => {
   return (
     <div className="h-full flex items-center justify-center">
       <div className="flex flex-col bg-red-400 p-4 rounded-xl">
@@ -10,4 +10,4 @@ const Customer = (): JSX.Element => {
   );
 };
 
-export default Customer;
+export default Browse;
