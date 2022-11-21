@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "hardhat compile && next build",
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
