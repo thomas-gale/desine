@@ -1,3 +1,5 @@
+import { ethers } from "hardhat";
+
 async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("Deploying DesineToken contract with the account:", deployer.address);

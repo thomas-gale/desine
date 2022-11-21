@@ -42,7 +42,7 @@ export const Identity = (): JSX.Element => {
           onClick={async (): Promise<void> => activate(injected)}
           external={false}
         >
-          Link to Wallet
+          Connect Wallet
         </Button>
       )}
       {connector && (

@@ -20,10 +20,8 @@
     "jsx": "preserve"
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "test/DesineToken.test.js",
   ],
   "exclude": [
     "node_modules"

@@ -1,4 +1,5 @@
-const { expect } = require("chai");
+import { ethers } from "hardhat";
+import { expect } from "chai";
 
 describe("DesineToken contract", function () {
   async function deployContractFixture() {
