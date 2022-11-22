@@ -44,7 +44,7 @@ const Deploy = (): JSX.Element => {
   return (
     <div className="flex flex-col p-4 space-y-2">
       <div className="alert alert-warning">
-        Warning! This utility page is reserved for desine.io/desine.eth
+        Warning! This utility page is reserved for <b>desine</b>
         developers (don't do this unless you want to spend a bunch of ETH for no
         good reason!)
       </div>
@@ -62,8 +62,8 @@ const Deploy = (): JSX.Element => {
       </Button>
       {!!deployedDesineTokenContractAddress && (
         <div className="alert alert-success">
-          New DesineTokenContract Address (you will need to update
-          <i>config.settings.desineTokenAddress</i> on next page build):{" "}
+          New DesineTokenContract Address (you will need to update environment
+          variable <i>NEXT_PUBLIC_DESINE_TOKEN_ADDRESS</i> on next page build):{" "}
           {deployedDesineTokenContractAddress}
         </div>
       )}
