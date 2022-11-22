@@ -44,14 +44,18 @@ const Deploy = (): JSX.Element => {
   return (
     <div className="flex flex-col p-4 space-y-2">
       <div className="alert alert-warning">
-        Warning! This utility page is reserved for <b>desine</b>
-        developers (don't do this unless you want to spend a bunch of ETH for no
-        good reason!)
+        <p>
+          Warning! This utility page is reserved for <b>desine</b>
+          developers (don't do this unless you want to spend a bunch of ETH for
+          no good reason!)
+        </p>
       </div>
       <div className="alert alert-info">
-        Deployed DesineTokenContract Address (configured for this current
-        website): {config.settings.desineTokenAddress} on network:{" "}
-        {getNetworkName()} (id: {config.settings.ethNetworkId})
+        <p>
+          Currently Deployed DesineTokenContract Address (configured for this
+          website): <b>{config.settings.desineTokenAddress}</b> on network:{" "}
+          {getNetworkName()} (id: <b>{config.settings.ethNetworkId}</b>)
+        </p>
       </div>
       <Button
         className={`${!signer && "btn-disabled"}`}
