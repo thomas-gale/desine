@@ -7,7 +7,8 @@ export const config = {
   settings: {
     defaultIpfsGatewayPrefix: "https://ipfs.io/ipfs/",
     defaultIpfsGatewaySuffix: "",
-    desineTokenAddress: "0x7908a8ec43474028bb1bfabdac5e203c2459096e", // This needs to be updated to differentiate for each network type (mainnet, goerli, etc.)
+    ethNetworkId: parseInt(process.env.NEXT_PUBLIC_ETH_NETWORK_ID as string), // Main: 1, Goerli: 5, Localhost: 1337
+    desineTokenAddress: process.env.NEXT_PUBLIC_DESINE_TOKEN_ADDRESS ?? "", // This needs to be updated to differentiate for each network type (mainnet, goerli, etc.)
   },
   links: {
     publicGateWayChecker: "https://ipfs.github.io/public-gateway-checker/",
@@ -19,7 +20,7 @@ export const config = {
       "bafybeieexg5qkwawaepzf4echovapg2mn2yidbzt3yg7fej3saib5fv54a",
     ],
     metadataCids: [
-      "bafkreibcozf3i4fb55ylwd54quwaxmpca33yjung5hfco2huq54hgs6exm"
-    ]
+      "bafkreibcozf3i4fb55ylwd54quwaxmpca33yjung5hfco2huq54hgs6exm",
+    ],
   },
 };

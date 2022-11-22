@@ -5,6 +5,7 @@ import { Web3Provider } from "@ethersproject/providers";
 import { DesineToken__factory } from "../../typechain-types";
 import { Button } from "../components/elements/Button";
 import { config } from "../env/config";
+import { getNetworkName } from "../env/getNetworkName";
 
 const Deploy = (): JSX.Element => {
   const { library: provider } = useWeb3React<Web3Provider>();
@@ -49,14 +50,15 @@ const Deploy = (): JSX.Element => {
       </div>
       <div className="alert alert-info">
         Deployed DesineTokenContract Address (configured for this current
-        website): {config.settings.desineTokenAddress}
+        website): {config.settings.desineTokenAddress} on network:{" "}
+        {getNetworkName()} (id: {config.settings.ethNetworkId})
       </div>
       <Button
         className={`${!signer && "btn-disabled"}`}
         onClick={() => deploy()}
         external={false}
       >
-        Deploy DesineToken.sol Contract
+        Deploy DesineToken.sol Contract on {getNetworkName()}
       </Button>
       {!!deployedDesineTokenContractAddress && (
         <div className="alert alert-success">

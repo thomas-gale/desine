@@ -6,9 +6,11 @@ import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { Web3Provider } from "@ethersproject/providers";
 import { truncateEthAddress } from "../../helpers/web3/truncateEthAddress";
+import { config } from "../../env/config";
+import { getNetworkName } from "../../env/getNetworkName";
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1337], // Main: 1, Goerli: 5, Localhost: 1337
+  supportedChainIds: [config.settings.ethNetworkId],
 });
 
 export const Identity = (): JSX.Element => {
@@ -26,11 +28,11 @@ export const Identity = (): JSX.Element => {
 
   return (
     <div className="m-2 flex flex-row items-center space-x-2">
-      <div className="">
+      <div className="flex flex-col items-end">
         {error ? (
           <div className="flex flex-row items-center space-x-2">
             <MdError />
-            <p>Error</p>
+            <p>Error - ({error.message})</p>
           </div>
         ) : connector ? (
           <div className="flex flex-row items-center space-x-2">
@@ -38,10 +40,15 @@ export const Identity = (): JSX.Element => {
             <p>Connected</p>
           </div>
         ) : (
-          <div className="flex flex-row items-center space-x-2">
-            <MdWarning />
-            <p>Disconnected</p>
-          </div>
+          <>
+            <div className="flex flex-row items-center space-x-2">
+              <MdWarning />
+              <p>Disconnected</p>
+            </div>
+            <p>
+              <b>{getNetworkName()} network only</b>
+            </p>
+          </>
         )}
       </div>
       {!connector && (
