@@ -9,6 +9,7 @@ import {
 import { useClickAway, useMeasure } from "react-use";
 import { useGetMetadata } from "../../hooks/useGetMetadata";
 import { CADViewer } from "../viewer/CADViewer";
+import { DesineCardPreview } from "./desine-card/DesineCardPreview";
 import { Spinner } from "./Spinner";
 
 export interface DesineCardProps {
@@ -26,11 +27,6 @@ export const DesineCard = ({
   ...props
 }: DesineCardProps &
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
-  useEffect(() => {
-    console.log("cadCid", cadCid);
-    console.log("metadataCid", metadataCid);
-  }, [cadCid, metadataCid]);
-
   const { metadata, metadataStatus, imageUrl, isImageUrlWrapped } =
     useGetMetadata(metadataCid);
 
@@ -55,15 +51,6 @@ export const DesineCard = ({
       onSuccessfullyLoaded();
     }
   }, [successfullyLoaded]);
-
-  const [previewMode, setPreviewMode] = useState<"preview" | "full">("preview");
-  const imageContainerRef = useRef(null);
-  useClickAway(imageContainerRef, () => {
-    setPreviewMode("preview");
-  });
-
-  const [previewContainerRef, { width, height }] =
-    useMeasure<HTMLImageElement>();
 
   return (
     <div
@@ -90,41 +77,12 @@ export const DesineCard = ({
           </div>
         </div>
       )}
-      {successfullyLoaded && (
-        <>
-          {previewMode === "preview" && (
-            <div className="overflow-hidden">
-              <div
-                className="overflow-hidden hover:scale-110"
-                onClick={() => setPreviewMode("full")}
-              >
-                <img
-                  ref={previewContainerRef}
-                  src={imageUrl}
-                  alt={`Image of DesineToken ${cadCid}`}
-                  className="h-full w-full max-h-96 max-w-96 object-contain"
-                />
-              </div>
-            </div>
-          )}
-          {previewMode === "full" && (
-            // <div className="flex h-full w-full">
-            <div
-              ref={imageContainerRef}
-              style={{
-                minWidth: width,
-                minHeight: height,
-              }}
-            >
-              <CADViewer stepURL={cadCid} />
-            </div>
-            // </div>
-          )}
-          <div className="card-body flex flex-col">
-            <h2 className="card-title">{metadata?.name}</h2>
-            <p>{metadata?.description}</p>
-          </div>
-        </>
+      {successfullyLoaded && !!metadata && (
+        <DesineCardPreview
+          cadCid={cadCid}
+          imageUrl={imageUrl}
+          metadata={metadata}
+        />
       )}
     </div>
   );
