@@ -17,6 +17,7 @@ export interface DesineCardProps {
   metadataCid: string;
   onLoading?: () => void;
   onSuccessfullyLoaded?: () => void;
+  noLink?: boolean;
 }
 
 export const DesineCard = ({
@@ -24,6 +25,7 @@ export const DesineCard = ({
   metadataCid,
   onLoading,
   onSuccessfullyLoaded,
+  noLink,
   ...props
 }: DesineCardProps &
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
@@ -82,6 +84,7 @@ export const DesineCard = ({
           cadCid={cadCid}
           imageUrl={imageUrl}
           metadata={metadata}
+          noLink={noLink}
         />
       )}
     </div>

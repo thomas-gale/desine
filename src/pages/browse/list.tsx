@@ -22,6 +22,7 @@ const List = (): JSX.Element => {
           mintedTokenIds.map((tokenId) => (
             <div key={tokenId.toString()} className="max-w-sm max-h-sm p-2">
               <DesineCardFromTokenId
+                noLink={false}
                 tokenId={tokenId}
                 desineTokenContract={desineTokenContract}
               />

@@ -140,7 +140,8 @@ const Mint = (): JSX.Element => {
           <>
             <p>
               Pin your .step/stp file with a provider or self pin (we recommend
-              you use multiple options for redundancy)
+              you use multiple options for redundancy. After first upload, it
+              may take a few mins replicate to the the configured gateway)
             </p>
             <div className="h-full flex items-center justify-center">
               <div className="flex flow-row flex-wrap items-center justify-center">
@@ -342,6 +343,7 @@ const Mint = (): JSX.Element => {
                 metadataCid={metadataCid}
                 onLoading={() => setPreviewCardMetadataLoaded(false)}
                 onSuccessfullyLoaded={() => setPreviewCardMetadataLoaded(true)}
+                noLink={true}
               />
             </div>
             <div className="flex flex-row space-x-2">

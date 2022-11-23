@@ -6,11 +6,13 @@ import { DesineCard } from "../DesineCard";
 export interface DesineCardFromTokenIdProps {
   tokenId: BigNumber;
   desineTokenContract: DesineToken;
+  noLink?: boolean;
 }
 
 export const DesineCardFromTokenId = ({
   tokenId,
   desineTokenContract,
+  noLink,
   ...props
 }: DesineCardFromTokenIdProps &
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
@@ -28,5 +30,5 @@ export const DesineCardFromTokenId = ({
   if (!cid || !metadataCid) {
     return <div />;
   }
-  return <DesineCard cadCid={cid} metadataCid={metadataCid} {...props} />;
+  return <DesineCard noLink={noLink} cadCid={cid} metadataCid={metadataCid} {...props} />;
 };

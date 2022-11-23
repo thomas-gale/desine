@@ -2,17 +2,20 @@ import { useRef, useState } from "react";
 import { useClickAway, useMeasure } from "react-use";
 import { Metadata } from "../../../types/Metadata";
 import { CADViewer } from "../../viewer/CADViewer";
+import { Button } from "../Button";
 
 export interface DesineCardPreviewProps {
   cadCid: string;
   imageUrl: string;
   metadata: Metadata;
+  noLink?: boolean;
 }
 
 export const DesineCardPreview = ({
   cadCid,
   imageUrl,
   metadata,
+  noLink,
 }: DesineCardPreviewProps) => {
   const [previewMode, setPreviewMode] = useState<"preview" | "full">("preview");
   const imageContainerRef = useRef(null);
@@ -52,7 +55,13 @@ export const DesineCardPreview = ({
         </div>
       )}
       <div className="card-body flex flex-col">
-        <h2 className="card-title">{metadata.name}</h2>
+        {!!noLink ? (
+          <h2 className="card-title">{metadata.name}</h2>
+        ) : (
+          <a href={!!noLink ? "" : `/browse/item?cid=${cadCid}`}>
+            <h2 className="card-title">{metadata.name}</h2>
+          </a>
+        )}
         <p>{metadata.description}</p>
       </div>
     </>

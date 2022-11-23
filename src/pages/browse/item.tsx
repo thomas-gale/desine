@@ -35,6 +35,7 @@ const Item = (): JSX.Element => {
       {active && !!tokenId && !!desineTokenContract && (
         <div className="flex h-full w-full p-8 items-center justify-center">
           <DesineCardFromTokenId
+            noLink={true}
             tokenId={tokenId}
             desineTokenContract={desineTokenContract}
           />
