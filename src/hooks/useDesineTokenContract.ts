@@ -80,7 +80,21 @@ export const useDesineTokenContractForBrowsing = () => {
     })();
   }, [desineTokenContract, contractDeployed]);
 
-  return { active, mintedTokenIds, desineTokenContract, contractDeployed };
+  const computeDesineTokenId = useCallback(
+    async (cid: string) => {
+      if (!desineTokenContract || !contractDeployed) return;
+      return await desineTokenContract.computeTokenId(cid);
+    },
+    [desineTokenContract, contractDeployed]
+  );
+
+  return {
+    active,
+    mintedTokenIds,
+    computeDesineTokenId,
+    desineTokenContract,
+    contractDeployed,
+  };
 };
 
 export const useDesineTokenContractForMinting = (
@@ -175,8 +189,10 @@ export const useDesineTokenContractForMinting = (
       !contractDeployed
     )
       return;
+
     try {
-      await desineTokenContract.mint(cid, metadataCid);
+      const tx = await desineTokenContract.mint(cid, metadataCid);
+      return tx;
     } catch (error) {
       console.error(error);
     }

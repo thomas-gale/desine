@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { useEffect, useState } from "react";
+import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react";
 import { DesineToken } from "../../../../typechain-types";
 import { DesineCard } from "../DesineCard";
 
@@ -11,7 +11,9 @@ export interface DesineCardFromTokenIdProps {
 export const DesineCardFromTokenId = ({
   tokenId,
   desineTokenContract,
-}: DesineCardFromTokenIdProps) => {
+  ...props
+}: DesineCardFromTokenIdProps &
+  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
   const [cid, setCid] = useState<string>("");
   const [metadataCid, setMetadataCid] = useState<string>("");
 
@@ -26,5 +28,5 @@ export const DesineCardFromTokenId = ({
   if (!cid || !metadataCid) {
     return <div />;
   }
-  return <DesineCard cadCid={cid} metadataCid={metadataCid} />;
+  return <DesineCard cadCid={cid} metadataCid={metadataCid} {...props} />;
 };

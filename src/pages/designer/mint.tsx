@@ -342,8 +342,10 @@ const Mint = (): JSX.Element => {
                 className={`no-animation flex-1 ${canMint && "btn-primary"}`}
                 onClick={async () => {
                   setIsMinting(true);
-                  await mint();
-                  router.push(`/browse/list`); // TODO add url param to filter to just the newly minted card
+                  const tx = await mint();
+                  if (tx) {
+                    router.push(`/browse/item?cid=${cid}&tx=${tx.hash}`); // TODO add url param to filter to just the newly minted card
+                  }
                 }}
                 disabled={!canMint || isMinting}
                 external={false}

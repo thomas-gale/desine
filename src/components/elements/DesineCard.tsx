@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useClickAway } from "react-use";
+import { useClickAway, useMeasure } from "react-use";
 import { useGetMetadata } from "../../hooks/useGetMetadata";
 import { CADViewer } from "../viewer/CADViewer";
 import { Spinner } from "./Spinner";
@@ -57,14 +57,17 @@ export const DesineCard = ({
   }, [successfullyLoaded]);
 
   const [previewMode, setPreviewMode] = useState<"preview" | "full">("preview");
-  const ref = useRef(null);
-  useClickAway(ref, () => {
+  const imageContainerRef = useRef(null);
+  useClickAway(imageContainerRef, () => {
     setPreviewMode("preview");
   });
 
+  const [previewContainerRef, { width, height }] =
+    useMeasure<HTMLImageElement>();
+
   return (
     <div
-      className="card lg:card-side w-full h-full bg-neutral shadow-2xl overflow-hidden"
+      className="card lg:card-side bg-neutral shadow-2xl overflow-hidden"
       {...props}
     >
       {loading && (
@@ -90,18 +93,32 @@ export const DesineCard = ({
       {successfullyLoaded && (
         <>
           {previewMode === "preview" && (
-            <div className="overflow-hidden h-full w-full">
+            <div className="overflow-hidden">
               <div
-                style={{ backgroundImage: `url("${imageUrl}")` }}
-                className="h-full w-full bg-cover bg-center hover:scale-110 overflow-hidden"
+                className="overflow-hidden hover:scale-110"
                 onClick={() => setPreviewMode("full")}
-              />
+              >
+                <img
+                  ref={previewContainerRef}
+                  src={imageUrl}
+                  alt={`Image of DesineToken ${cadCid}`}
+                  className="h-full w-full max-h-96 max-w-96 object-contain"
+                />
+              </div>
             </div>
           )}
           {previewMode === "full" && (
-            <div ref={ref} className="h-full w-full">
+            // <div className="flex h-full w-full">
+            <div
+              ref={imageContainerRef}
+              style={{
+                minWidth: width,
+                minHeight: height,
+              }}
+            >
               <CADViewer stepURL={cadCid} />
             </div>
+            // </div>
           )}
           <div className="card-body flex flex-col">
             <h2 className="card-title">{metadata?.name}</h2>

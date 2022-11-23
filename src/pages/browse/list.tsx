@@ -7,7 +7,7 @@ const List = (): JSX.Element => {
     useDesineTokenContractForBrowsing();
 
   if (!contractDeployed) {
-    return <div/>;
+    return <div />;
   }
   return (
     <div className="flex p-2">
@@ -20,7 +20,7 @@ const List = (): JSX.Element => {
         {active &&
           desineTokenContract &&
           mintedTokenIds.map((tokenId) => (
-            <div className="max-w-sm max-h-sm p-2">
+            <div key={tokenId.toString()} className="max-w-sm max-h-sm p-2">
               <DesineCardFromTokenId
                 tokenId={tokenId}
                 desineTokenContract={desineTokenContract}
