@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import { DesineToken__factory } from "../../typechain-types";
-import { Button } from "../components/elements/Button";
-import { config } from "../env/config";
-import { getNetworkName } from "../env/getNetworkName";
+import { DesineToken__factory } from "../../../typechain-types";
+import { Button } from "../../components/elements/Button";
+import { config } from "../../env/config";
+import { getNetworkName } from "../../env/getNetworkName";
 
 const Deploy = (): JSX.Element => {
   const { library: provider } = useWeb3React<Web3Provider>();
