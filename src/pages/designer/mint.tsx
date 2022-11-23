@@ -178,13 +178,10 @@ const Mint = (): JSX.Element => {
             <div className="flex flex-col pt-4 space-y-2">
               <input
                 type="text"
-                placeholder={
-                  !!cid
-                    ? cid
-                    : "Paste .step CID from your provider (e.g. QmXe... or bafy...)"
-                }
+                placeholder="Paste .step CID from your provider (e.g. QmXe... or bafy...)"
                 className="input input-bordered input-primary bg-neutral w-full"
                 onChange={(e) => setCid(e.target.value)}
+                value={cid}
               />
               <div className="flex flex-row justify-center space-x-2">
                 <Button
@@ -254,17 +251,20 @@ const Mint = (): JSX.Element => {
                 placeholder="Name"
                 className="input input-bordered input-primary bg-neutral max-w-xs"
                 onChange={(e) => setName(e.target.value)}
+                value={name}
               />
               <textarea
                 className="textarea textarea-primary bg-neutral flex-grow"
                 placeholder="Description"
                 onChange={(e) => setDescription(e.target.value)}
+                value={description}
               />
               <input
                 type="text"
                 placeholder="Render image CID"
                 className="input input-bordered input-primary bg-neutral w-full"
                 onChange={(e) => setRender(e.target.value)}
+                value={render}
               />
               <Button
                 className="no-animation"
@@ -284,13 +284,10 @@ const Mint = (): JSX.Element => {
               </h3>
               <input
                 type="text"
-                placeholder={
-                  !!metadataCid
-                    ? metadataCid
-                    : "Paste metadata.json CID from your provider (e.g. QmXe... or bafy...)"
-                }
+                placeholder="Paste metadata.json CID from your provider (e.g. QmXe... or bafy...)"
                 className="input input-bordered input-primary bg-neutral w-full"
                 onChange={(e) => setMetadataCid(e.target.value)}
+                value={metadataCid}
               />
             </div>
             <div className="flex flex-row justify-center space-x-2">
