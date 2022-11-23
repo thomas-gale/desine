@@ -12,11 +12,13 @@ export const STEP = "Step";
 export const MESH = "Mesh";
 export const OBJECT = "Object";
 export const READY = "Ready";
+export const ERROR = "Error";
 
 export const useLoadCadWorkflow = (stepCid: string) => {
   const [loadingState, setLoadingState] = useState<
-    typeof STEP | typeof MESH | typeof OBJECT | typeof READY
+    typeof STEP | typeof MESH | typeof OBJECT | typeof READY | typeof ERROR
   >(STEP);
+  const [errorReason, setErrorReason] = useState<string | null>(null);
 
   // 0. Wrap the IPFS gateway
   const [stepURL, isURLWrapped] = useWrapIpfsGateway(stepCid);
@@ -27,6 +29,11 @@ export const useLoadCadWorkflow = (stepCid: string) => {
     async () => {
       console.log(`1. CADViewer: downloading step ${stepURL}...`);
       let response = await fetch(stepURL);
+      if (!response.ok) {
+        setLoadingState(ERROR);
+        setErrorReason("Failed to download step model");
+        throw new Error("Failed to download step model");
+      }
       let buffer = await response.arrayBuffer();
       let fileBuffer = new Uint8Array(buffer);
       console.log("1. CADViewer: downloaded step!");
@@ -50,6 +57,14 @@ export const useLoadCadWorkflow = (stepCid: string) => {
     meshingWorkerRef.current.addEventListener(
       "message",
       (event: MeshingPostMessageEvent) => {
+        if (!event.data.success) {
+          console.error("2.1 Meshing not successful...");
+          setLoadingState(ERROR);
+          setErrorReason(
+            "Meshing not successful (see console for more details)"
+          );
+          return;
+        }
         console.log("2.1 Receiving meshing post event data, storing result...");
         setMeshedModel(event.data);
         setLoadingState(OBJECT);
@@ -82,6 +97,8 @@ export const useLoadCadWorkflow = (stepCid: string) => {
           console.log("2.1 Posted message to start meshing worker with model!");
         } else {
           console.error("2.1 Meshing worker not available!");
+          setLoadingState(ERROR);
+          setErrorReason("Meshing worker not available");
         }
       })();
     }
@@ -147,5 +164,6 @@ export const useLoadCadWorkflow = (stepCid: string) => {
   return {
     object,
     loadingState,
+    errorReason,
   };
 };

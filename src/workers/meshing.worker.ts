@@ -5,7 +5,12 @@ export interface MeshRequest {
 }
 
 export interface MeshResponse {
-  meshes: { attributes: any; index: any; color: any }[];
+  success: boolean;
+  meshes: {
+    attributes: any;
+    index: any;
+    color: any;
+  }[];
 }
 
 class MeshingListenerMessageEvent extends Event {
@@ -17,9 +22,9 @@ class MeshingListenerMessageEvent extends Event {
 }
 
 export class MeshingPostMessageEvent extends Event {
- constructor(type: string, eventInitDict?: EventInit) {
+  constructor(type: string, eventInitDict?: EventInit) {
     super(type, eventInitDict);
-    this.data = { meshes: [] };
+    this.data = { success: false, meshes: [] };
   }
   data: MeshResponse;
 }

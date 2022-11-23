@@ -65,7 +65,7 @@ const Settings = (): JSX.Element => {
               type="text"
               name="ipfsGatewayPrefix"
               placeholder="e.g. https://cloudflare-ipfs.com/ipfs/ or http://localhost:8080/ipfs/"
-              className="w-full rounded-xl p-4"
+              className="w-full bg-neutral rounded-xl p-4"
             />
           </form>
         </div>
@@ -86,13 +86,14 @@ const Settings = (): JSX.Element => {
               type="text"
               name="ipsGatewaySuffix"
               placeholder="e.g. .ipfs.nftstorage.link/"
-              className="w-full rounded-xl p-4"
+              className="w-full bg-neutral rounded-xl p-4"
             />
           </form>
         </div>
         <div className="flex flex-col">
           <h3 className="">
-            How much data we are storing in your browser (to make stuff faster to load)
+            How much data we are storing in your browser (to make stuff faster
+            to load)
           </h3>
           <div className="flex flew-row items-center space-x-4">
             <h4 className="">
