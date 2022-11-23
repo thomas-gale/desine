@@ -19,12 +19,12 @@ import { IsMintedAlert } from "../../components/elements/design/mint/IsMintedAle
 
 const Mint = (): JSX.Element => {
   const router = useRouter();
-  const { cid: query_cid, metacid: query_metacid } = router.query;
+  const { cid: query_cid, metacid: query_metacid, tx: query_tx } = router.query;
 
   // State of the minting workflow
-  const [step, setStep] = useState<"upload" | "model" | "metadata" | "mint">(
-    "upload"
-  );
+  const [step, setStep] = useState<
+    "upload" | "model" | "metadata" | "mint" | "transaction"
+  >("upload");
   const stepIndex = useMemo(() => {
     switch (step) {
       case "upload":
@@ -35,6 +35,8 @@ const Mint = (): JSX.Element => {
         return 3;
       case "mint":
         return 4;
+      case "transaction":
+        return 5;
     }
   }, [step]);
 
@@ -44,6 +46,7 @@ const Mint = (): JSX.Element => {
   const [description, setDescription] = useState("");
   const [render, setRender] = useState("");
   const [metadataCid, setMetadataCid] = useState("");
+  const [txHash, setTxHash] = useState("");
 
   // Util for creating metadata JSON payload that user can then upload to IPFS
   const getMetadata = useCallback(
@@ -62,7 +65,12 @@ const Mint = (): JSX.Element => {
 
   // Checking which CIDs we have from url params, if so, we can skip the appropriate step
   useEffect(() => {
-    if (!!query_cid && !!query_metacid) {
+    if (!!query_cid && !!query_metacid && !!query_tx) {
+      setCid(query_cid as string);
+      setMetadataCid(query_metacid as string);
+      setTxHash(query_tx as string);
+      setStep("transaction");
+    } else if (!!query_cid && !!query_metacid) {
       setCid(query_cid as string);
       setMetadataCid(query_metacid as string);
       setStep("mint");
@@ -70,7 +78,7 @@ const Mint = (): JSX.Element => {
       setCid(query_cid as string);
       setStep("model");
     }
-  }, [query_cid, query_metacid]);
+  }, [query_cid, query_metacid, query_tx]);
 
   const [previewCardMetadataLoaded, setPreviewCardMetadataLoaded] =
     useState(false);
@@ -114,10 +122,19 @@ const Mint = (): JSX.Element => {
             step == "mint" && "font-black"
           } `}
         >
-          Preview and Mint ERC1155 NFT
+          Preview and Mint
+        </li>
+        <li
+          className={`step ${stepIndex > 4 && "step-primary"}  ${
+            step == "transaction" && "font-black"
+          } `}
+        >
+          Transaction Status
         </li>
       </ul>
-      <IsMintedAlert isCidMintedStatus={isCidMintedStatus} />
+      {step !== "transaction" && (
+        <IsMintedAlert isCidMintedStatus={isCidMintedStatus} />
+      )}
       <div className="flex flex-col flex-grow p-4 space-y-2 rounded-xl">
         {step === "upload" && (
           <>
@@ -338,19 +355,65 @@ const Mint = (): JSX.Element => {
               >
                 Previous
               </Button>
+              {isMinting || txHash ? (
+                <Button
+                  className="no-animation flex-1"
+                  onClick={() => {
+                    setStep("transaction");
+                  }}
+                  external={false}
+                >
+                  Next
+                </Button>
+              ) : (
+                <Button
+                  className={`no-animation flex-1 ${canMint && "btn-primary"}`}
+                  onClick={async () => {
+                    setIsMinting(true);
+                    const tx = await mint();
+                    if (tx) {
+                      setTxHash(tx.hash);
+                      router.push(
+                        `/designer/mint?cid=${cid}&metacid=${metadataCid}&tx=${tx.hash}`,
+                        undefined,
+                        {
+                          shallow: true,
+                        }
+                      );
+                      setStep("transaction");
+                    }
+                  }}
+                  disabled={!canMint || isMinting}
+                  external={false}
+                >
+                  Mint
+                </Button>
+              )}
+            </div>
+          </>
+        )}
+        {step === "transaction" && (
+          <>
+            <div className="flex h-full">
+              <p>
+                Transaction: <b>{txHash}</b> (TODO, add ethers refresh check
+                code)
+              </p>
+            </div>
+            <div className="flex flex-row space-x-2">
               <Button
-                className={`no-animation flex-1 ${canMint && "btn-primary"}`}
-                onClick={async () => {
-                  setIsMinting(true);
-                  const tx = await mint();
-                  if (tx) {
-                    router.push(`/browse/item?cid=${cid}&tx=${tx.hash}`); // TODO add url param to filter to just the newly minted card
-                  }
-                }}
-                disabled={!canMint || isMinting}
+                className="no-animation flex-1"
+                onClick={() => setStep("mint")}
                 external={false}
               >
-                Mint
+                Previous
+              </Button>
+              <Button
+                className={`no-animation flex-1 "btn-primary"`}
+                href={`/browse/item?cid=${cid}`}
+                external={false}
+              >
+                View
               </Button>
             </div>
           </>

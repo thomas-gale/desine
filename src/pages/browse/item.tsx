@@ -6,7 +6,7 @@ import { BigNumber } from "ethers";
 
 const Item = (): JSX.Element => {
   const router = useRouter();
-  const { cid, tx } = router.query;
+  const { cid } = router.query;
 
   const {
     active,
@@ -23,15 +23,8 @@ const Item = (): JSX.Element => {
     })();
   }, [cid, active, contractDeployed]);
 
-  // Add a recompute check here
-
   return (
     <>
-      {!!tx && (
-        <div>
-          Transaction Hash: <b>{tx}</b>
-        </div>
-      )}
       {!active && (
         <div className="p-2">
           <div className="alert alert-info">
