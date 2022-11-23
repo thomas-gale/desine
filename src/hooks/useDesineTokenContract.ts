@@ -39,21 +39,48 @@ export const useDesineTokenContract = () => {
     );
   }, [signer]);
 
-  return { active, provider, account, signer, desineTokenContract };
+  const [checkingContractDeployed, setCheckingContractDeployed] =
+    useState(true);
+  const [contractDeployed, setContractDeployed] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      if (!provider) return;
+      setContractDeployed(
+        (await provider.getCode(config.settings.desineTokenAddress)) !== "0x"
+      );
+      setCheckingContractDeployed(false);
+    })();
+  }, [provider]);
+
+  useEffect(() => {
+    console.log("contractDeployed", contractDeployed);
+  }, [contractDeployed]);
+
+  return {
+    active,
+    provider,
+    account,
+    signer,
+    desineTokenContract,
+    checkingContractDeployed,
+    contractDeployed,
+  };
 };
 
 export const useDesineTokenContractForBrowsing = () => {
-  const { active, desineTokenContract } = useDesineTokenContract();
+  const { active, desineTokenContract, contractDeployed } =
+    useDesineTokenContract();
   // List of all the minted NFTs TODO - check scaling properties of this (will we need to paginate?)
   const [mintedTokenIds, setMintedTokenIds] = useState<BigNumber[]>([]);
   useEffect(() => {
     (async () => {
-      if (!desineTokenContract) return;
+      if (!desineTokenContract || !contractDeployed) return;
       setMintedTokenIds(await desineTokenContract.getTokenIds());
     })();
-  }, [desineTokenContract]);
+  }, [desineTokenContract, contractDeployed]);
 
-  return { active, mintedTokenIds, desineTokenContract };
+  return { active, mintedTokenIds, desineTokenContract, contractDeployed };
 };
 
 export const useDesineTokenContractForMinting = (
@@ -61,8 +88,14 @@ export const useDesineTokenContractForMinting = (
   metadataCid: string,
   previewCardMetadataLoaded: boolean
 ) => {
-  const { active, provider, account, signer, desineTokenContract } =
-    useDesineTokenContract();
+  const {
+    active,
+    provider,
+    account,
+    signer,
+    desineTokenContract,
+    contractDeployed,
+  } = useDesineTokenContract();
 
   // Checking if the user has already minted the NFT
   const [isCidMintedStatus, setIsCidMintedStatus] =
@@ -70,7 +103,7 @@ export const useDesineTokenContractForMinting = (
   const [checkedCid, setCheckedCid] = useState<string | null>(null);
   useEffect(() => {
     (async () => {
-      if (!cid) {
+      if (!cid || !contractDeployed) {
         setIsCidMintedStatus("idle");
         setCheckedCid(null);
         return;
@@ -98,6 +131,7 @@ export const useDesineTokenContractForMinting = (
       }
     })();
   }, [
+    contractDeployed,
     isCidMintedStatus,
     cid,
     checkedCid,
@@ -110,6 +144,7 @@ export const useDesineTokenContractForMinting = (
   // Combined status to determine if the user can mint the NFT
   const canMint = useMemo(
     () =>
+      contractDeployed &&
       previewCardMetadataLoaded &&
       cid &&
       metadataCid &&
@@ -118,6 +153,7 @@ export const useDesineTokenContractForMinting = (
       active &&
       isCidMintedStatus === "notMinted",
     [
+      contractDeployed,
       previewCardMetadataLoaded,
       cid,
       metadataCid,
@@ -130,7 +166,14 @@ export const useDesineTokenContractForMinting = (
 
   // Main Minting function
   const mint = useCallback(async () => {
-    if (!canMint || !provider || !account || !signer || !desineTokenContract)
+    if (
+      !canMint ||
+      !provider ||
+      !account ||
+      !signer ||
+      !desineTokenContract ||
+      !contractDeployed
+    )
       return;
     try {
       await desineTokenContract.mint(cid, metadataCid);
@@ -146,7 +189,8 @@ export const useDesineTokenContractForMinting = (
     account,
     signer,
     desineTokenContract,
+    contractDeployed,
   ]);
 
-  return { isCidMintedStatus, mint, canMint };
+  return { isCidMintedStatus, mint, canMint, contractDeployed };
 };

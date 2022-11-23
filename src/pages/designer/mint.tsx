@@ -76,13 +76,17 @@ const Mint = (): JSX.Element => {
     useState(false);
 
   // Minting code.
-  const { isCidMintedStatus, mint, canMint } = useDesineTokenContractForMinting(
-    cid,
-    metadataCid,
-    previewCardMetadataLoaded
-  );
+  const { isCidMintedStatus, mint, canMint, contractDeployed } =
+    useDesineTokenContractForMinting(
+      cid,
+      metadataCid,
+      previewCardMetadataLoaded
+    );
   const [isMinting, setIsMinting] = useState(false);
 
+  if (!contractDeployed) {
+    return <div />;
+  }
   return (
     <div className="h-full flex flex-col">
       <ul className="steps bg-base-200 p-4">

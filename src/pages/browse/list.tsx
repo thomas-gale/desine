@@ -3,9 +3,12 @@ import { DesineCardFromTokenId } from "../../components/elements/browse/DesineCa
 import { useDesineTokenContractForBrowsing } from "../../hooks/useDesineTokenContract";
 
 const List = (): JSX.Element => {
-  const { active, mintedTokenIds, desineTokenContract } =
+  const { active, mintedTokenIds, desineTokenContract, contractDeployed } =
     useDesineTokenContractForBrowsing();
 
+  if (!contractDeployed) {
+    return <div/>;
+  }
   return (
     <div className="flex p-2">
       {!active && (

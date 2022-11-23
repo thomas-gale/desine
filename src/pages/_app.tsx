@@ -12,6 +12,7 @@ import { TopNav } from "../components/elements/TopNav";
 import { store } from "../state/store";
 import "../styles/globals.css";
 import { saveState } from "../hooks/state";
+import { ContractDeployedCheck } from "../components/web3/ContractDeployedCheck";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getLibrary = (provider: any): Web3Provider => {
@@ -67,6 +68,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
                   </p>
                 </div>
                 <TopNav />
+                <ContractDeployedCheck/>
               </div>
               <div className="flex-grow">
                 <Component {...pageProps} />

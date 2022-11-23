@@ -54,7 +54,7 @@ const Deploy = (): JSX.Element => {
         <p>
           Currently Deployed DesineTokenContract Address (configured for this
           website): <b>{config.settings.desineTokenAddress}</b> on network:{" "}
-          {getNetworkName()} (id: <b>{config.settings.ethNetworkId}</b>)
+          <b>{getNetworkName()}</b> (id: <b>{config.settings.ethNetworkId}</b>)
         </p>
       </div>
       <Button
@@ -66,9 +66,12 @@ const Deploy = (): JSX.Element => {
       </Button>
       {!!deployedDesineTokenContractAddress && (
         <div className="alert alert-success">
-          New DesineTokenContract Address (you will need to update environment
-          variable <i>NEXT_PUBLIC_DESINE_TOKEN_ADDRESS</i> on next page build):{" "}
-          {deployedDesineTokenContractAddress}
+          <p>
+            New DesineTokenContract Address{" "}
+            <b>{deployedDesineTokenContractAddress}</b> (you will need to update
+            environment variable <i>NEXT_PUBLIC_DESINE_TOKEN_ADDRESS</i> on next
+            page build)
+          </p>
         </div>
       )}
     </div>
