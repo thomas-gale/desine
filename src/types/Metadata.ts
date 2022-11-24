@@ -2,8 +2,10 @@ export interface Metadata {
   name: string;
   description: string;
   image: string;
-  // TODO Add external_url once decided on path
-  // TODO Add background_color once decided on desine.eth primary theme
-  // TODO Add animation_url (generated from render)
-	tags: string[];
+  external_url: string;
+  background_color: string;
+  attributes: {
+    trait_type: string;
+    value: string;
+  }[];
 }

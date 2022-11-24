@@ -44,24 +44,32 @@ const Mint = (): JSX.Element => {
   const [cid, setCid] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [tag1, setTag1] = useState("");
+  const [tag2, setTag2] = useState("");
+  const [tag3, setTag3] = useState("");
   const [render, setRender] = useState("");
   const [metadataCid, setMetadataCid] = useState("");
   const [txHash, setTxHash] = useState("");
 
   // Util for creating metadata JSON payload that user can then upload to IPFS
-  const getMetadata = useCallback(
-    () =>
-      JSON.stringify({
-        name,
-        description,
-        image: `ipfs://${render}`,
-        // TODO Add external_url once decided on path
-        // TODO Add background_color once decided on desine.eth primary theme
-        // TODO Add animation_url (generated from render)
-      } as Metadata),
-
-    [name, description, render]
-  );
+  const getMetadata = useCallback(() => {
+    const attributes = [];
+    if (!!tag1)
+      attributes.push({ trait_type: "Tag", value: tag1.toLowerCase() });
+    if (!!tag2)
+      attributes.push({ trait_type: "Tag", value: tag2.toLowerCase() });
+    if (!!tag3)
+      attributes.push({ trait_type: "Tag", value: tag3.toLowerCase() });
+    return JSON.stringify({
+      name,
+      description,
+      image: `ipfs://${render}`,
+      background_color:
+        config.settings.desineTokenMetadataTemplate.background_color,
+      external_url: `https://desine.io/browse/item?cid=${cid}`,
+      attributes,
+    } as Metadata);
+  }, [name, description, render]);
 
   // Checking which CIDs we have from url params, if so, we can skip the appropriate step
   useEffect(() => {
@@ -260,6 +268,29 @@ const Mint = (): JSX.Element => {
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
               />
+              <div className="flex flex-row space-x-2">
+                <input
+                  type="text"
+                  placeholder="Tag 1"
+                  className="input input-bordered input-primary bg-neutral w-full"
+                  onChange={(e) => setTag1(e.target.value)}
+                  value={tag1}
+                />
+                <input
+                  type="text"
+                  placeholder="Tag 2"
+                  className="input input-bordered input-primary bg-neutral w-full"
+                  onChange={(e) => setTag2(e.target.value)}
+                  value={tag2}
+                />
+                <input
+                  type="text"
+                  placeholder="Tag 3"
+                  className="input input-bordered input-primary bg-neutral w-full"
+                  onChange={(e) => setTag3(e.target.value)}
+                  value={tag3}
+                />
+              </div>
               <input
                 type="text"
                 placeholder="Render image CID"

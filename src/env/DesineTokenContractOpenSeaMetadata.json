@@ -1,0 +1,8 @@
+{
+	"name": "Desine",
+	"description": "Desine is a fully open source minting/trading/licensing platform for CAD designers and consumers.",
+	"image": "https://desine.io/android-chrome-512x512.png",
+	"external_link": "https://desine.io",
+	"seller_fee_basis_points": 0,
+	"fee_recipient": "0x0000000000000000000000000000000000000000"
+}

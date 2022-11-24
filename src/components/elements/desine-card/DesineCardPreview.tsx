@@ -63,6 +63,11 @@ export const DesineCardPreview = ({
           </a>
         )}
         <p>{metadata.description}</p>
+        <div className="flex flex-wrap">
+          {metadata.attributes.map(({ value }) => (
+            <div className="m-1 badge badge-secondary p">{value}</div>
+          ))}
+        </div>
       </div>
     </>
   );
