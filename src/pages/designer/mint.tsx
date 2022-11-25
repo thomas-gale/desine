@@ -92,7 +92,7 @@ const Mint = (): JSX.Element => {
     useState(false);
 
   // Minting code.
-  const { isCidMintedStatus, mint, canMint, contractDeployed } =
+  const { isCidMintedStatus, mint, canMint, expectedContractVersionDeployed } =
     useDesineTokenContractForMinting(
       cid,
       metadataCid,
@@ -100,7 +100,7 @@ const Mint = (): JSX.Element => {
     );
   const [isMinting, setIsMinting] = useState(false);
 
-  if (!contractDeployed) {
+  if (!expectedContractVersionDeployed) {
     return <div />;
   }
   return (

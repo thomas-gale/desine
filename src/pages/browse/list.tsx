@@ -3,10 +3,14 @@ import { DesineCardFromTokenId } from "../../components/elements/browse/DesineCa
 import { useDesineTokenContractForBrowsing } from "../../hooks/useDesineTokenContract";
 
 const List = (): JSX.Element => {
-  const { active, mintedTokenIds, desineTokenContract, contractDeployed } =
-    useDesineTokenContractForBrowsing();
+  const {
+    active,
+    mintedTokenIds,
+    desineTokenContract,
+    expectedContractVersionDeployed,
+  } = useDesineTokenContractForBrowsing();
 
-  if (!contractDeployed) {
+  if (!expectedContractVersionDeployed) {
     return <div />;
   }
   return (

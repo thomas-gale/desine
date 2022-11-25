@@ -12,7 +12,7 @@ const Item = (): JSX.Element => {
     active,
     computeDesineTokenId,
     desineTokenContract,
-    contractDeployed,
+    expectedContractVersionDeployed,
   } = useDesineTokenContractForBrowsing();
 
   const [tokenId, setTokenId] = useState<BigNumber>();
@@ -21,7 +21,7 @@ const Item = (): JSX.Element => {
       if (!cid) return;
       setTokenId(await computeDesineTokenId(cid as string));
     })();
-  }, [cid, active, contractDeployed]);
+  }, [cid, active, expectedContractVersionDeployed]);
 
   return (
     <>

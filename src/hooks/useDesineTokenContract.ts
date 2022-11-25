@@ -41,21 +41,25 @@ export const useDesineTokenContract = () => {
 
   const [checkingContractDeployed, setCheckingContractDeployed] =
     useState(true);
-  const [contractDeployed, setContractDeployed] = useState(false);
+  const [expectedContractVersionDeployed, setExpectedContractVersionDeployed] =
+    useState(false);
 
   useEffect(() => {
     (async () => {
-      if (!provider) return;
-      setContractDeployed(
-        (await provider.getCode(config.settings.desineTokenAddress)) !== "0x"
+      if (!provider || !desineTokenContract) return;
+      const deploy =
+        (await provider.getCode(config.settings.desineTokenAddress)) !== "0x";
+      const versionsMatch = (await desineTokenContract.getVersion()).eq(
+        BigNumber.from(config.contractVersion)
       );
+      setExpectedContractVersionDeployed(deploy && versionsMatch);
       setCheckingContractDeployed(false);
     })();
-  }, [provider]);
+  }, [provider, desineTokenContract]);
 
   useEffect(() => {
-    console.log("contractDeployed", contractDeployed);
-  }, [contractDeployed]);
+    console.log("contractDeployed", expectedContractVersionDeployed);
+  }, [expectedContractVersionDeployed]);
 
   return {
     active,
@@ -64,28 +68,28 @@ export const useDesineTokenContract = () => {
     signer,
     desineTokenContract,
     checkingContractDeployed,
-    contractDeployed,
+    expectedContractVersionDeployed,
   };
 };
 
 export const useDesineTokenContractForBrowsing = () => {
-  const { active, desineTokenContract, contractDeployed } =
+  const { active, desineTokenContract, expectedContractVersionDeployed } =
     useDesineTokenContract();
   // List of all the minted NFTs TODO - check scaling properties of this (will we need to paginate?)
   const [mintedTokenIds, setMintedTokenIds] = useState<BigNumber[]>([]);
   useEffect(() => {
     (async () => {
-      if (!desineTokenContract || !contractDeployed) return;
+      if (!desineTokenContract || !expectedContractVersionDeployed) return;
       setMintedTokenIds(await desineTokenContract.getTokenIds());
     })();
-  }, [desineTokenContract, contractDeployed]);
+  }, [desineTokenContract, expectedContractVersionDeployed]);
 
   const computeDesineTokenId = useCallback(
     async (cid: string) => {
-      if (!desineTokenContract || !contractDeployed) return;
+      if (!desineTokenContract || !expectedContractVersionDeployed) return;
       return await desineTokenContract.computeTokenId(cid);
     },
-    [desineTokenContract, contractDeployed]
+    [desineTokenContract, expectedContractVersionDeployed]
   );
 
   return {
@@ -93,7 +97,7 @@ export const useDesineTokenContractForBrowsing = () => {
     mintedTokenIds,
     computeDesineTokenId,
     desineTokenContract,
-    contractDeployed,
+    expectedContractVersionDeployed,
   };
 };
 
@@ -108,7 +112,7 @@ export const useDesineTokenContractForMinting = (
     account,
     signer,
     desineTokenContract,
-    contractDeployed,
+    expectedContractVersionDeployed,
   } = useDesineTokenContract();
 
   // Checking if the user has already minted the NFT
@@ -117,7 +121,7 @@ export const useDesineTokenContractForMinting = (
   const [checkedCid, setCheckedCid] = useState<string | null>(null);
   useEffect(() => {
     (async () => {
-      if (!cid || !contractDeployed) {
+      if (!cid || !expectedContractVersionDeployed) {
         setIsCidMintedStatus("idle");
         setCheckedCid(null);
         return;
@@ -145,7 +149,7 @@ export const useDesineTokenContractForMinting = (
       }
     })();
   }, [
-    contractDeployed,
+    expectedContractVersionDeployed,
     isCidMintedStatus,
     cid,
     checkedCid,
@@ -158,7 +162,7 @@ export const useDesineTokenContractForMinting = (
   // Combined status to determine if the user can mint the NFT
   const canMint = useMemo(
     () =>
-      contractDeployed &&
+      expectedContractVersionDeployed &&
       previewCardMetadataLoaded &&
       cid &&
       metadataCid &&
@@ -167,7 +171,7 @@ export const useDesineTokenContractForMinting = (
       active &&
       isCidMintedStatus === "notMinted",
     [
-      contractDeployed,
+      expectedContractVersionDeployed,
       previewCardMetadataLoaded,
       cid,
       metadataCid,
@@ -186,7 +190,7 @@ export const useDesineTokenContractForMinting = (
       !account ||
       !signer ||
       !desineTokenContract ||
-      !contractDeployed
+      !expectedContractVersionDeployed
     )
       return;
 
@@ -205,8 +209,13 @@ export const useDesineTokenContractForMinting = (
     account,
     signer,
     desineTokenContract,
-    contractDeployed,
+    expectedContractVersionDeployed,
   ]);
 
-  return { isCidMintedStatus, mint, canMint, contractDeployed };
+  return {
+    isCidMintedStatus,
+    mint,
+    canMint,
+    expectedContractVersionDeployed,
+  };
 };

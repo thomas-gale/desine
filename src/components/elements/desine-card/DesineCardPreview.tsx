@@ -31,14 +31,14 @@ export const DesineCardPreview = ({
       {previewMode === "preview" && (
         <div className="overflow-hidden">
           <div
-            className="overflow-hidden hover:scale-110"
+            className="h-full w-full overflow-hidden hover:scale-110"
             onClick={() => setPreviewMode("full")}
           >
             <img
               ref={previewContainerRef}
               src={imageUrl}
               alt={`Image of DesineToken ${cadCid}`}
-              className="h-full w-full max-h-96 max-w-96 object-contain"
+              className="h-full w-full object-cover"
             />
           </div>
         </div>

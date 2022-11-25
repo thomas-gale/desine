@@ -14,6 +14,16 @@ contract DesineToken is ERC1155 {
         console.log("Constructing DesineToken contract");
     }
 
+    // Version for sanity checks (0: pre-release, >1: releases)
+    function getVersion() public pure returns (uint256) {
+        return 0;
+    }
+
+    // For OpenSea
+    function contractURI() public pure returns (string memory) {
+        return "https://desine.io/DesineTokenContractOpenSeaMetadata.json";
+    }
+
     function getNumberTokenIds() public view returns (uint256) {
         return tokenIds.length;
     }
@@ -25,6 +35,11 @@ contract DesineToken is ERC1155 {
     // TODO check if rather than hash, which has probabilistic clash, we could convert cid (base58) to uint256 directly
     function computeTokenId(string memory cid) public pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(cid)));
+    }
+
+    // For OpenSea
+    function tokenURI(uint256 _tokenId) public view returns (string memory) {
+        return string.concat("ipfs://", metadataCids[_tokenId]);
     }
 
     function isCidAlreadyMinted(string memory cid) public view returns (bool) {
