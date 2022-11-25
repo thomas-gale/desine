@@ -1,6 +1,7 @@
 import React, { FormEvent, useCallback, useMemo, useState } from "react";
 import { Button } from "../components/elements/Button";
 import { config } from "../env/config";
+import { getNetworkName } from "../env/getNetworkName";
 import { useClearLocalStorage } from "../hooks/useClearLocalStorage";
 import { useGetLocalStorageSize } from "../hooks/useGetLocalStorageSize";
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -41,6 +42,14 @@ const Settings = (): JSX.Element => {
   return (
     <div className="h-full flex flex-col p-4 space-y-4">
       <div className="flex flex-col h-full p-4 rounded-xl space-y-4">
+        <div className="alert alert-info">
+          <p>
+            Current DesineTokenContract Address (configured for this
+            website): <b>{config.settings.desineTokenAddress} v{config.contractVersion}</b> on network:{" "}
+            <b>{getNetworkName()}</b> (id: <b>{config.settings.ethNetworkId}</b>
+            )
+          </p>
+        </div>
         <Button href={config.links.publicGateWayChecker} external={true}>
           Public IPFS gateway checker
         </Button>
