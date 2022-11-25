@@ -14,7 +14,7 @@ export const useGetMetadata = (cid: string) => {
       console.log("1. GetMetadata: downloaded json!");
       const metadata = data as Metadata;
       // TODO, thoroughly sanitize data
-      metadata.name = metadata.description.slice(0, 100); // To check
+      metadata.name = metadata.name.slice(0, 100); // To check
       metadata.description = metadata.description.slice(0, 300); // To check
       metadata.attributes = metadata.attributes.slice(0, 3); // To check
       return metadata;
