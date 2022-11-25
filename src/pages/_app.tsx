@@ -14,7 +14,6 @@ import "../styles/globals.css";
 import { saveState } from "../hooks/state";
 import { ContractDeployedCheck } from "../components/web3/ContractDeployedCheck";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider);
   library.pollingInterval = 12000;
@@ -68,7 +67,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
                   </p>
                 </div>
                 <TopNav />
-                <ContractDeployedCheck/>
+                <ContractDeployedCheck />
               </div>
               <div className="flex-grow">
                 <Component {...pageProps} />

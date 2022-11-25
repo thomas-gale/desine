@@ -46,7 +46,7 @@ const Deploy = (): JSX.Element => {
       <div className="alert alert-warning">
         <p>
           Warning! This utility page is reserved for <b>desine</b>
-          developers (don't do this unless you want to spend a bunch of ETH for
+          developers (do not do this unless you want to spend a bunch of ETH for
           no good reason!)
         </p>
       </div>

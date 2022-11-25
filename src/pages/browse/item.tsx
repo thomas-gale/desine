@@ -22,7 +22,7 @@ const Item = (): JSX.Element => {
       if (!cid) return;
       setTokenId(await computeDesineTokenId(cid as string));
     })();
-  }, [cid, active, expectedContractVersionDeployed]);
+  }, [cid, active, expectedContractVersionDeployed, computeDesineTokenId]);
 
   return (
     <>

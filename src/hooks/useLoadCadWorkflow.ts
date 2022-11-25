@@ -75,7 +75,7 @@ export const useLoadCadWorkflow = (stepCid: string) => {
       console.log("Terminating meshing web worker...");
       meshingWorkerRef.current?.terminate();
     };
-  }, []);
+  }, [setMeshedModel]);
 
   // 2.2 Trigger step->mesh conversion
   useEffect(() => {

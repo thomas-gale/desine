@@ -1,18 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
-import { Web3Provider } from "@ethersproject/providers";
-import { useWeb3React } from "@web3-react/core";
-import { ethers } from "ethers";
-import { DesineToken__factory } from "../../../typechain-types";
-
 import { Button } from "../../components/elements/Button";
 import { DesineCard } from "../../components/elements/DesineCard";
 import { CADViewer } from "../../components/viewer/CADViewer";
 import { Metadata } from "../../types/Metadata";
 import { config } from "../../env/config";
 import {
-  useDesineTokenContract,
   useDesineTokenContractForMinting,
 } from "../../hooks/useDesineTokenContract";
 import { IsMintedAlert } from "../../components/elements/design/mint/IsMintedAlert";
@@ -69,7 +63,7 @@ const Mint = (): JSX.Element => {
       external_url: `https://desine.io/browse/item?cid=${cid}`,
       attributes,
     } as Metadata);
-  }, [name, description, render]);
+  }, [tag1, tag2, tag3, name, description, render, cid]);
 
   // Checking which CIDs we have from url params, if so, we can skip the appropriate step
   useEffect(() => {

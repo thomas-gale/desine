@@ -63,10 +63,6 @@ export const useDesineTokenContract = () => {
     })();
   }, [provider, desineTokenContract]);
 
-  useEffect(() => {
-    console.log("contractDeployed", expectedContractVersionDeployed);
-  }, [expectedContractVersionDeployed]);
-
   return {
     active,
     provider,
@@ -79,8 +75,12 @@ export const useDesineTokenContract = () => {
 };
 
 export const useDesineTokenContractForBrowsing = () => {
-  const { active, desineTokenContract, checkingContractDeployed, expectedContractVersionDeployed } =
-    useDesineTokenContract();
+  const {
+    active,
+    desineTokenContract,
+    checkingContractDeployed,
+    expectedContractVersionDeployed,
+  } = useDesineTokenContract();
   // List of all the minted NFTs TODO - check scaling properties of this (will we need to paginate?)
   const [mintedTokenIds, setMintedTokenIds] = useState<BigNumber[]>([]);
   useEffect(() => {
@@ -211,7 +211,6 @@ export const useDesineTokenContractForMinting = (
     canMint,
     cid,
     metadataCid,
-    active,
     provider,
     account,
     signer,

@@ -33,7 +33,7 @@ const About = (): JSX.Element => {
         its terms of service behind this tool. You are in{" "}
         <b>complete control</b>, you can even cache a copy of{" "}
         <a href="http://desine.eth.limo/">the Desine web app</a> which is a
-        static webpage that doesn't talk to any server but instead is hosted on{" "}
+        static webpage that does not talk to any server but instead is hosted on{" "}
         <a href="https://ipfs.io/">IPFS</a> and served directly to your computer
         from other IPFS nodes pinning this page (including some that we, the
         developers of Desine, are running). You upload your designs to IPFS
@@ -45,7 +45,7 @@ const About = (): JSX.Element => {
       </p>
       <h2 className="mt-2">So how do I get started?</h2>
       <h3 className="mt-2">
-        <b>I'm a designer</b>
+        <b>I am a designer</b>
       </h3>
       <ol className="list-decimal list-inside">
         <li>
@@ -60,7 +60,7 @@ const About = (): JSX.Element => {
             content identifier
           </a>{" "}
           and paste it into the NFT minting transaction inputs. The minting
-          contract will check that that content hash hasn't already been minted
+          contract will check that that content hash has not already been minted
           by somebody else. You will also configure tags and other properties
           associated with your design. Once minted, you will now possess a
           unique NFT that represents your design.
@@ -68,11 +68,11 @@ const About = (): JSX.Element => {
         <li>
           Configure a licensing agreement for your design. You can then execute
           a second Ethereum smart contract transaction to define a license for
-          your design. This might be part of step two, we haven't decided yet!
+          your design. This might be part of step two, we have not decided yet!
         </li>
       </ol>
       <h3 className="mt-2">
-        <b>I'm a manufacturer/consumer</b>
+        <b>I am a manufacturer/consumer</b>
         <ol className="list-decimal list-inside">
           <li>Browse OpenSea or inbuilt Desine browsing tools</li>
           <li>
@@ -83,7 +83,7 @@ const About = (): JSX.Element => {
         </ol>
       </h3>
       <h2 className="mt-2">
-        Isn't the blockchain expensive (e.g. high gas fees)?
+        Is not the blockchain expensive (e.g. high gas fees)?
       </h2>
       <p>
         We plan on deploying this application on{" "}
@@ -104,7 +104,7 @@ const About = (): JSX.Element => {
         embeddable widgets that manufacturers can use to provide that this
         design is either owned or licensed by a particular person or company and
         valid at the point in time. Ultimately we want end users to adopt a{" "}
-        <i>"don't trust, verify"</i> approach to using your designs and ensuring
+        <i>do not trust, verify</i> approach to using your designs and ensuring
         that the original owner is either getting attribution via licensing
         payments or has been correctly compensated and has willing sold the
         design to this manufacturer/consumer. The true solution is for
@@ -117,14 +117,14 @@ const About = (): JSX.Element => {
         stop them?
       </h2>
       <p>
-        While, somebody cam't mint an exact copy of your design (as the IPFS
+        While, somebody can not mint an exact copy of your design (as the IPFS
         content hash is checked during the minting contract execution), sadly,
         in a trustless non-gatekept ecosystem, copying and derived works/blatant
         copies are very common. We do plan on implementing a means to try and
         contest a work, however, we fear this will lead to some form of
-        centralization (which we don't want). OpenSea does have a ban list, we
+        centralization (which we do not want). OpenSea does have a ban list, we
         could see if there is a way to integrate something similar. We would
-        probably require you to post some kind of collateral, and if it's deemed
+        probably require you to post some kind of collateral, and if it is deemed
         that work is not plagiarized, we would take a small fee in payment for
         whoever had to spend time appraised a false claim. However, if the claim
         is upheld, we will take only the gas fee to post a plagiarized warning

@@ -34,6 +34,7 @@ export const DesineCardPreview = ({
             className="h-full w-full overflow-hidden hover:scale-110"
             onClick={() => setPreviewMode("full")}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={previewContainerRef}
               src={imageUrl}
@@ -65,7 +66,7 @@ export const DesineCardPreview = ({
         <p>{metadata.description}</p>
         <div className="flex flex-wrap">
           {metadata.attributes.map(({ value }) => (
-            <div className="m-1 badge badge-secondary p">{value}</div>
+            <div key={value} className="m-1 badge badge-secondary p">{value}</div>
           ))}
         </div>
       </div>

@@ -46,13 +46,13 @@ export const DesineCard = ({
     if (loading && onLoading) {
       onLoading();
     }
-  }, [loading]);
+  }, [loading, onLoading]);
 
   useEffect(() => {
     if (successfullyLoaded && onSuccessfullyLoaded) {
       onSuccessfullyLoaded();
     }
-  }, [successfullyLoaded]);
+  }, [onSuccessfullyLoaded, successfullyLoaded]);
 
   return (
     <div

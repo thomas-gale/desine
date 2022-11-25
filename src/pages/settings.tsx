@@ -25,7 +25,11 @@ const Settings = (): JSX.Element => {
     );
 
   const getLocalStorageSize = useGetLocalStorageSize();
-  const localStorageSize = useMemo(() => getLocalStorageSize(), [writeSeed]);
+  const localStorageSize = useMemo(
+    () => getLocalStorageSize(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [getLocalStorageSize, writeSeed]
+  );
   const clearLocalStorage = useClearLocalStorage();
   const clearLocalStorageAndReload = useCallback(() => {
     clearLocalStorage();

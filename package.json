@@ -55,6 +55,8 @@
     "@web3-react/types": "^6.0.7",
     "autoprefixer": "^10.4.2",
     "chai": "^4.3.7",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.2",
     "hardhat-gas-reporter": "^1.0.9",

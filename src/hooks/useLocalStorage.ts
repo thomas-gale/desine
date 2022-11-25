@@ -20,7 +20,7 @@ export const useLocalStorage = <T>(
       }
       setLoaded(true);
     }
-  }, [storageKey, fallbackState, ...deps]);
+  }, [storageKey, fallbackState, deps]);
 
   useEffect(() => {
     if (loaded) {

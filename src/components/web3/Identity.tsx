@@ -24,6 +24,7 @@ export const Identity = (): JSX.Element => {
         activate(injected);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activate, injected]);
 
   return (
