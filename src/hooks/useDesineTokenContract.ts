@@ -47,12 +47,18 @@ export const useDesineTokenContract = () => {
   useEffect(() => {
     (async () => {
       if (!provider || !desineTokenContract) return;
-      const deploy =
+      const somethingDeployed =
         (await provider.getCode(config.settings.desineTokenAddress)) !== "0x";
-      const versionsMatch = (await desineTokenContract.getVersion()).eq(
-        BigNumber.from(config.contractVersion)
-      );
-      setExpectedContractVersionDeployed(deploy && versionsMatch);
+      let versionsMatch;
+      try {
+        versionsMatch = (await desineTokenContract.getVersion()).eq(
+          BigNumber.from(config.contractVersion)
+        );
+      } catch (e) {
+        console.error(e);
+        versionsMatch = false;
+      }
+      setExpectedContractVersionDeployed(somethingDeployed && versionsMatch);
       setCheckingContractDeployed(false);
     })();
   }, [provider, desineTokenContract]);
