@@ -12,7 +12,12 @@ export const useGetMetadata = (cid: string) => {
       let response = await fetch(metadataUrl);
       let data = await response.json();
       console.log("1. GetMetadata: downloaded json!");
-      return data as Metadata;
+      const metadata = data as Metadata;
+      // TODO, thoroughly sanitize data
+      metadata.name = metadata.description.slice(0, 100); // To check
+      metadata.description = metadata.description.slice(0, 300); // To check
+      metadata.attributes = metadata.attributes.slice(0, 3); // To check
+      return metadata;
     },
     {
       enabled: isMetadataUrlWrapped && !!cid,
