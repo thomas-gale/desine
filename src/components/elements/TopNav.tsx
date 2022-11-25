@@ -40,6 +40,11 @@ export const TopNav = (): JSX.Element => {
             <p>Settings</p>
           </div>
         </Button>
+        <Button className="mx-2" href={`https://testnets.opensea.io/assets?search[query]=${config.settings.desineTokenAddress}`} external={true}>
+          <div className="flex flex-row space-x-2 items-center">
+            <p>OpenSea</p>
+          </div>
+        </Button>
         <Button className="mx-2" href={config.github} external={true}>
           <div className="flex flex-row space-x-2 items-center">
             <FaGithub />
