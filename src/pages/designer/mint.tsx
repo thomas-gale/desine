@@ -221,7 +221,9 @@ const Mint = (): JSX.Element => {
                   setStep("model");
                 }
               }}
-              disabled={!cid || cid.length === 0}
+              disabled={
+                !cid || cid.length === 0 || isCidMintedStatus === "minted"
+              }
               external={false}
             >
               Next
@@ -245,6 +247,7 @@ const Mint = (): JSX.Element => {
               <Button
                 className="no-animation flex-1"
                 onClick={() => setStep("metadata")}
+                disabled={isCidMintedStatus === "minted"}
                 external={false}
               >
                 Next
@@ -352,7 +355,11 @@ const Mint = (): JSX.Element => {
                     setStep("mint");
                   }
                 }}
-                disabled={!metadataCid || metadataCid.length === 0}
+                disabled={
+                  !metadataCid ||
+                  metadataCid.length === 0 ||
+                  isCidMintedStatus === "minted"
+                }
                 external={false}
               >
                 Next
@@ -391,6 +398,7 @@ const Mint = (): JSX.Element => {
                   onClick={() => {
                     setStep("transaction");
                   }}
+                  disabled={isCidMintedStatus === "minted"}
                   external={false}
                 >
                   Next
