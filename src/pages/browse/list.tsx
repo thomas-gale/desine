@@ -7,10 +7,11 @@ const List = (): JSX.Element => {
     active,
     mintedTokenIds,
     desineTokenContract,
+    checkingContractDeployed,
     expectedContractVersionDeployed,
   } = useDesineTokenContractForBrowsing();
 
-  if (!expectedContractVersionDeployed) {
+  if (checkingContractDeployed || !expectedContractVersionDeployed) {
     return <div />;
   }
   return (

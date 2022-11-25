@@ -16,6 +16,7 @@ export const DesineCardFromTokenId = ({
   ...props
 }: DesineCardFromTokenIdProps &
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
+  const [loading, setLoading] = useState(true);
   const [cid, setCid] = useState<string>("");
   const [metadataCid, setMetadataCid] = useState<string>("");
 
@@ -24,11 +25,26 @@ export const DesineCardFromTokenId = ({
       if (!tokenId || !desineTokenContract) return;
       setCid(await desineTokenContract.cids(tokenId));
       setMetadataCid(await desineTokenContract.metadataCids(tokenId));
+      setLoading(false);
     })();
   }, [tokenId, desineTokenContract]);
 
-  if (!cid || !metadataCid) {
+  if (loading) {
     return <div />;
   }
-  return <DesineCard noLink={noLink} cadCid={cid} metadataCid={metadataCid} {...props} />;
+  if (!cid || !metadataCid) {
+    return (
+      <div className="alert alert-info">
+        <p>This token is not minted yet!</p>
+      </div>
+    );
+  }
+  return (
+    <DesineCard
+      noLink={noLink}
+      cadCid={cid}
+      metadataCid={metadataCid}
+      {...props}
+    />
+  );
 };

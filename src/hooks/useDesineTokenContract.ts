@@ -79,7 +79,7 @@ export const useDesineTokenContract = () => {
 };
 
 export const useDesineTokenContractForBrowsing = () => {
-  const { active, desineTokenContract, expectedContractVersionDeployed } =
+  const { active, desineTokenContract, checkingContractDeployed, expectedContractVersionDeployed } =
     useDesineTokenContract();
   // List of all the minted NFTs TODO - check scaling properties of this (will we need to paginate?)
   const [mintedTokenIds, setMintedTokenIds] = useState<BigNumber[]>([]);
@@ -103,6 +103,7 @@ export const useDesineTokenContractForBrowsing = () => {
     mintedTokenIds,
     computeDesineTokenId,
     desineTokenContract,
+    checkingContractDeployed,
     expectedContractVersionDeployed,
   };
 };

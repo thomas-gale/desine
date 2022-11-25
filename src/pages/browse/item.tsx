@@ -12,6 +12,7 @@ const Item = (): JSX.Element => {
     active,
     computeDesineTokenId,
     desineTokenContract,
+    checkingContractDeployed,
     expectedContractVersionDeployed,
   } = useDesineTokenContractForBrowsing();
 
@@ -32,15 +33,19 @@ const Item = (): JSX.Element => {
           </div>
         </div>
       )}
-      {active && !!tokenId && !!desineTokenContract && (
-        <div className="flex h-full w-full p-8 items-center justify-center">
-          <DesineCardFromTokenId
-            noLink={true}
-            tokenId={tokenId}
-            desineTokenContract={desineTokenContract}
-          />
-        </div>
-      )}
+      {active &&
+        !!tokenId &&
+        !!desineTokenContract &&
+        !checkingContractDeployed &&
+        expectedContractVersionDeployed && (
+          <div className="flex h-full w-full p-8 items-center justify-center">
+            <DesineCardFromTokenId
+              noLink={true}
+              tokenId={tokenId}
+              desineTokenContract={desineTokenContract}
+            />
+          </div>
+        )}
     </>
   );
 };
