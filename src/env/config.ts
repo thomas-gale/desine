@@ -6,8 +6,8 @@ export const config = {
   description: "Desine is a decentralized CAD Design licensing marketplace",
   github: "https://github.com/thomas-gale/desine",
   settings: {
-    defaultIpfsGatewayPrefix: "https://ipfs.io/ipfs/",
-    defaultIpfsGatewaySuffix: "",
+    defaultIpfsGatewayPrefix: "https://",
+    defaultIpfsGatewaySuffix: ".ipfs.nftstorage.link",
     ethNetworkId: parseInt(process.env.NEXT_PUBLIC_ETH_NETWORK_ID as string), // Main: 1, Goerli: 5, Localhost: 1337
     desineTokenAddress: process.env.NEXT_PUBLIC_DESINE_TOKEN_ADDRESS ?? "", // This needs to be updated to differentiate for each network type (mainnet, goerli, etc.)
     desineTokenMetadataTemplate: {
