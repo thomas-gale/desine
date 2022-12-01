@@ -15,7 +15,7 @@ export const TopNavBar = (): JSX.Element => {
     () => (
       <>
         <li tabIndex={0}>
-          <Button className="mx-2" href="/about" external={false}>
+          <Button href="/about" external={false}>
             <div className="flex flex-row space-x-2 items-center">
               <FaQuestionCircle />
               <p>About</p>
@@ -23,7 +23,7 @@ export const TopNavBar = (): JSX.Element => {
           </Button>
         </li>
         <li tabIndex={1}>
-          <Button className="mx-2" href="/settings" external={false}>
+          <Button href="/settings" external={false}>
             <div className="flex flex-row space-x-2 items-center">
               <MdOutlineSettings />
               <p>Settings</p>
@@ -32,7 +32,6 @@ export const TopNavBar = (): JSX.Element => {
         </li>
         <li tabIndex={2}>
           <Button
-            className="mx-2"
             href={`https://testnets.opensea.io/assets?search[query]=${config.settings.desineTokenAddress}`}
             external={true}
           >
@@ -42,7 +41,7 @@ export const TopNavBar = (): JSX.Element => {
           </Button>
         </li>
         <li tabIndex={3}>
-          <Button className="mx-2" href={config.github} external={true}>
+          <Button href={config.github} external={true}>
             <div className="flex flex-row space-x-2 items-center">
               <FaGithub />
               <p>GitHub</p>
@@ -59,12 +58,12 @@ export const TopNavBar = (): JSX.Element => {
       <div className="navbar bg-base-300 shadow-md">
         <div className="navbar-start">
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost xl::hidden">
+            <label tabIndex={0} className="btn btn-ghost xl:hidden">
               <VscListSelection className="h-5 w-5" />
             </label>
             <ul
               tabIndex={0}
-              className="menu dropdown-content mt-3 p-2 bg-base-200 rounded-box w-52 space-y-2"
+              className="menu dropdown-content p-2 bg-base-200 rounded-box space-y-2"
             >
               {links}
             </ul>
@@ -86,7 +85,7 @@ export const TopNavBar = (): JSX.Element => {
           </Button>
         </div>
         <div className="navbar-center hidden xl:flex">
-          <ul className="menu menu-horizontal p-0">{links}</ul>
+          <ul className="menu menu-horizontal p-2 space-x-2">{links}</ul>
         </div>
         <div className="navbar-end">
           <Identity />

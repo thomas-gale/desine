@@ -24,27 +24,27 @@ export const Identity = (): JSX.Element => {
         activate(injected);
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activate, injected]);
 
   return (
-    <div className="m-2 flex flex-row items-center space-x-2">
+    <div className="flex flex-row items-center space-x-2">
       <div className="flex flex-col items-end">
         {error ? (
           <div className="flex flex-row items-center space-x-2">
             <MdError />
-            <p>Error - ({error.message})</p>
+            <p className="hidden sm:flex">Error - ({error.message})</p>
           </div>
         ) : connector ? (
           <div className="flex flex-row items-center space-x-2">
             <MdOutlineCheckCircle />
-            <p>Connected</p>
+            <p className="hidden sm:flex">Connected</p>
           </div>
         ) : (
           <>
             <div className="flex flex-row items-center space-x-2">
               <MdWarning />
-              <p>Disconnected</p>
+              <p className="hidden sm:flex">Disconnected</p>
             </div>
             <p>
               <b>{getNetworkName()} network only</b>
