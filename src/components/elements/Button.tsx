@@ -21,7 +21,7 @@ export const Button = (
 
   return (
     <a
-      className={`btn ${disabled && "btn-disabled"} ${className}`}
+      className={`btn${disabled ? " btn-disabled": ""} ${className}`}
       target={external ? "_blank" : ""}
       rel="noopener noreferrer"
       aria-disabled={disabled}

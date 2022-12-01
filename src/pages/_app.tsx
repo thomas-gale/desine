@@ -8,7 +8,7 @@ import { Web3ReactProvider } from "@web3-react/core";
 import { Provider as ReduxProvider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "../env/config";
-import { TopNav } from "../components/elements/TopNav";
+import { TopNavBar } from "../components/elements/TopNavBar";
 import { store } from "../state/store";
 import "../styles/globals.css";
 import { saveState } from "../hooks/state";
@@ -66,7 +66,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
                     yet!
                   </p>
                 </div>
-                <TopNav />
+                <TopNavBar />
                 <ContractDeployedCheck />
               </div>
               <div className="flex-grow">
