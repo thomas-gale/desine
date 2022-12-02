@@ -48,7 +48,7 @@ export const useLoadCadWorkflow = (stepCid: string) => {
   // 2.1 Create worker and configure handlers
   const meshingWorkerRef = useRef<Worker>();
   const [meshedModel, isMeshedModelCacheChecked, setMeshedModel] =
-    useLocalStorage<any>(stepCid, null, []);
+    useLocalStorage<any>(stepCid, null);
   useEffect(() => {
     console.log("Creating meshing web worker...");
     meshingWorkerRef.current = new Worker(

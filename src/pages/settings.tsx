@@ -7,36 +7,29 @@ import { useGetLocalStorageSize } from "../hooks/useGetLocalStorageSize";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Settings = (): JSX.Element => {
-  const [readSeed, setReadSeed] = useState(1);
-  const [writeSeed, setWriteSeed] = useState(1);
-  const randomReadSeed = useCallback(() => setReadSeed(Math.random()), []);
-  const randomWriteSeed = useCallback(() => setWriteSeed(Math.random()), []);
-
   const [ipfsGatewayPrefix, isIpfsGatewayPrefixLoaded, setIpfsGatewayPrefix] =
     useLocalStorage(
       "ipfsGatewayPrefix",
-      config.settings.defaultIpfsGatewayPrefix,
-      [readSeed]
+      config.settings.defaultIpfsGatewayPrefix
     );
   const [ipfsGatewaySuffix, isIpfsGatewaySuffixLoaded, setIpfsGatewaySuffix] =
     useLocalStorage(
       "ipfsGatewaySuffix",
-      config.settings.defaultIpfsGatewaySuffix,
-      [readSeed]
+      config.settings.defaultIpfsGatewaySuffix
     );
 
   const getLocalStorageSize = useGetLocalStorageSize();
   const localStorageSize = useMemo(
     () => getLocalStorageSize(),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [getLocalStorageSize, writeSeed]
+    [getLocalStorageSize]
   );
   const clearLocalStorage = useClearLocalStorage();
   const clearLocalStorageAndReload = useCallback(() => {
     clearLocalStorage();
-    randomReadSeed();
-    randomWriteSeed();
-  }, [clearLocalStorage, randomReadSeed, randomWriteSeed]);
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
+  }, [clearLocalStorage]);
 
   if (!isIpfsGatewayPrefixLoaded || !isIpfsGatewaySuffixLoaded) return <div />;
   return (
@@ -44,10 +37,12 @@ const Settings = (): JSX.Element => {
       <div className="flex flex-col h-full p-4 rounded-xl space-y-4">
         <div className="alert alert-info">
           <p>
-            Current DesineTokenContract Address (configured for this
-            website): <b>{config.settings.desineTokenAddress} v{config.contractVersion}</b> on network:{" "}
-            <b>{getNetworkName()}</b> (id: <b>{config.settings.ethNetworkId}</b>
-            )
+            Current DesineTokenContract Address (configured for this website):{" "}
+            <b>
+              {config.settings.desineTokenAddress} v{config.contractVersion}
+            </b>{" "}
+            on network: <b>{getNetworkName()}</b> (id:{" "}
+            <b>{config.settings.ethNetworkId}</b>)
           </p>
         </div>
         <Button href={config.links.publicGateWayChecker} external={true}>
@@ -64,6 +59,7 @@ const Settings = (): JSX.Element => {
         <div className="flex flex-col">
           <h3 className="">Set IPFS gateway prefix</h3>
           <form
+            className="flex flex-row items-center space-x-2"
             onSubmit={(
               e: FormEvent<HTMLFormElement> & {
                 target: { ipfsGatewayPrefix: { value: string } };
@@ -71,20 +67,24 @@ const Settings = (): JSX.Element => {
             ) => {
               e.preventDefault();
               setIpfsGatewayPrefix(e.target.ipfsGatewayPrefix.value);
-              randomWriteSeed();
             }}
           >
             <input
               type="text"
               name="ipfsGatewayPrefix"
+              defaultValue={ipfsGatewayPrefix}
               placeholder="e.g. https://cloudflare-ipfs.com/ipfs/ or http://localhost:8080/ipfs/"
               className="w-full bg-neutral rounded-xl p-4"
             />
+            <button className="btn" type="submit">
+              Set IPFS gateway prefix
+            </button>
           </form>
         </div>
         <div className="flex flex-col">
           <h3 className="">Set ipfs gateway suffix (can be blank)</h3>
           <form
+            className="flex flex-row items-center space-x-2"
             onSubmit={(
               e: FormEvent<HTMLFormElement> & {
                 target: { ipsGatewaySuffix: { value: string } };
@@ -92,15 +92,18 @@ const Settings = (): JSX.Element => {
             ) => {
               e.preventDefault();
               setIpfsGatewaySuffix(e.target.ipsGatewaySuffix.value);
-              randomWriteSeed();
             }}
           >
             <input
               type="text"
               name="ipsGatewaySuffix"
+              defaultValue={ipfsGatewaySuffix}
               placeholder="e.g. .ipfs.nftstorage.link/"
               className="w-full bg-neutral rounded-xl p-4"
             />
+            <button className="btn" type="submit">
+              Set IPFS gateway suffix
+            </button>
           </form>
         </div>
         <div className="flex flex-col">

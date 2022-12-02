@@ -4,8 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 // Modified with a loaded state check to avoid issues with next.js pre-rendering
 export const useLocalStorage = <T>(
   storageKey: string,
-  fallbackState: T,
-  deps: any[]
+  fallbackState: T
 ): [T, boolean, Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState<T>(fallbackState);
   const [loaded, setLoaded] = useState(false);
@@ -20,7 +19,7 @@ export const useLocalStorage = <T>(
       }
       setLoaded(true);
     }
-  }, [storageKey, fallbackState, deps]);
+  }, [storageKey, fallbackState]);
 
   useEffect(() => {
     if (loaded) {
