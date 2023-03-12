@@ -1,8 +1,8 @@
 {
-  "name": "adsk-web3-concepts",
+  "name": "desine",
   "version": "0.1.0",
-  "description": "Experimental look at how web3 based technologies could interface with Autodesk",
-  "repository": "https://github.com/thomas-gale/adsk-web3-concepts",
+  "description": "Desine is a decentralized CAD Design licensing marketplace",
+  "repository": "https://github.com/thomas-gale/desine",
   "author": "Thomas Gale <gale.thomasjames@gmail.com>",
   "private": true,
   "scripts": {

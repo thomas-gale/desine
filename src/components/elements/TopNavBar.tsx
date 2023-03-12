@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { config } from "../../env/config";
 import { Button } from "./Button";
 import { Identity } from "../web3/Identity";
-import { MdOpenInNew, MdOutlineSettings } from "react-icons/md";
-import { FaGithub, FaQuestionCircle } from "react-icons/fa";
+import { MdOutlineSettings } from "react-icons/md";
+import { FaGithub, FaQuestionCircle, FaBlog } from "react-icons/fa";
 import { VscListSelection } from "react-icons/vsc";
 
 export const TopNavBar = (): JSX.Element => {
@@ -14,7 +14,15 @@ export const TopNavBar = (): JSX.Element => {
   const links = useMemo(
     () => (
       <>
-        <li tabIndex={0}>
+        {/* <li tabIndex={0}>
+          <Button href="/blog" external={false}>
+            <div className="flex flex-row space-x-2 items-center">
+              <FaBlog />
+              <p>Blog</p>
+            </div>
+          </Button>
+        </li> */}
+        <li tabIndex={1}>
           <Button href="/about" external={false}>
             <div className="flex flex-row space-x-2 items-center">
               <FaQuestionCircle />
@@ -22,7 +30,7 @@ export const TopNavBar = (): JSX.Element => {
             </div>
           </Button>
         </li>
-        <li tabIndex={1}>
+        <li tabIndex={2}>
           <Button href="/settings" external={false}>
             <div className="flex flex-row space-x-2 items-center">
               <MdOutlineSettings />
@@ -30,7 +38,7 @@ export const TopNavBar = (): JSX.Element => {
             </div>
           </Button>
         </li>
-        <li tabIndex={2}>
+        <li tabIndex={3}>
           <Button
             href={`https://testnets.opensea.io/assets?search[query]=${config.settings.desineTokenAddress}`}
             external={true}
@@ -40,7 +48,7 @@ export const TopNavBar = (): JSX.Element => {
             </div>
           </Button>
         </li>
-        <li tabIndex={3}>
+        <li tabIndex={4}>
           <Button href={config.github} external={true}>
             <div className="flex flex-row space-x-2 items-center">
               <FaGithub />
