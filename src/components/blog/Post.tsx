@@ -1,12 +1,17 @@
 import type { PropsWithChildren } from "react";
-import { Author } from "./Author";
+import { Author, AuthorProps } from "./Author";
 
-export type PostProps = PropsWithChildren;
+export interface PostProps {
+  authorProps: AuthorProps;
+}
 
-export const Post = ({ children }: PostProps) => {
+export const Post = ({
+  authorProps,
+  children,
+}: PropsWithChildren<PostProps>) => {
   return (
     <div>
-      <Author />
+      <Author {...authorProps} />
       <div>{children}</div>
     </div>
   );

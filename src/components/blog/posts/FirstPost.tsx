@@ -2,9 +2,8 @@ import { Post } from "../Post";
 
 export const FirstPost = () => {
   return (
-    <Post>
+    <Post authorProps={{ name: "Robert Bowerman", imageSrc: "/blog/author/cat.jpg"}} >
       <div>
-        <h1>Blog post March ‘23</h1>
         Desine.io enables individuals to create a non-fungible token (NFT)
         associated with a 3D design model. This novel use of NFTs could
         potentially create a range of new use cases for the technology as well
